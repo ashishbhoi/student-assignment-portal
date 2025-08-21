@@ -276,3 +276,6 @@ public/build/
 
 # Vitest coverage directory
 coverage/
+
+# SQLite database files
+app.db*
