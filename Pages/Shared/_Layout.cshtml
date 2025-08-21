@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - StudentClassworkPortal</title>
+    <link rel="stylesheet" href="~/css/app.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/StudentClassworkPortal.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" />
+</head>
+<body class="bg-background text-on-background">
+    <header class="bg-surface shadow-md">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a class="text-2xl font-bold text-on-surface" asp-area="" asp-page="/Index">Student Portal</a>
+            <div class="flex space-x-4 items-center">
+                <a class="text-on-surface hover:text-primary" asp-area="" asp-page="/Index">Home</a>
+                <a class="text-on-surface hover:text-primary" asp-area="" asp-page="/Privacy">Privacy</a>
+                @if (User.IsInRole("Teacher"))
+                {
+                    <a class="text-on-surface hover:text-primary" asp-area="" asp-page="/Teacher/CreateUser">Create User</a>
+                    <a class="text-on-surface hover:text-primary" asp-area="" asp-page="/Teacher/PublicResources">Public Resources</a>
+                }
+                <partial name="_LoginPartial" />
+            </div>
+        </nav>
+    </header>
+    <div class="container mx-auto px-6 py-8">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="bg-white border-t mt-8 py-4">
+        <div class="container mx-auto px-6 text-center text-gray-600">
+            &copy; 2025 - StudentClassworkPortal - <a asp-area="" asp-page="/Privacy" class="hover:text-gray-800">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+

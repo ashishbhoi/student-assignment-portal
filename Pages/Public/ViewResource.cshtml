@@ -1,0 +1,11 @@
+@page "{fileId:int}"
+@model StudentClassworkPortal.Pages.Public.ViewResourceModel
+@{
+    ViewData["Title"] = "View Resource";
+}
+
+<div class="container mx-auto px-4 py-8">
+    <a asp-page="/Index" class="text-primary hover:text-primary-dark mb-4 inline-block">&larr; Back to Home</a>
+    <h1 class="text-3xl font-bold text-on-surface mb-6">@ViewData["Title"]</h1>
+    <p>This page is for downloading files. You will be prompted to download the file.</p>
+</div>

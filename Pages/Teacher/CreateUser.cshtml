@@ -1,0 +1,90 @@
+@page
+@using StudentClassworkPortal.Areas.Identity.Data
+@model StudentClassworkPortal.Pages.Teacher.CreateUserModel
+@{
+    ViewData["Title"] = "Create User";
+}
+
+<div class="max-w-2xl mx-auto bg-surface rounded-lg shadow-md p-8">
+    <h1 class="text-2xl font-bold text-on-surface mb-6">@ViewData["Title"]</h1>
+
+    <form id="createUserForm" method="post">
+        <h2 class="text-xl font-semibold text-on-surface mb-4">Create a new account.</h2>
+        <hr class="border-outline mb-4"/>
+        <div asp-validation-summary="ModelOnly" class="text-red-500" role="alert"></div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="mb-4">
+                <label asp-for="Input.FirstName" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
+                <input asp-for="Input.FirstName" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary" />
+                <span asp-validation-for="Input.FirstName" class="text-red-500 text-sm mt-1"></span>
+            </div>
+            <div class="mb-4">
+                <label asp-for="Input.LastName" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
+                <input asp-for="Input.LastName" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary" />
+                <span asp-validation-for="Input.LastName" class="text-red-500 text-sm mt-1"></span>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="Input.Email" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
+            <input asp-for="Input.Email" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+            <span asp-validation-for="Input.Email" class="text-red-500 text-sm mt-1"></span>
+        </div>
+        <div class="mb-4">
+            <label asp-for="Input.Password" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
+            <input asp-for="Input.Password" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary" autocomplete="new-password" aria-required="true" placeholder="password" />
+            <span asp-validation-for="Input.Password" class="text-red-500 text-sm mt-1"></span>
+        </div>
+        <div class="mb-6">
+            <label asp-for="Input.ConfirmPassword" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
+            <input asp-for="Input.ConfirmPassword" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary" autocomplete="new-password" aria-required="true" placeholder="password" />
+            <span asp-validation-for="Input.ConfirmPassword" class="text-red-500 text-sm mt-1"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="Input.Role" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
+            <select asp-for="Input.Role" id="roleSelector" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary">
+                <option value="">Select Role</option>
+                <option value="Student">Student</option>
+                <option value="Teacher">Teacher</option>
+            </select>
+            <span asp-validation-for="Input.Role" class="text-red-500 text-sm mt-1"></span>
+        </div>
+
+        <div id="studentFields" class="hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="mb-4">
+                    <label asp-for="Input.Class" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
+                    <select asp-for="Input.Class" asp-items="Html.GetEnumSelectList<StudentClass>()" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary">
+                        <option value="">Select Class</option>
+                    </select>
+                    <span asp-validation-for="Input.Class" class="text-red-500 text-sm mt-1"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="Input.Section" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
+                    <select asp-for="Input.Section" asp-items="Html.GetEnumSelectList<StudentSection>()" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary">
+                        <option value="">Select Section</option>
+                    </select>
+                    <span asp-validation-for="Input.Section" class="text-red-500 text-sm mt-1"></span>
+                </div>
+            </div>
+        </div>
+
+        <button id="createUserSubmit" type="submit" class="w-full bg-primary text-on-primary font-bold py-2 px-4 rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">Create User</button>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.getElementById('roleSelector').addEventListener('change', function () {
+            var studentFields = document.getElementById('studentFields');
+            if (this.value === 'Student') {
+                studentFields.classList.remove('hidden');
+            } else {
+                studentFields.classList.add('hidden');
+            }
+        });
+    </script>
+}

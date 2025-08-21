@@ -1,0 +1,23 @@
+{
+  "name": "student-assignment-portal",
+  "version": "1.0.0",
+  "description": "A portal for managing student assignments and submissions. Sharing resources and assignments with students.",
+  "scripts": {
+    "css:build": "tailwindcss -i ./Styles/app.css -o ./wwwroot/css/app.css"
+  },
+  "keywords": [
+    "student",
+    "assignment",
+    "portal",
+    "education",
+    "resources"
+  ],
+  "author": "Ashish Kumar Bhoi",
+  "license": "GPL-3.0-only",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.12",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.1"
+  }
+}

@@ -1,0 +1,78 @@
+@page
+@model StudentClassworkPortal.Pages.Teacher.DashboardModel
+@{
+    ViewData["Title"] = "Teacher Dashboard";
+}
+
+<div class="container mx-auto px-4 py-8">
+
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-on-surface">@ViewData["Title"]</h1>
+        <a asp-page="./CreateAssignment" class="bg-primary text-on-primary font-bold py-2 px-4 rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">Create Assignment</a>
+    </div>
+
+    <!-- Recent Assignments -->
+    <div class="mb-12">
+        <h2 class="text-2xl font-semibold text-on-surface mb-4">Recent Assignments</h2>
+        @if (Model.RecentAssignments.Any())
+        {
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                @foreach (var assignment in Model.RecentAssignments)
+                {
+                    <div class="bg-surface rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300">
+                        <h3 class="font-bold text-lg text-on-surface truncate">@assignment.AssignmentName</h3>
+                        <p class="text-sm text-on-surface-variant mb-4">Class: @assignment.Class-@assignment.Section</p>
+                        <a asp-page="./AssignmentDetails" asp-route-id="@assignment.Id" class="font-medium text-primary hover:text-primary-dark">View Details &rarr;</a>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p class="text-center text-on-surface-variant py-8">No assignments have been created yet.</p>
+        }
+    </div>
+
+    <!-- Assignments by Class -->
+    <div>
+        <h2 class="text-2xl font-semibold text-on-surface mb-4">Browse by Class</h2>
+        <div class="bg-surface rounded-lg shadow-md">
+            <div class="space-y-2 p-4">
+                @if (Model.AssignmentsByClass.Any())
+                {
+                    @foreach (var classGroup in Model.AssignmentsByClass.OrderBy(cg => cg.Key.ToString()))
+                    {
+                        <details class="group">
+                            <summary class="flex items-center justify-between p-4 cursor-pointer bg-surface-container-high rounded-lg hover:bg-surface-container-highest">
+                                <h3 class="text-lg font-medium text-on-surface">Class @classGroup.Key.ToString()</h3>
+                                <svg class="w-5 h-5 text-on-surface-variant transform group-open:rotate-180 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </summary>
+                            <div class="px-4 pt-2 pb-4">
+                                @foreach (var sectionGroup in classGroup.Value.OrderBy(sg => sg.Key.ToString()))
+                                {
+                                    <h4 class="text-md font-semibold text-on-surface-variant mt-4 mb-2">Section @sectionGroup.Key.ToString()</h4>
+                                    <ul class="space-y-2">
+                                        @foreach (var assignment in sectionGroup.Value)
+                                        {
+                                            <li class="flex items-center justify-between bg-surface-container p-3 rounded-md">
+                                                <span>@assignment.AssignmentName</span>
+                                                <a asp-page="./AssignmentDetails" asp-route-id="@assignment.Id" class="text-sm font-medium text-primary hover:text-primary-dark">View Details</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                            </div>
+                        </details>
+                    }
+                }
+                else
+                {
+                    <p class="text-center text-on-surface-variant py-8">No assignments found to display by class.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
