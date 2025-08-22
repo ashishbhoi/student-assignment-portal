@@ -17,7 +17,6 @@
                 <a class="text-on-surface hover:text-primary" asp-area="" asp-page="/Privacy">Privacy</a>
                 @if (User.IsInRole("Teacher"))
                 {
-                    <a class="text-on-surface hover:text-primary" asp-area="" asp-page="/Teacher/CreateUser">Create User</a>
                     <a class="text-on-surface hover:text-primary" asp-area="" asp-page="/Teacher/PublicResources">Public Resources</a>
                 }
                 <partial name="_LoginPartial" />

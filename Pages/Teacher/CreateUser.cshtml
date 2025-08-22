@@ -6,6 +6,7 @@
 }
 
 <div class="max-w-2xl mx-auto bg-surface rounded-lg shadow-md p-8">
+    <a asp-page="./StudentManagement" class="text-primary hover:text-primary-dark mb-4 inline-block">&larr; Back to Student Management</a>
     <h1 class="text-2xl font-bold text-on-surface mb-6">@ViewData["Title"]</h1>
 
     <form id="createUserForm" method="post">
@@ -27,9 +28,9 @@
         </div>
 
         <div class="mb-4">
-            <label asp-for="Input.Email" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
-            <input asp-for="Input.Email" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-            <span asp-validation-for="Input.Email" class="text-red-500 text-sm mt-1"></span>
+            <label asp-for="Input.Username" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
+            <input asp-for="Input.Username" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary" autocomplete="username" aria-required="true" placeholder="username" />
+            <span asp-validation-for="Input.Username" class="text-red-500 text-sm mt-1"></span>
         </div>
         <div class="mb-4">
             <label asp-for="Input.Password" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
@@ -44,10 +45,8 @@
 
         <div class="mb-4">
             <label asp-for="Input.Role" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
-            <select asp-for="Input.Role" id="roleSelector" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary">
+            <select asp-for="Input.Role" asp-items="Model.Roles" id="roleSelector" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary">
                 <option value="">Select Role</option>
-                <option value="Student">Student</option>
-                <option value="Teacher">Teacher</option>
             </select>
             <span asp-validation-for="Input.Role" class="text-red-500 text-sm mt-1"></span>
         </div>

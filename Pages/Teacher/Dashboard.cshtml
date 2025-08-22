@@ -1,4 +1,5 @@
 @page
+@using StudentClassworkPortal.Areas.Identity.Data
 @model StudentClassworkPortal.Pages.Teacher.DashboardModel
 @{
     ViewData["Title"] = "Teacher Dashboard";
@@ -8,7 +9,10 @@
 
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold text-on-surface">@ViewData["Title"]</h1>
-        <a asp-page="./CreateAssignment" class="bg-primary text-on-primary font-bold py-2 px-4 rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">Create Assignment</a>
+        <div>
+            <a asp-page="./StudentManagement" class="bg-secondary text-on-secondary font-bold py-2 px-4 rounded-md hover:bg-secondary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary mr-2">Student Management</a>
+            <a asp-page="./CreateAssignment" class="bg-primary text-on-primary font-bold py-2 px-4 rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">Create Assignment</a>
+        </div>
     </div>
 
     <!-- Recent Assignments -->
@@ -75,4 +79,3 @@
         </div>
     </div>
 </div>
-

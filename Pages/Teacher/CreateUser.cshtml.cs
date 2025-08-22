@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudentClassworkPortal.Areas.Identity.Data;
 
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+
 namespace StudentClassworkPortal.Pages.Teacher
 {
     [Authorize(Roles = "Teacher")]
@@ -20,6 +24,7 @@ namespace StudentClassworkPortal.Pages.Teacher
             _roleManager = roleManager;
             Input = new InputModel();
             ReturnUrl = string.Empty;
+            Roles = new SelectList(new List<string>());
         }
 
         [BindProperty]
@@ -38,9 +43,8 @@ namespace StudentClassworkPortal.Pages.Teacher
             public string LastName { get; set; } = string.Empty;
 
             [Required]
-            [EmailAddress]
-            [Display(Name = "Email")]
-            public string Email { get; set; } = string.Empty;
+            [Display(Name = "Username")]
+            public string Username { get; set; } = string.Empty;
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
@@ -64,9 +68,12 @@ namespace StudentClassworkPortal.Pages.Teacher
             public StudentSection? Section { get; set; }
         }
 
+        public SelectList Roles { get; set; }
+
         public void OnGet(string? returnUrl = null)
         {
             ReturnUrl = returnUrl ?? Url.Content("~/");
+            Roles = new SelectList(_roleManager.Roles.Select(r => r.Name).ToList());
         }
 
         public async Task<IActionResult> OnPostAsync(string? returnUrl = null)
@@ -76,8 +83,8 @@ namespace StudentClassworkPortal.Pages.Teacher
             {
                 var user = new ApplicationUser 
                 { 
-                    UserName = Input.Email, 
-                    Email = Input.Email,
+                    UserName = Input.Username, 
+                    Email = Input.Username + "@example.com",
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
                     EmailConfirmed = true // Admin-created accounts are confirmed by default

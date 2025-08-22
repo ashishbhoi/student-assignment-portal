@@ -13,9 +13,9 @@
                 <div asp-validation-summary="ModelOnly" class="text-red-500 text-sm mb-4" role="alert"></div>
                 
                 <div class="relative mb-6">
-                    <input asp-for="Input.Email" class="block w-full px-4 py-3 text-on-surface bg-transparent border-b-2 border-gray-300 focus:border-primary focus:outline-none peer" autocomplete="username" aria-required="true" placeholder=" " />
-                    <label asp-for="Input.Email" class="absolute left-4 top-3 text-gray-500 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-primary peer-[:not(:placeholder-shown)]:-top-3.5 peer-[:not(:placeholder-shown)]:text-sm">Email</label>
-                    <span asp-validation-for="Input.Email" class="text-red-500 text-xs mt-1"></span>
+                    <input asp-for="Input.Username" class="block w-full px-4 py-3 text-on-surface bg-transparent border-b-2 border-gray-300 focus:border-primary focus:outline-none peer" autocomplete="username" aria-required="true" placeholder=" " />
+                    <label asp-for="Input.Username" class="absolute left-4 top-3 text-gray-500 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-primary peer-[:not(:placeholder-shown)]:-top-3.5 peer-[:not(:placeholder-shown)]:text-sm">Username</label>
+                    <span asp-validation-for="Input.Username" class="text-red-500 text-xs mt-1"></span>
                 </div>
                 
                 <div class="relative mb-6">
@@ -40,11 +40,7 @@
                     </button>
                 </div>
                 
-                <div class="mt-6 text-center">
-                    <p class="text-sm text-gray-500">
-                        Don't have an account? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-primary hover:underline font-medium">Register here</a>
-                    </p>
-                </div>
+                
             </form>
         </section>
     </div>
