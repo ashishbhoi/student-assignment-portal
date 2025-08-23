@@ -17,7 +17,7 @@ There are two distinct user roles for this application:
 
 ### **2.2. Teacher (Administrator)**
 
-*   **Authentication**: Has a pre-assigned administrator account.
+*   **Authentication**: Has a pre-assigned administrator account, seeded from the application's configuration files.
 *   **Permissions**: Full administrative rights over the application. Can view and manage all student accounts and all submitted files across the entire platform. This is the sole administrative user.
 
 ## **3\. Functional Requirements**

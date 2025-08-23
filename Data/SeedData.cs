@@ -22,8 +22,13 @@ namespace StudentClassworkPortal.Data
                 }
             }
 
-            var teacherUsername = "teacheradmin";
-            var teacherPassword = "P@ssw0rd";
+            var teacherUsername = configuration["AppSettings:TeacherUsername"];
+            var teacherPassword = configuration["AppSettings:TeacherPassword"];
+
+            if (string.IsNullOrEmpty(teacherUsername) || string.IsNullOrEmpty(teacherPassword))
+            {
+                throw new Exception("Teacher username or password not found in configuration.");
+            }
 
             if (await userManager.FindByNameAsync(teacherUsername) == null)
             {

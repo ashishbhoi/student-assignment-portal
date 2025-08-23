@@ -31,7 +31,7 @@ Implement an identity and authentication system with two distinct roles: Student
     *   Create a "Change Password" feature accessible only to logged-in students.
     *   Enforce authorization rules: A logged-in student can **only** view and manage their own data and files.
 2.  **Teacher Role (Administrator)**:
-    *   This is a single-user role. Do not build a registration page for the teacher. The teacher's account should be created via a database seed or a secure initial setup command.
+    *   This is a single-user role. Do not build a registration page for the teacher. The teacher's account should be created via a database seed that reads from the application's configuration file (`appsettings.Development.json` for development).
     *   Enforce authorization rules: The logged-in teacher has full access to view all student data and manage all submitted files.
 
 ## **4\. Feature Implementation: Student Dashboard**

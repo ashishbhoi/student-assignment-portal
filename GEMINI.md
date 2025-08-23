@@ -52,5 +52,5 @@ Key functionalities include user management (including bulk student import), ass
 - **Backend**: The application follows the standard ASP.NET Core Razor Pages structure. Business logic is contained within the PageModels (`.cshtml.cs` files). Data models are defined in the `Models` and `Areas/Identity/Data` directories.
 - **Database**: Database schema changes are managed through Entity Framework Core migrations. The `Data/ApplicationDbContext.cs` file is the primary point of configuration for the database context.
 - **Frontend**: All styling is done via Tailwind CSS. The main stylesheet is `Styles/app.css`, which is compiled to `wwwroot/css/app.css`.
-- **Configuration**: Application settings, including the initial teacher credentials for development, are managed in `appsettings.Development.json`.
+- **Configuration**: Application settings are managed in `appsettings.json`. For development, sensitive information and the initial teacher credentials are managed in `appsettings.Development.json`.
 - **User Roles**: The application uses a two-role system: "Teacher" (administrator) and "Student". The teacher account is seeded on the first run, and the teacher can then create student accounts.
