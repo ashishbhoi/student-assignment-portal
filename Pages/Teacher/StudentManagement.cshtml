@@ -1,17 +1,26 @@
 
 @page
 @using StudentClassworkPortal.Areas.Identity.Data
-@model StudentClassworkPortal.Pages.Teacher.StudentManagementModel
+@model StudentManagementModel
 @{
     ViewData["Title"] = "Student Management";
 }
 
 <div class="container mx-auto px-4 py-8">
 
-    <a asp-page="./Dashboard" class="text-primary hover:text-primary-dark mb-4 inline-block">&larr; Back to Dashboard</a>
+    <a asp-page="./Dashboard" class="text-primary hover:text-primary-dark mb-4 inline-block">&larr; Back to
+        Dashboard</a>
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold text-on-surface">@ViewData["Title"]</h1>
-        <a asp-page="./CreateUser" class="bg-primary text-on-primary font-bold py-2 px-4 rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">Create Student</a>
+        <div class="flex space-x-2">
+            <button type="button" id="bulkImportBtn"
+                    class="bg-secondary text-on-secondary font-bold py-2 px-4 rounded-md hover:bg-secondary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">
+                Bulk Import
+            </button>
+            <a asp-page="./CreateUser"
+               class="bg-primary text-on-primary font-bold py-2 px-4 rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">Create
+                Student</a>
+        </div>
     </div>
 
     <!-- Students by Class -->
@@ -23,48 +32,72 @@
                     @if (Model.StudentsByClass.Any())
                     {
                         <div class="flex justify-end space-x-4 mb-4">
-                            <button type="submit" asp-page-handler="DeleteSelected" class="bg-red-600 text-white font-bold py-2 px-4 rounded-md hover:bg-red-700">Delete Selected</button>
-                            <button type="button" id="promoteSelectedBtn" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700">Promote Selected</button>
+                            <button type="submit" asp-page-handler="DeleteSelected"
+                                    class="bg-red-600 text-white font-bold py-2 px-4 rounded-md hover:bg-red-700">Delete
+                                Selected
+                            </button>
+                            <button type="button" id="promoteSelectedBtn"
+                                    class="bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700">
+                                Promote Selected
+                            </button>
                         </div>
 
                         @foreach (var classGroup in Model.StudentsByClass.OrderBy(cg => cg.Key.ToString()))
                         {
                             <details class="group">
-                                <summary class="flex items-center justify-between p-4 cursor-pointer bg-surface-container-high rounded-lg hover:bg-surface-container-highest">
-                                    <h3 class="text-lg font-medium text-on-surface">Class @classGroup.Key.ToString()</h3>
-                                    <svg class="w-5 h-5 text-on-surface-variant transform group-open:rotate-180 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                <summary
+                                    class="flex items-center justify-between p-4 cursor-pointer bg-surface-container-high rounded-lg hover:bg-surface-container-highest">
+                                    <h3 class="text-lg font-medium text-on-surface">
+                                        Class @classGroup.Key.ToString()</h3>
+                                    <svg
+                                        class="w-5 h-5 text-on-surface-variant transform group-open:rotate-180 transition-transform"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M19 9l-7 7-7-7"/>
                                     </svg>
                                 </summary>
                                 <div class="px-4 pt-2 pb-4">
                                     @foreach (var sectionGroup in classGroup.Value.OrderBy(sg => sg.Key.ToString()))
                                     {
-                                        <h4 class="text-md font-semibold text-on-surface-variant mt-4 mb-2">Section @sectionGroup.Key.ToString()</h4>
+                                        <h4 class="text-md font-semibold text-on-surface-variant mt-4 mb-2">
+                                            Section @sectionGroup.Key.ToString()</h4>
                                         <table class="min-w-full bg-surface-container rounded-md">
                                             <thead>
-                                                <tr>
-                                                    <th class="px-6 py-3 text-left text-xs font-medium text-on-surface-variant uppercase tracking-wider">
-                                                        <input type="checkbox" id="selectAll-@classGroup.Key-@sectionGroup.Key" onchange="selectAll(this, '@classGroup.Key-@sectionGroup.Key')" />
-                                                    </th>
-                                                    <th class="px-6 py-3 text-left text-xs font-medium text-on-surface-variant uppercase tracking-wider">Name</th>
-                                                    <th class="px-6 py-3 text-left text-xs font-medium text-on-surface-variant uppercase tracking-wider">Username</th>
-                                                    <th class="px-6 py-3 text-left text-xs font-medium text-on-surface-variant uppercase tracking-wider">Actions</th>
-                                                </tr>
+                                            <tr>
+                                                <th class="px-6 py-3 text-left text-xs font-medium text-on-surface-variant uppercase tracking-wider">
+                                                    <input type="checkbox"
+                                                           id="selectAll-@classGroup.Key-@sectionGroup.Key"
+                                                           onchange="selectAll(this, '@classGroup.Key-@sectionGroup.Key')"/>
+                                                </th>
+                                                <th class="px-6 py-3 text-left text-xs font-medium text-on-surface-variant uppercase tracking-wider">
+                                                    Name
+                                                </th>
+                                                <th class="px-6 py-3 text-left text-xs font-medium text-on-surface-variant uppercase tracking-wider">
+                                                    Username
+                                                </th>
+                                                <th class="px-6 py-3 text-left text-xs font-medium text-on-surface-variant uppercase tracking-wider">
+                                                    Actions
+                                                </th>
+                                            </tr>
                                             </thead>
                                             <tbody class="divide-y divide-outline">
-                                                @foreach (var student in sectionGroup.Value)
-                                                {
-                                                    <tr>
-                                                        <td class="px-6 py-4 whitespace-nowrap">
-                                                            <input type="checkbox" name="selectedStudents" value="@student.Id" class="student-checkbox-@classGroup.Key-@sectionGroup.Key" />
-                                                        </td>
-                                                        <td class="px-6 py-4 whitespace-nowrap">@student.FirstName @student.LastName</td>
-                                                        <td class="px-6 py-4 whitespace-nowrap">@student.UserName</td>
-                                                        <td class="px-6 py-4 whitespace-nowrap">
-                                                            <a asp-page="./EditStudent" asp-route-id="@student.Id" class="text-primary hover:underline">Edit</a>
-                                                        </td>
-                                                    </tr>
-                                                }
+                                            @foreach (var student in sectionGroup.Value)
+                                            {
+                                                <tr>
+                                                    <td class="px-6 py-4 whitespace-nowrap">
+                                                        <input type="checkbox" name="selectedStudents"
+                                                               value="@student.Id"
+                                                               class="student-checkbox-@classGroup.Key-@sectionGroup.Key"/>
+                                                    </td>
+                                                    <td class="px-6 py-4 whitespace-nowrap">@student.Name</td>
+                                                    <td class="px-6 py-4 whitespace-nowrap">@student.UserName</td>
+                                                    <td class="px-6 py-4 whitespace-nowrap">
+                                                        <a asp-page="./EditStudent" asp-route-id="@student.Id"
+                                                           class="text-primary hover:underline">Edit</a>
+                                                    </td>
+                                                </tr>
+                                            }
                                             </tbody>
                                         </table>
                                     }
@@ -82,22 +115,29 @@
     </div>
 
     <!-- Promotion Modal -->
-    <div id="promotionModal" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div id="promotionModal" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title"
+         role="dialog" aria-modal="true">
         <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            <div class="inline-block align-bottom bg-surface rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div
+                class="inline-block align-bottom bg-surface rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                 <form method="post" asp-page-handler="PromoteSelected">
                     <div class="bg-surface px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                         <div class="sm:flex sm:items-start">
                             <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                <h3 class="text-lg leading-6 font-medium text-on-surface" id="modal-title">Promote Students</h3>
+                                <h3 class="text-lg leading-6 font-medium text-on-surface" id="modal-title">Promote
+                                    Students</h3>
                                 <div class="mt-2">
-                                    <p class="text-sm text-on-surface-variant">Select the new class and section for the selected students.</p>
+                                    <p class="text-sm text-on-surface-variant">Select the new class and section for the
+                                        selected students.</p>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                                         <div>
-                                            <label for="newClass" class="block text-sm font-medium text-on-surface-variant mb-1">New Class</label>
-                                            <select name="newClass" id="newClass" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary">
+                                            <label for="newClass"
+                                                   class="block text-sm font-medium text-on-surface-variant mb-1">New
+                                                Class</label>
+                                            <select name="newClass" id="newClass"
+                                                    class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary">
                                                 <option value="">Select Class</option>
                                                 @foreach (var classValue in Html.GetEnumSelectList<StudentClass>())
                                                 {
@@ -106,8 +146,11 @@
                                             </select>
                                         </div>
                                         <div>
-                                            <label for="newSection" class="block text-sm font-medium text-on-surface-variant mb-1">New Section</label>
-                                            <select name="newSection" id="newSection" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary">
+                                            <label for="newSection"
+                                                   class="block text-sm font-medium text-on-surface-variant mb-1">New
+                                                Section</label>
+                                            <select name="newSection" id="newSection"
+                                                    class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary">
                                                 <option value="">Select Section</option>
                                                 @foreach (var sectionValue in Html.GetEnumSelectList<StudentSection>())
                                                 {
@@ -121,8 +164,62 @@
                         </div>
                     </div>
                     <div class="bg-surface-container-high px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                        <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary text-base font-medium text-white hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:ml-3 sm:w-auto sm:text-sm">Promote</button>
-                        <button type="button" id="cancelPromotionBtn" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancel</button>
+                        <button type="submit"
+                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary text-base font-medium text-white hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:ml-3 sm:w-auto sm:text-sm">
+                            Promote
+                        </button>
+                        <button type="button" id="cancelPromotionBtn"
+                                class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bulk Import Modal -->
+    <div id="bulkImportModal" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title"
+         role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div
+                class="inline-block align-bottom bg-surface rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <form method="post" asp-page-handler="BulkImport" enctype="multipart/form-data">
+                    <div class="bg-surface px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                <h3 class="text-lg leading-6 font-medium text-on-surface" id="modal-title">Bulk Import
+                                    Students</h3>
+                                <div class="mt-2">
+                                    <p class="text-sm text-on-surface-variant">Upload a CSV file with student data. The
+                                        file should have the following columns: FirstName, LastName, Username, Password,
+                                        Class, Section.</p>
+                                    <div class="mt-4">
+                                        <a asp-page-handler="DownloadSampleCsv"
+                                           class="text-sm text-primary hover:underline">Download Sample CSV</a>
+                                    </div>
+                                    <div class="mt-4">
+                                        <label for="bulkImportFile"
+                                               class="block text-sm font-medium text-on-surface-variant mb-1">CSV
+                                            File</label>
+                                        <input type="file" name="bulkImportFile" id="bulkImportFile" accept=".csv"
+                                               class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-surface-container-high px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                        <button type="submit"
+                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary text-base font-medium text-white hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:ml-3 sm:w-auto sm:text-sm">
+                            Import
+                        </button>
+                        <button type="button" id="cancelBulkImportBtn"
+                                class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                            Cancel
+                        </button>
                     </div>
                 </form>
             </div>
@@ -131,21 +228,43 @@
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
     <script>
         function selectAll(source, group) {
-            checkboxes = document.getElementsByClassName('student-checkbox-' + group);
-            for (var i = 0, n = checkboxes.length; i < n; i++) {
+            const checkboxes = document.getElementsByClassName('student-checkbox-' + group);
+            for (let i = 0, n = checkboxes.length; i < n; i++) {
                 checkboxes[i].checked = source.checked;
             }
         }
 
-        document.getElementById('promoteSelectedBtn').addEventListener('click', function () {
-            document.getElementById('promotionModal').classList.remove('hidden');
-        });
+        document.addEventListener('DOMContentLoaded', function () {
+            const promoteBtn = document.getElementById('promoteSelectedBtn');
+            const cancelPromoteBtn = document.getElementById('cancelPromotionBtn');
+            const promotionModal = document.getElementById('promotionModal');
 
-        document.getElementById('cancelPromotionBtn').addEventListener('click', function () {
-            document.getElementById('promotionModal').classList.add('hidden');
+            const bulkImportBtn = document.getElementById('bulkImportBtn');
+            const cancelBulkImportBtn = document.getElementById('cancelBulkImportBtn');
+            const bulkImportModal = document.getElementById('bulkImportModal');
+
+            if (promoteBtn && cancelPromoteBtn && promotionModal) {
+                promoteBtn.addEventListener('click', function () {
+                    promotionModal.classList.remove('hidden');
+                });
+
+                cancelPromoteBtn.addEventListener('click', function () {
+                    promotionModal.classList.add('hidden');
+                });
+            }
+
+            if (bulkImportBtn && cancelBulkImportBtn && bulkImportModal) {
+                bulkImportBtn.addEventListener('click', function () {
+                    bulkImportModal.classList.remove('hidden');
+                });
+
+                cancelBulkImportBtn.addEventListener('click', function () {
+                    bulkImportModal.classList.add('hidden');
+                });
+            }
         });
     </script>
 }

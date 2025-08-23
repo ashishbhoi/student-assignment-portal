@@ -17,7 +17,7 @@ There are two distinct user roles for this application:
 
 ### **2.2. Teacher (Administrator)**
 
-*   **Authentication**: Has a pre-assigned administrator account.
+*   **Authentication**: Has a pre-assigned administrator account, seeded from the application's configuration files.
 *   **Permissions**: Full administrative rights over the application. Can view and manage all student accounts and all submitted files across the entire platform. This is the sole administrative user.
 
 ## **3\. Functional Requirements**
@@ -107,7 +107,7 @@ There are two distinct user roles for this application:
 ### **3.1. Student Features**
 
 * **Account Management**:  
-  * CREATE: Students must be able to register for a new account using a unique identifier (e.g., email or student ID) and a password.  
+  * CREATE: Students must be able to register for a new account with their full name (a single "Name" field), a unique identifier (e.g., email or student ID), and a password.  
   * UPDATE: Students must have a secure way to change their password after logging in.  
 * **File Management**:  
   * CREATE: Students should be able to create new text-based files directly within the application (e.g., TXT, MD, JAVA, SQL).  

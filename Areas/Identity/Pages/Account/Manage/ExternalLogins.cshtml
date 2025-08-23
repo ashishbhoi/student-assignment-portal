@@ -7,7 +7,7 @@
 
 <div class="max-w-lg mx-auto bg-surface rounded-lg shadow-md p-8">
     <h3 class="text-2xl font-bold text-on-surface mb-6">@ViewData["Title"]</h3>
-    <partial name="_StatusMessage" for="StatusMessage" />
+    <partial name="_StatusMessage" for="StatusMessage"/>
 
     @if (Model.CurrentLogins?.Count > 0)
     {
@@ -16,15 +16,21 @@
             @foreach (var login in Model.CurrentLogins)
             {
                 <div class="flex items-center justify-between bg-surface-container-highest p-4 rounded-md">
-                    <div id="@($"login-provider-{login.LoginProvider}")" class="font-medium text-on-surface">@login.ProviderDisplayName</div>
+                    <div id="@($"login-provider-{login.LoginProvider}")"
+                         class="font-medium text-on-surface">@login.ProviderDisplayName</div>
                     <div>
                         @if (Model.ShowRemoveButton)
                         {
-                            <form id="@($"remove-login-{login.LoginProvider}")" asp-page-handler="RemoveLogin" method="post">
+                            <form id="@($"remove-login-{login.LoginProvider}")" asp-page-handler="RemoveLogin"
+                                  method="post">
                                 <div>
-                                    <input asp-for="@login.LoginProvider" name="LoginProvider" type="hidden" />
-                                    <input asp-for="@login.ProviderKey" name="ProviderKey" type="hidden" />
-                                    <button type="submit" class="bg-error text-on-error font-bold py-2 px-4 rounded-md hover:bg-error-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-error" title="Remove this @login.ProviderDisplayName login from your account">Remove</button>
+                                    <input asp-for="@login.LoginProvider" name="LoginProvider" type="hidden"/>
+                                    <input asp-for="@login.ProviderKey" name="ProviderKey" type="hidden"/>
+                                    <button type="submit"
+                                            class="bg-error text-on-error font-bold py-2 px-4 rounded-md hover:bg-error-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-error"
+                                            title="Remove this @login.ProviderDisplayName login from your account">
+                                        Remove
+                                    </button>
                                 </div>
                             </form>
                         }
@@ -46,7 +52,10 @@
             <div id="socialLoginList" class="space-y-2">
                 @foreach (var provider in Model.OtherLogins)
                 {
-                    <button id="@($"link-login-button-{provider.Name}")" type="submit" class="w-full bg-secondary text-on-secondary font-bold py-2 px-4 rounded-md hover:bg-secondary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                    <button id="@($"link-login-button-{provider.Name}")" type="submit"
+                            class="w-full bg-secondary text-on-secondary font-bold py-2 px-4 rounded-md hover:bg-secondary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary"
+                            name="provider" value="@provider.Name"
+                            title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
                 }
             </div>
         </form>

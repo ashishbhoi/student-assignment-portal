@@ -1,5 +1,6 @@
 @page "{id:int}"
-@model StudentClassworkPortal.Pages.FileViewer.IndexModel
+@using System.Web
+@model IndexModel
 @{
     ViewData["Title"] = "File Viewer";
 }
@@ -12,7 +13,8 @@
     <h1 class="text-3xl font-bold text-on-surface mb-4">@Model.FileToDisplay.FileName</h1>
 
     <div class="bg-surface rounded-lg shadow-md p-6">
-        <pre><code class="language-@Model.FileExtension">@Html.Raw(System.Web.HttpUtility.HtmlEncode(@Model.FileToDisplay.Content))</code></pre>
+        <pre><code
+                class="language-@Model.FileExtension">@Html.Raw(HttpUtility.HtmlEncode(Model.FileToDisplay.Content))</code></pre>
     </div>
 </div>
 

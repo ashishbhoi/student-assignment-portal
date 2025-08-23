@@ -1,26 +1,32 @@
 @page "{id:int}"
-@model StudentClassworkPortal.Pages.Teacher.RenameAssignmentModel
+@model RenameAssignmentModel
 @{
     ViewData["Title"] = "Rename Assignment";
 }
 
 <div class="container mx-auto px-4 py-8 max-w-2xl">
-    <a asp-page="./Dashboard" class="text-primary hover:text-primary-dark mb-4 inline-block">&larr; Back to Dashboard</a>
+    <a asp-page="./Dashboard" class="text-primary hover:text-primary-dark mb-4 inline-block">&larr; Back to
+        Dashboard</a>
     <h1 class="text-3xl font-bold text-on-surface mb-6">@ViewData["Title"]</h1>
 
     <div class="bg-surface rounded-lg shadow-md p-8">
         <form method="post">
-            <input type="hidden" asp-for="Input.Id" />
+            <input type="hidden" asp-for="Input.Id"/>
             <div asp-validation-summary="ModelOnly" class="text-error mb-4"></div>
-            
+
             <div class="mb-4">
-                <label asp-for="Input.AssignmentName" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
-                <input asp-for="Input.AssignmentName" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary" />
+                <label asp-for="Input.AssignmentName"
+                       class="block text-sm font-medium text-on-surface-variant mb-1"></label>
+                <input asp-for="Input.AssignmentName"
+                       class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary"/>
                 <span asp-validation-for="Input.AssignmentName" class="text-error text-sm mt-1"></span>
             </div>
 
             <div>
-                <button type="submit" class="w-full bg-primary text-on-primary font-bold py-2 px-4 rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">Save Changes</button>
+                <button type="submit"
+                        class="w-full bg-primary text-on-primary font-bold py-2 px-4 rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                    Save Changes
+                </button>
             </div>
         </form>
     </div>

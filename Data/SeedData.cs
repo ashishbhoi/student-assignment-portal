@@ -1,47 +1,42 @@
 using Microsoft.AspNetCore.Identity;
 using StudentClassworkPortal.Areas.Identity.Data;
 
-namespace StudentClassworkPortal.Data
+namespace StudentClassworkPortal.Data;
+
+public static class SeedData
 {
-    public static class SeedData
+    public static async Task Initialize(IServiceProvider serviceProvider, IConfiguration configuration)
     {
-        public static async Task Initialize(IServiceProvider serviceProvider, IConfiguration configuration)
+        var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+        string[] roleNames = {"Teacher", "Student"};
+        IdentityResult roleResult;
+
+        foreach (var roleName in roleNames)
         {
-            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var roleExist = await roleManager.RoleExistsAsync(roleName);
+            if (!roleExist) roleResult = await roleManager.CreateAsync(new IdentityRole(roleName));
+        }
 
-            string[] roleNames = { "Teacher", "Student" };
-            IdentityResult roleResult;
+        var teacherUsername = configuration["AppSettings:TeacherUsername"];
+        var teacherPassword = configuration["AppSettings:TeacherPassword"];
 
-            foreach (var roleName in roleNames)
+        if (string.IsNullOrEmpty(teacherUsername) || string.IsNullOrEmpty(teacherPassword))
+            throw new Exception("Teacher username or password not found in configuration.");
+
+        if (await userManager.FindByNameAsync(teacherUsername) == null)
+        {
+            var teacher = new ApplicationUser
             {
-                var roleExist = await roleManager.RoleExistsAsync(roleName);
-                if (!roleExist)
-                {
-                    roleResult = await roleManager.CreateAsync(new IdentityRole(roleName));
-                }
-            }
+                UserName = teacherUsername,
+                Email = "teacheradmin@example.com", // Email is still required
+                Name = "Teacher Admin",
+                EmailConfirmed = true
+            };
 
-            var teacherEmail = configuration["AppSettings:TeacherEmail"]!;
-            var teacherPassword = configuration["AppSettings:TeacherPassword"]!;
-
-            if (await userManager.FindByEmailAsync(teacherEmail) == null)
-            {
-                var teacher = new ApplicationUser
-                {
-                    UserName = teacherEmail,
-                    Email = teacherEmail,
-                    FirstName = "Teacher",
-                    LastName = "Admin",
-                    EmailConfirmed = true
-                };
-
-                var result = await userManager.CreateAsync(teacher, teacherPassword);
-                if (result.Succeeded)
-                {
-                    await userManager.AddToRoleAsync(teacher, "Teacher");
-                }
-            }
+            var result = await userManager.CreateAsync(teacher, teacherPassword);
+            if (result.Succeeded) await userManager.AddToRoleAsync(teacher, "Teacher");
         }
     }
 }

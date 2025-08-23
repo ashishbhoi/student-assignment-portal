@@ -5,25 +5,32 @@
 <div class="w-full bg-surface rounded-lg shadow-md p-6">
     <ul class="space-y-2">
         <li>
-            <a class="block px-4 py-2 rounded-md font-medium @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profile</a>
+            <a class="block px-4 py-2 rounded-md font-medium @ManageNavPages.IndexNavClass(ViewContext)" id="profile"
+               asp-page="./Index">Profile</a>
         </li>
         <li>
-            <a class="block px-4 py-2 rounded-md font-medium @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a>
+            <a class="block px-4 py-2 rounded-md font-medium @ManageNavPages.EmailNavClass(ViewContext)" id="email"
+               asp-page="./Email">Email</a>
         </li>
         <li>
-            <a class="block px-4 py-2 rounded-md font-medium @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Password</a>
+            <a class="block px-4 py-2 rounded-md font-medium @ManageNavPages.ChangePasswordNavClass(ViewContext)"
+               id="change-password" asp-page="./ChangePassword">Password</a>
         </li>
         @if (hasExternalLogins)
         {
             <li id="external-logins">
-                <a id="external-login" class="block px-4 py-2 rounded-md font-medium @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins">External logins</a>
+                <a id="external-login"
+                   class="block px-4 py-2 rounded-md font-medium @ManageNavPages.ExternalLoginsNavClass(ViewContext)"
+                   asp-page="./ExternalLogins">External logins</a>
             </li>
         }
         <li>
-            <a class="block px-4 py-2 rounded-md font-medium @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">Two-factor authentication</a>
+            <a class="block px-4 py-2 rounded-md font-medium @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)"
+               id="two-factor" asp-page="./TwoFactorAuthentication">Two-factor authentication</a>
         </li>
         <li>
-            <a class="block px-4 py-2 rounded-md font-medium @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Personal data</a>
+            <a class="block px-4 py-2 rounded-md font-medium @ManageNavPages.PersonalDataNavClass(ViewContext)"
+               id="personal-data" asp-page="./PersonalData">Personal data</a>
         </li>
     </ul>
 </div>
