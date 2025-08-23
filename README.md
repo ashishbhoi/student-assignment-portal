@@ -6,18 +6,23 @@
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3-cyan)
 ![License](https://img.shields.io/badge/License-GPL--3.0--only-red)
 
-A modern web portal for managing student assignments and submissions, sharing resources, and streamlining communication between teachers and students.
+A modern web portal for managing student assignments and submissions, sharing resources, and streamlining communication
+between teachers and students.
 
 ---
 
 ## ✨ Key Features
 
 - **Role-Based Access Control**: Separate dashboards and functionalities for **Teachers** and **Students**.
-- **Comprehensive User Management**: Teachers can create, edit, and manage student accounts, including bulk import from a CSV file.
-- **Assignment Management**: Teachers can create, update, and manage assignments, specifying details like subject, chapter, and topic.
+- **Comprehensive User Management**: Teachers can create, edit, and manage student accounts, including bulk import from
+  a CSV file.
+- **Assignment Management**: Teachers can create, update, and manage assignments, specifying details like subject,
+  chapter, and topic.
 - **Resource Sharing**: Teachers can upload and share public resources (e.g., notes, links) accessible to all students.
-- **Student Submissions**: Students can view assignments, create files (e.g., `.txt`, `.java`, `.sql`), and submit their work.
-- **Submission Tracking**: A detailed assignment view for teachers shows a real-time report of which students have and have not submitted their work.
+- **Student Submissions**: Students can view assignments, create files (e.g., `.txt`, `.java`, `.sql`), and submit their
+  work.
+- **Submission Tracking**: A detailed assignment view for teachers shows a real-time report of which students have and
+  have not submitted their work.
 - **Modern UI**: A clean and responsive user interface built with **Tailwind CSS**.
 
 ---
@@ -34,7 +39,8 @@ A modern web portal for managing student assignments and submissions, sharing re
 
 ## 🚀 Getting Started
 
-Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
+Follow these instructions to get a copy of the project up and running on your local machine for development and testing
+purposes.
 
 ### Prerequisites
 
@@ -44,58 +50,59 @@ Follow these instructions to get a copy of the project up and running on your lo
 
 ### Installation
 
-1.  **Clone the repository:**
+1. **Clone the repository:**
 
-    ```sh
-    git clone https://github.com/ashishbhoi/student-assignment-portal.git
-    cd StudentClassworkPortal
-    ```
+   ```sh
+   git clone https://github.com/ashishbhoi/student-assignment-portal.git
+   cd StudentClassworkPortal
+   ```
 
-2.  **Configure Teacher Credentials:**
-    Set up the initial teacher account by providing credentials in `appsettings.Development.json`.
+2. **Configure Teacher Credentials:**
+   Set up the initial teacher account by providing credentials in `appsettings.Development.json`.
 
-    ```json
-    {
-      "AppSettings": {
-        "TeacherEmail": "teacher@example.com",
-        "TeacherPassword": "YourSecurePassword123!"
-      }
-      // ... other settings
-    }
-    ```
+   ```json
+   {
+     "AppSettings": {
+       "TeacherEmail": "teacher@example.com",
+       "TeacherPassword": "YourSecurePassword123!"
+     }
+     // ... other settings
+   }
+   ```
 
-3.  **Install Frontend Dependencies:**
+3. **Install Frontend Dependencies:**
 
-    ```sh
-    pnpm install
-    ```
+   ```sh
+   pnpm install
+   ```
 
-4.  **Build Frontend Assets:**
-    Compile the Tailwind CSS file.
+4. **Build Frontend Assets:**
+   Compile the Tailwind CSS file.
 
-    ```sh
-    pnpm run css:build
-    ```
+   ```sh
+   pnpm run css:build
+   ```
 
-5.  **Restore .NET Dependencies:**
+5. **Restore .NET Dependencies:**
 
-    ```sh
-    dotnet restore
-    ```
+   ```sh
+   dotnet restore
+   ```
 
-6.  **Apply Database Migrations:**
-    This will create the `app.db` SQLite database file and apply the latest schema.
+6. **Apply Database Migrations:**
+   This will create the `app.db` SQLite database file and apply the latest schema.
 
-    ```sh
-    dotnet ef database update
-    ```
+   ```sh
+   dotnet ef database update
+   ```
 
-7.  **Run the Application:**
-    ```sh
-    dotnet run
-    ```
+7. **Run the Application:**
+   ```sh
+   dotnet run
+   ```
 
-The application will be available at `https://localhost:5001` or a similar port. The default teacher account will be created on the first run.
+The application will be available at `https://localhost:5001` or a similar port. The default teacher account will be
+created on the first run.
 
 ---
 
@@ -110,7 +117,8 @@ Once logged in, you can explore the features corresponding to your role.
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/ashishbhoi/student-assignment-portal/issues).
+Contributions, issues, and feature requests are welcome! Feel free to check
+the [issues page](https://github.com/ashishbhoi/student-assignment-portal/issues).
 
 ---
 

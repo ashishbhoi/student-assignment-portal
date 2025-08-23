@@ -1,12 +1,13 @@
 @page
 @using StudentClassworkPortal.Areas.Identity.Data
-@model StudentClassworkPortal.Pages.Teacher.CreateUserModel
+@model CreateUserModel
 @{
     ViewData["Title"] = "Create User";
 }
 
 <div class="max-w-2xl mx-auto bg-surface rounded-lg shadow-md p-8">
-    <a asp-page="./StudentManagement" class="text-primary hover:text-primary-dark mb-4 inline-block">&larr; Back to Student Management</a>
+    <a asp-page="./StudentManagement" class="text-primary hover:text-primary-dark mb-4 inline-block">&larr; Back to
+        Student Management</a>
     <h1 class="text-2xl font-bold text-on-surface mb-6">@ViewData["Title"]</h1>
 
     <form id="createUserForm" method="post">
@@ -16,29 +17,38 @@
 
         <div class="mb-4">
             <label asp-for="Input.Name" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
-            <input asp-for="Input.Name" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary" />
+            <input asp-for="Input.Name"
+                   class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary"/>
             <span asp-validation-for="Input.Name" class="text-red-500 text-sm mt-1"></span>
         </div>
 
         <div class="mb-4">
             <label asp-for="Input.Username" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
-            <input asp-for="Input.Username" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary" autocomplete="username" aria-required="true" placeholder="username" />
+            <input asp-for="Input.Username"
+                   class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary"
+                   autocomplete="username" aria-required="true" placeholder="username"/>
             <span asp-validation-for="Input.Username" class="text-red-500 text-sm mt-1"></span>
         </div>
         <div class="mb-4">
             <label asp-for="Input.Password" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
-            <input asp-for="Input.Password" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary" autocomplete="new-password" aria-required="true" placeholder="password" />
+            <input asp-for="Input.Password"
+                   class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary"
+                   autocomplete="new-password" aria-required="true" placeholder="password"/>
             <span asp-validation-for="Input.Password" class="text-red-500 text-sm mt-1"></span>
         </div>
         <div class="mb-6">
-            <label asp-for="Input.ConfirmPassword" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
-            <input asp-for="Input.ConfirmPassword" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary" autocomplete="new-password" aria-required="true" placeholder="password" />
+            <label asp-for="Input.ConfirmPassword"
+                   class="block text-sm font-medium text-on-surface-variant mb-1"></label>
+            <input asp-for="Input.ConfirmPassword"
+                   class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary"
+                   autocomplete="new-password" aria-required="true" placeholder="password"/>
             <span asp-validation-for="Input.ConfirmPassword" class="text-red-500 text-sm mt-1"></span>
         </div>
 
         <div class="mb-4">
             <label asp-for="Input.Role" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
-            <select asp-for="Input.Role" asp-items="Model.Roles" id="roleSelector" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary">
+            <select asp-for="Input.Role" asp-items="Model.Roles" id="roleSelector"
+                    class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary">
                 <option value="">Select Role</option>
             </select>
             <span asp-validation-for="Input.Role" class="text-red-500 text-sm mt-1"></span>
@@ -48,14 +58,17 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="mb-4">
                     <label asp-for="Input.Class" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
-                    <select asp-for="Input.Class" asp-items="Html.GetEnumSelectList<StudentClass>()" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary">
+                    <select asp-for="Input.Class" asp-items="Html.GetEnumSelectList<StudentClass>()"
+                            class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary">
                         <option value="">Select Class</option>
                     </select>
                     <span asp-validation-for="Input.Class" class="text-red-500 text-sm mt-1"></span>
                 </div>
                 <div class="mb-4">
-                    <label asp-for="Input.Section" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
-                    <select asp-for="Input.Section" asp-items="Html.GetEnumSelectList<StudentSection>()" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary">
+                    <label asp-for="Input.Section"
+                           class="block text-sm font-medium text-on-surface-variant mb-1"></label>
+                    <select asp-for="Input.Section" asp-items="Html.GetEnumSelectList<StudentSection>()"
+                            class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary">
                         <option value="">Select Section</option>
                     </select>
                     <span asp-validation-for="Input.Section" class="text-red-500 text-sm mt-1"></span>
@@ -63,12 +76,15 @@
             </div>
         </div>
 
-        <button id="createUserSubmit" type="submit" class="w-full bg-primary text-on-primary font-bold py-2 px-4 rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">Create User</button>
+        <button id="createUserSubmit" type="submit"
+                class="w-full bg-primary text-on-primary font-bold py-2 px-4 rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+            Create User
+        </button>
     </form>
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
     <script>
         document.getElementById('roleSelector').addEventListener('change', function () {
             var studentFields = document.getElementById('studentFields');

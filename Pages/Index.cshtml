@@ -7,7 +7,8 @@
 <div class="container mx-auto px-4 py-8">
     <div class="text-center mb-12">
         <h1 class="text-4xl font-bold text-on-surface mb-4">Welcome to the Student Classwork Portal</h1>
-        <p class="text-lg text-on-surface-variant">Please log in to access your dashboard or browse the public resources below.</p>
+        <p class="text-lg text-on-surface-variant">Please log in to access your dashboard or browse the public resources
+            below.</p>
     </div>
 
     <div>
@@ -25,7 +26,8 @@
                             @foreach (var resource in classGroup.OrderBy(r => r.Chapter))
                             {
                                 <div class="bg-surface rounded-lg shadow-md p-6">
-                                    <h4 class="text-xl font-semibold text-on-surface">Subject: @resource.AssignmentName</h4>
+                                    <h4 class="text-xl font-semibold text-on-surface">
+                                        Subject: @resource.AssignmentName</h4>
                                     <p class="text-md text-on-surface-variant mb-4">Chapter: @resource.Chapter</p>
                                     @if (resource.UserFiles.Any())
                                     {
@@ -33,7 +35,8 @@
                                             @foreach (var file in resource.UserFiles)
                                             {
                                                 <li>
-                                                    <a asp-page="/Public/ViewResource" asp-route-fileId="@file.Id" class="text-primary hover:underline">
+                                                    <a asp-page="/Public/ViewResource" asp-route-fileId="@file.Id"
+                                                       class="text-primary hover:underline">
                                                         @file.FileName
                                                     </a>
                                                 </li>

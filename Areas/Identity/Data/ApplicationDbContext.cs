@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using StudentClassworkPortal.Areas.Identity.Data;
@@ -8,13 +7,13 @@ namespace StudentClassworkPortal.Data;
 
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
-    public DbSet<UserFile> UserFiles { get; set; }
-    public DbSet<VirtualFolder> VirtualFolders { get; set; }
-
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
     }
+
+    public DbSet<UserFile> UserFiles { get; set; }
+    public DbSet<VirtualFolder> VirtualFolders { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

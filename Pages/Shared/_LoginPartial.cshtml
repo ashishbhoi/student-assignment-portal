@@ -1,26 +1,29 @@
 @using Microsoft.AspNetCore.Identity
 @using StudentClassworkPortal.Areas.Identity.Data
-
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
 <ul class="flex items-center space-x-4">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="relative">
-        <a id="manage" class="px-4 py-2 text-white rounded-md bg-gray-800 hover:bg-gray-700" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
-    </li>
-    <li>
-        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-            <button id="logout" type="submit" class="px-4 py-2 text-white bg-red-600 rounded-md hover:bg-red-700">Logout</button>
-        </form>
-    </li>
-}
-else
-{
-    
-    <li>
-        <a class="px-4 py-2 text-white bg-green-600 rounded-md hover:bg-green-700" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="relative">
+            <a id="manage" class="px-4 py-2 text-white rounded-md bg-gray-800 hover:bg-gray-700" asp-area="Identity"
+               asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+        </li>
+        <li>
+            <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
+                  asp-route-returnUrl="@Url.Page("/Index", new {area = ""})">
+                <button id="logout" type="submit" class="px-4 py-2 text-white bg-red-600 rounded-md hover:bg-red-700">
+                    Logout
+                </button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li>
+            <a class="px-4 py-2 text-white bg-green-600 rounded-md hover:bg-green-700" id="login" asp-area="Identity"
+               asp-page="/Account/Login">Login</a>
+        </li>
+    }
 </ul>

@@ -1,109 +1,97 @@
 using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using StudentClassworkPortal.Areas.Identity.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
+using StudentClassworkPortal.Areas.Identity.Data;
 
-namespace StudentClassworkPortal.Pages.Teacher
+namespace StudentClassworkPortal.Pages.Teacher;
+
+[Authorize(Roles = "Teacher")]
+public class CreateUserModel : PageModel
 {
-    [Authorize(Roles = "Teacher")]
-    public class CreateUserModel : PageModel
+    private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly UserManager<ApplicationUser> _userManager;
+
+    public CreateUserModel(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        _userManager = userManager;
+        _roleManager = roleManager;
+        Input = new InputModel();
+        ReturnUrl = string.Empty;
+        Roles = new SelectList(new List<string>());
+    }
 
-        public CreateUserModel(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+    [BindProperty] public InputModel Input { get; set; }
+
+    public string ReturnUrl { get; set; }
+
+    public SelectList Roles { get; set; }
+
+    public void OnGet(string? returnUrl = null)
+    {
+        ReturnUrl = returnUrl ?? Url.Content("~/");
+        Roles = new SelectList(_roleManager.Roles.Select(r => r.Name).ToList());
+    }
+
+    public async Task<IActionResult> OnPostAsync(string? returnUrl = null)
+    {
+        returnUrl ??= Url.Content("~/Teacher/Dashboard");
+        if (ModelState.IsValid)
         {
-            _userManager = userManager;
-            _roleManager = roleManager;
-            Input = new InputModel();
-            ReturnUrl = string.Empty;
-            Roles = new SelectList(new List<string>());
-        }
-
-        [BindProperty]
-        public InputModel Input { get; set; }
-
-        public string ReturnUrl { get; set; }
-
-        public class InputModel
-        {
-            [Required]
-            [Display(Name = "Name")]
-            public string Name { get; set; } = string.Empty;
-
-            [Required]
-            [Display(Name = "Username")]
-            public string Username { get; set; } = string.Empty;
-
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            [DataType(DataType.Password)]
-            [Display(Name = "Password")]
-            public string Password { get; set; } = string.Empty;
-
-            [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-            public string ConfirmPassword { get; set; } = string.Empty;
-
-            [Required]
-            [Display(Name = "Role")]
-            public string Role { get; set; } = string.Empty;
-
-            [Display(Name = "Class")]
-            public StudentClass? Class { get; set; }
-
-            [Display(Name = "Section")]
-            public StudentSection? Section { get; set; }
-        }
-
-        public SelectList Roles { get; set; }
-
-        public void OnGet(string? returnUrl = null)
-        {
-            ReturnUrl = returnUrl ?? Url.Content("~/");
-            Roles = new SelectList(_roleManager.Roles.Select(r => r.Name).ToList());
-        }
-
-        public async Task<IActionResult> OnPostAsync(string? returnUrl = null)
-        {
-            returnUrl ??= Url.Content("~/Teacher/Dashboard");
-            if (ModelState.IsValid)
+            var user = new ApplicationUser
             {
-                var user = new ApplicationUser 
-                { 
-                    UserName = Input.Username, 
-                    Email = Input.Username + "@example.com",
-                    Name = Input.Name,
-                    EmailConfirmed = true
-                };
+                UserName = Input.Username,
+                Email = Input.Username + "@example.com",
+                Name = Input.Name,
+                EmailConfirmed = true
+            };
 
-                if (Input.Role == "Student")
-                {
-                    user.Class = Input.Class;
-                    user.Section = Input.Section;
-                }
-
-                var result = await _userManager.CreateAsync(user, Input.Password);
-
-                if (result.Succeeded)
-                {
-                    await _userManager.AddToRoleAsync(user, Input.Role);
-                    return LocalRedirect(returnUrl);
-                }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
+            if (Input.Role == "Student")
+            {
+                user.Class = Input.Class;
+                user.Section = Input.Section;
             }
 
-            return Page();
+            var result = await _userManager.CreateAsync(user, Input.Password);
+
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, Input.Role);
+                return LocalRedirect(returnUrl);
+            }
+
+            foreach (var error in result.Errors) ModelState.AddModelError(string.Empty, error.Description);
         }
+
+        return Page();
+    }
+
+    public class InputModel
+    {
+        [Required] [Display(Name = "Name")] public string Name { get; set; } = string.Empty;
+
+        [Required]
+        [Display(Name = "Username")]
+        public string Username { get; set; } = string.Empty;
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.",
+            MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; } = string.Empty;
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; } = string.Empty;
+
+        [Required] [Display(Name = "Role")] public string Role { get; set; } = string.Empty;
+
+        [Display(Name = "Class")] public StudentClass? Class { get; set; }
+
+        [Display(Name = "Section")] public StudentSection? Section { get; set; }
     }
 }

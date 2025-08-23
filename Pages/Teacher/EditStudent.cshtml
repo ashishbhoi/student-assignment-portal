@@ -1,6 +1,6 @@
 @page "{id}"
 @using StudentClassworkPortal.Areas.Identity.Data
-@model StudentClassworkPortal.Pages.Teacher.EditStudentModel
+@model EditStudentModel
 @{
     ViewData["Title"] = "Edit Student";
 }
@@ -10,31 +10,35 @@
 
     <form id="editStudentForm" method="post">
         <div asp-validation-summary="ModelOnly" class="text-red-500" role="alert"></div>
-        <input type="hidden" asp-for="Input.Id" />
+        <input type="hidden" asp-for="Input.Id"/>
 
         <div class="mb-4">
             <label asp-for="Input.Name" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
-            <input asp-for="Input.Name" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary" />
+            <input asp-for="Input.Name"
+                   class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary"/>
             <span asp-validation-for="Input.Name" class="text-red-500 text-sm mt-1"></span>
         </div>
 
         <div class="mb-4">
             <label asp-for="Input.Username" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
-            <input asp-for="Input.Username" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary" />
+            <input asp-for="Input.Username"
+                   class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary"/>
             <span asp-validation-for="Input.Username" class="text-red-500 text-sm mt-1"></span>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="mb-4">
                 <label asp-for="Input.Class" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
-                <select asp-for="Input.Class" asp-items="Html.GetEnumSelectList<StudentClass>()" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary">
+                <select asp-for="Input.Class" asp-items="Html.GetEnumSelectList<StudentClass>()"
+                        class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary">
                     <option value="">Select Class</option>
                 </select>
                 <span asp-validation-for="Input.Class" class="text-red-500 text-sm mt-1"></span>
             </div>
             <div class="mb-4">
                 <label asp-for="Input.Section" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
-                <select asp-for="Input.Section" asp-items="Html.GetEnumSelectList<StudentSection>()" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary">
+                <select asp-for="Input.Section" asp-items="Html.GetEnumSelectList<StudentSection>()"
+                        class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary">
                     <option value="">Select Section</option>
                 </select>
                 <span asp-validation-for="Input.Section" class="text-red-500 text-sm mt-1"></span>
@@ -43,14 +47,19 @@
 
         <div class="mb-4">
             <label asp-for="Input.Password" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
-            <input asp-for="Input.Password" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary" autocomplete="new-password" />
+            <input asp-for="Input.Password"
+                   class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary"
+                   autocomplete="new-password"/>
             <span asp-validation-for="Input.Password" class="text-red-500 text-sm mt-1"></span>
         </div>
 
-        <button id="updateUserSubmit" type="submit" class="w-full bg-primary text-on-primary font-bold py-2 px-4 rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">Update User</button>
+        <button id="updateUserSubmit" type="submit"
+                class="w-full bg-primary text-on-primary font-bold py-2 px-4 rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+            Update User
+        </button>
     </form>
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
 }
