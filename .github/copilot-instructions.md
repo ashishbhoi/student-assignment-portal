@@ -26,7 +26,7 @@ You are an expert full-stack developer. Your task is to build a complete web app
 Implement an identity and authentication system with two distinct roles: Student and Teacher.
 
 1.  **Student Role**:
-    *   Build a public-facing registration page for new students.
+    *   Build a public-facing registration page for new students. The registration form should capture the student's full name in a single field.
     *   Implement a login page.
     *   Create a "Change Password" feature accessible only to logged-in students.
     *   Enforce authorization rules: A logged-in student can **only** view and manage their own data and files.

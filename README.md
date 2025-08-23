@@ -13,6 +13,7 @@ A modern web portal for managing student assignments and submissions, sharing re
 ## ✨ Key Features
 
 - **Role-Based Access Control**: Separate dashboards and functionalities for **Teachers** and **Students**.
+- **Comprehensive User Management**: Teachers can create, edit, and manage student accounts, including bulk import from a CSV file.
 - **Assignment Management**: Teachers can create, update, and manage assignments, specifying details like subject, chapter, and topic.
 - **Resource Sharing**: Teachers can upload and share public resources (e.g., notes, links) accessible to all students.
 - **Student Submissions**: Students can view assignments, create files (e.g., `.txt`, `.java`, `.sql`), and submit their work.
