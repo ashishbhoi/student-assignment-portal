@@ -31,8 +31,7 @@ namespace StudentClassworkPortal.Data
                 {
                     UserName = teacherUsername,
                     Email = "teacheradmin@example.com", // Email is still required
-                    FirstName = "Teacher",
-                    LastName = "Admin",
+                    Name = "Teacher Admin",
                     EmailConfirmed = true
                 };
 

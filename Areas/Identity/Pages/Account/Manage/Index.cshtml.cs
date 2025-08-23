@@ -54,11 +54,8 @@ namespace StudentClassworkPortal.Areas.Identity.Pages.Account.Manage
         /// </summary>
         public class InputModel
         {
-            [Display(Name = "First Name")]
-            public string FirstName { get; set; }
-
-            [Display(Name = "Last Name")]
-            public string LastName { get; set; }
+            [Display(Name = "Name")]
+            public string Name { get; set; }
 
             [Display(Name = "Class")]
             public StudentClass? Class { get; set; }
@@ -81,8 +78,7 @@ namespace StudentClassworkPortal.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
+                Name = user.Name,
                 Class = user.Class,
                 Section = user.Section,
                 PhoneNumber = phoneNumber
@@ -126,14 +122,9 @@ namespace StudentClassworkPortal.Areas.Identity.Pages.Account.Manage
                 }
             }
 
-            if (Input.FirstName != user.FirstName)
+            if (Input.Name != user.Name)
             {
-                user.FirstName = Input.FirstName;
-            }
-
-            if (Input.LastName != user.LastName)
-            {
-                user.LastName = Input.LastName;
+                user.Name = Input.Name;
             }
 
             IsStudent = await _userManager.IsInRoleAsync(user, "Student");

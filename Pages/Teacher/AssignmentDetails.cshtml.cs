@@ -53,7 +53,7 @@ namespace StudentClassworkPortal.Pages.Teacher
 
             Submissions = studentsInClass.Select(student => new SubmissionViewModel
             {
-                StudentName = $"{student.FirstName} {student.LastName}",
+                StudentName = student.Name,
                 StudentEmail = student.Email ?? "N/A",
                 Submission = Assignment.UserFiles.FirstOrDefault(f => f.UserId == student.Id)
             }).ToList();

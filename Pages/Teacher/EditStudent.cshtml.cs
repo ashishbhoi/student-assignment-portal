@@ -27,12 +27,8 @@ namespace StudentClassworkPortal.Pages.Teacher
             public string Id { get; set; } = string.Empty;
 
             [Required]
-            [Display(Name = "First Name")]
-            public string FirstName { get; set; } = string.Empty;
-
-            [Required]
-            [Display(Name = "Last Name")]
-            public string LastName { get; set; } = string.Empty;
+            [Display(Name = "Name")]
+            public string Name { get; set; } = string.Empty;
 
             [Required]
             [Display(Name = "Username")]
@@ -67,8 +63,7 @@ namespace StudentClassworkPortal.Pages.Teacher
             Input = new InputModel
             {
                 Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
+                Name = user.Name,
                 Username = user.UserName ?? string.Empty,
                 Class = user.Class,
                 Section = user.Section
@@ -91,8 +86,7 @@ namespace StudentClassworkPortal.Pages.Teacher
                 return NotFound();
             }
 
-            user.FirstName = Input.FirstName;
-            user.LastName = Input.LastName;
+            user.Name = Input.Name;
             user.UserName = Input.Username;
             user.Class = Input.Class;
             user.Section = Input.Section;

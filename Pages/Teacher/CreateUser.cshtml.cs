@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StudentClassworkPortal.Areas.Identity.Data;
-
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
@@ -35,12 +34,8 @@ namespace StudentClassworkPortal.Pages.Teacher
         public class InputModel
         {
             [Required]
-            [Display(Name = "First Name")]
-            public string FirstName { get; set; } = string.Empty;
-
-            [Required]
-            [Display(Name = "Last Name")]
-            public string LastName { get; set; } = string.Empty;
+            [Display(Name = "Name")]
+            public string Name { get; set; } = string.Empty;
 
             [Required]
             [Display(Name = "Username")]
@@ -85,9 +80,8 @@ namespace StudentClassworkPortal.Pages.Teacher
                 { 
                     UserName = Input.Username, 
                     Email = Input.Username + "@example.com",
-                    FirstName = Input.FirstName,
-                    LastName = Input.LastName,
-                    EmailConfirmed = true // Admin-created accounts are confirmed by default
+                    Name = Input.Name,
+                    EmailConfirmed = true
                 };
 
                 if (Input.Role == "Student")
@@ -109,7 +103,6 @@ namespace StudentClassworkPortal.Pages.Teacher
                 }
             }
 
-            // If we got this far, something failed, redisplay form
             return Page();
         }
     }

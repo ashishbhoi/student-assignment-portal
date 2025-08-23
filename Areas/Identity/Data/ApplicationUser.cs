@@ -21,8 +21,7 @@ namespace StudentClassworkPortal.Areas.Identity.Data
 
     public class ApplicationUser : IdentityUser
     {
-        public string FirstName { get; set; } = string.Empty;
-        public string LastName { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
         public StudentClass? Class { get; set; }
         public StudentSection? Section { get; set; }
     }

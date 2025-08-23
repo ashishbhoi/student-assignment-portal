@@ -19,15 +19,9 @@
         </div>
         
         <div class="mb-4">
-            <label asp-for="Input.FirstName" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
-            <input asp-for="Input.FirstName" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary" placeholder="Please enter your first name."/>
-            <span asp-validation-for="Input.FirstName" class="text-red-500 text-sm mt-1"></span>
-        </div>
-        
-        <div class="mb-4">
-            <label asp-for="Input.LastName" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
-            <input asp-for="Input.LastName" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary" placeholder="Please enter your last name."/>
-            <span asp-validation-for="Input.LastName" class="text-red-500 text-sm mt-1"></span>
+            <label asp-for="Input.Name" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
+            <input asp-for="Input.Name" class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary" placeholder="Please enter your name."/>
+            <span asp-validation-for="Input.Name" class="text-red-500 text-sm mt-1"></span>
         </div>
 
         @if (Model.IsStudent)

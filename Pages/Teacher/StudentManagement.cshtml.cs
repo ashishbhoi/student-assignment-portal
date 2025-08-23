@@ -101,8 +101,7 @@ namespace StudentClassworkPortal.Pages.Teacher
                         {
                             UserName = record.Username,
                             Email = record.Username + "@example.com",
-                            FirstName = record.FirstName,
-                            LastName = record.LastName,
+                            Name = record.Name,
                             Class = record.Class,
                             Section = record.Section,
                             EmailConfirmed = true
@@ -130,15 +129,14 @@ namespace StudentClassworkPortal.Pages.Teacher
         public IActionResult OnGetDownloadSampleCsv()
         {
             var builder = new StringBuilder();
-            builder.AppendLine("FirstName,LastName,Username,Password,Class,Section");
-            builder.AppendLine("John,Doe,johndoe,Password123,Class10,A");
+            builder.AppendLine("Name,Username,Password,Class,Section");
+            builder.AppendLine("John Doe,johndoe,Password123,Class10,A");
             return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", "sample-students.csv");
         }
 
         public class StudentImportModel
         {
-            public string FirstName { get; set; } = string.Empty;
-            public string LastName { get; set; } = string.Empty;
+            public string Name { get; set; } = string.Empty;
             public string Username { get; set; } = string.Empty;
             public string Password { get; set; } = string.Empty;
             public StudentClass Class { get; set; }
