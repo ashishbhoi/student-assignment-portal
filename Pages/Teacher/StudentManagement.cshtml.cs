@@ -10,6 +10,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using System.IO;
+using System.Globalization;
+using CsvHelper;
+using Microsoft.AspNetCore.Http;
+
+using System.Text;
+
 namespace StudentClassworkPortal.Pages.Teacher
 {
     [Authorize(Roles = "Teacher")]
@@ -78,6 +85,64 @@ namespace StudentClassworkPortal.Pages.Teacher
             }
 
             return RedirectToPage();
+        }
+
+        public async Task<IActionResult> OnPostBulkImportAsync(IFormFile bulkImportFile)
+        {
+            if (bulkImportFile != null && bulkImportFile.Length > 0)
+            {
+                using (var reader = new StreamReader(bulkImportFile.OpenReadStream()))
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    var records = csv.GetRecords<StudentImportModel>();
+                    foreach (var record in records)
+                    {
+                        var user = new ApplicationUser
+                        {
+                            UserName = record.Username,
+                            Email = record.Username + "@example.com",
+                            FirstName = record.FirstName,
+                            LastName = record.LastName,
+                            Class = record.Class,
+                            Section = record.Section,
+                            EmailConfirmed = true
+                        };
+
+                        var result = await _userManager.CreateAsync(user, record.Password);
+                        if (result.Succeeded)
+                        {
+                            await _userManager.AddToRoleAsync(user, "Student");
+                        }
+                        else
+                        {
+                            foreach (var error in result.Errors)
+                            {
+                                ModelState.AddModelError(string.Empty, error.Description);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return RedirectToPage();
+        }
+
+        public IActionResult OnGetDownloadSampleCsv()
+        {
+            var builder = new StringBuilder();
+            builder.AppendLine("FirstName,LastName,Username,Password,Class,Section");
+            builder.AppendLine("John,Doe,johndoe,Password123,Class10,A");
+            return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", "sample-students.csv");
+        }
+
+        public class StudentImportModel
+        {
+            public string FirstName { get; set; } = string.Empty;
+            public string LastName { get; set; } = string.Empty;
+            public string Username { get; set; } = string.Empty;
+            public string Password { get; set; } = string.Empty;
+            public StudentClass Class { get; set; }
+            public StudentSection Section { get; set; }
         }
     }
 }
