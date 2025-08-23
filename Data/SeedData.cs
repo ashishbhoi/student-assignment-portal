@@ -22,15 +22,15 @@ namespace StudentClassworkPortal.Data
                 }
             }
 
-            var teacherEmail = configuration["AppSettings:TeacherEmail"]!;
-            var teacherPassword = configuration["AppSettings:TeacherPassword"]!;
+            var teacherUsername = "teacheradmin";
+            var teacherPassword = "P@ssw0rd";
 
-            if (await userManager.FindByEmailAsync(teacherEmail) == null)
+            if (await userManager.FindByNameAsync(teacherUsername) == null)
             {
                 var teacher = new ApplicationUser
                 {
-                    UserName = teacherEmail,
-                    Email = teacherEmail,
+                    UserName = teacherUsername,
+                    Email = "teacheradmin@example.com", // Email is still required
                     FirstName = "Teacher",
                     LastName = "Admin",
                     EmailConfirmed = true
