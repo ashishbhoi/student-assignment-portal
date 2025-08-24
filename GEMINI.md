@@ -50,7 +50,8 @@ submission tracking.
    dotnet build
    dotnet run
    ```
-   Note that the `dotnet run` command will occupy the terminal until the application is stopped.
+   Note that the `dotnet run` command will occupy the terminal until the application is stopped. Do not run it directly
+   inside the Gemini CLI. Instead, run `dotnet build` to ensure the project compiles successfully.
 
 ## Development Conventions
 

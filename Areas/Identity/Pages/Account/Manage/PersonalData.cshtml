@@ -5,11 +5,12 @@
     ViewData["ActivePage"] = ManageNavPages.PersonalData;
 }
 
-<div class="max-w-lg mx-auto bg-surface rounded-lg shadow-md p-8">
-    <h3 class="text-2xl font-bold text-on-surface mb-6">@ViewData["Title"]</h3>
+<div class="max-w-lg mx-auto bg-surface dark:bg-dark-surface rounded-lg shadow-md p-8">
+    <h3 class="text-2xl font-bold text-on-surface dark:text-dark-on-surface mb-6">@ViewData["Title"]</h3>
 
     <div class="space-y-4">
-        <p class="text-on-surface-variant">Your account contains personal data that you have given us. This page allows
+        <p class="text-on-surface-variant dark:text-gray-400">Your account contains personal data that you have given
+            us. This page allows
             you to download or delete that data.</p>
         <p class="font-bold text-error">
             <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
