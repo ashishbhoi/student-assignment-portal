@@ -66,4 +66,4 @@ After the teacher logs in, they should be directed to an administrative dashboar
 1.  **In-App File Viewer**:
     *   When the teacher or a student clicks on a text-based file (.java, .sql, .txt, .md), display its content directly in the browser instead of forcing a download.
 2.  **Syntax Highlighting**:
-    *   Integrate **Prism.js** to provide syntax highlighting for `.java` and `.sql` files when viewed in the app.
+    *   Integrate **Prism.js** to provide syntax highlighting for `.java` and `.sql` files when viewed in the app. The library should be installed via `pnpm` and served locally.
