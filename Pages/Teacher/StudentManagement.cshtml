@@ -229,42 +229,4 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial"/>
-    <script>
-        function selectAll(source, group) {
-            const checkboxes = document.getElementsByClassName('student-checkbox-' + group);
-            for (let i = 0, n = checkboxes.length; i < n; i++) {
-                checkboxes[i].checked = source.checked;
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const promoteBtn = document.getElementById('promoteSelectedBtn');
-            const cancelPromoteBtn = document.getElementById('cancelPromotionBtn');
-            const promotionModal = document.getElementById('promotionModal');
-
-            const bulkImportBtn = document.getElementById('bulkImportBtn');
-            const cancelBulkImportBtn = document.getElementById('cancelBulkImportBtn');
-            const bulkImportModal = document.getElementById('bulkImportModal');
-
-            if (promoteBtn && cancelPromoteBtn && promotionModal) {
-                promoteBtn.addEventListener('click', function () {
-                    promotionModal.classList.remove('hidden');
-                });
-
-                cancelPromoteBtn.addEventListener('click', function () {
-                    promotionModal.classList.add('hidden');
-                });
-            }
-
-            if (bulkImportBtn && cancelBulkImportBtn && bulkImportModal) {
-                bulkImportBtn.addEventListener('click', function () {
-                    bulkImportModal.classList.remove('hidden');
-                });
-
-                cancelBulkImportBtn.addEventListener('click', function () {
-                    bulkImportModal.classList.add('hidden');
-                });
-            }
-        });
-    </script>
 }

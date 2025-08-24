@@ -123,17 +123,4 @@
     </div>
 </div>
 
-@section Scripts {
-    <script>
-        function openCreateFileModal(virtualFolderId) {
-            document.getElementById('modalVirtualFolderId').value = virtualFolderId;
-            document.getElementById('createTextFileModal').classList.remove('hidden');
-            document.getElementById('createTextFileModal').classList.add('flex');
-        }
 
-        function closeCreateFileModal() {
-            document.getElementById('createTextFileModal').classList.add('hidden');
-            document.getElementById('createTextFileModal').classList.remove('flex');
-        }
-    </script>
-}

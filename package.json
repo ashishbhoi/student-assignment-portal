@@ -1,9 +1,12 @@
 {
   "name": "student-assignment-portal",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A portal for managing student assignments and submissions. Sharing resources and assignments with students.",
   "scripts": {
-    "css:build": "tailwindcss -i ./Styles/app.css -o ./wwwroot/css/app.css"
+    "css:build": "tailwindcss -i ./Styles/app.css -o ./wwwroot/css/app.css --minify",
+    "build": "pnpm run css:build",
+    "watch": "tailwindcss -i ./Styles/app.css -o ./wwwroot/css/app.css --watch",
+    "postinstall": "if not exist .\\wwwroot\\lib mkdir .\\wwwroot\\lib && copy .\\node_modules\\jquery\\dist\\jquery.min.js .\\wwwroot\\lib && copy .\\node_modules\\jquery-validation\\dist\\jquery.validate.min.js .\\wwwroot\\lib && copy .\\node_modules\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.min.js .\\wwwroot\\lib && copy .\\node_modules\\prismjs\\components\\prism-core.min.js .\\wwwroot\\lib && copy .\\node_modules\\prismjs\\plugins\\autoloader\\prism-autoloader.min.js .\\wwwroot\\lib && copy .\\node_modules\\prismjs\\themes\\prism.min.css .\\wwwroot\\lib"
   },
   "keywords": [
     "student",
@@ -17,7 +20,11 @@
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.12",
     "autoprefixer": "^10.4.21",
+    "jquery": "^3.7.1",
+    "jquery-validation": "^1.21.0",
+    "jquery-validation-unobtrusive": "^4.0.0",
     "postcss": "^8.5.6",
+    "prismjs": "^1.30.0",
     "tailwindcss": "^3.4.1"
   }
 }

@@ -85,14 +85,4 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial"/>
-    <script>
-        document.getElementById('roleSelector').addEventListener('change', function () {
-            var studentFields = document.getElementById('studentFields');
-            if (this.value === 'Student') {
-                studentFields.classList.remove('hidden');
-            } else {
-                studentFields.classList.add('hidden');
-            }
-        });
-    </script>
 }

@@ -279,3 +279,8 @@ coverage/
 
 # SQLite database files
 app.db*
+
+# Generated frontend assets
+/wwwroot/css/app.css
+/wwwroot/js/bundle.min.js
+/wwwroot/js/site.min.js
