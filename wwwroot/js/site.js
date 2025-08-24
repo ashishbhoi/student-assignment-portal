@@ -4,23 +4,25 @@
 
     // Write your JavaScript code.
 
-    window.openCreateFileModal = function (virtualFolderId) {
-        document.getElementById('modalVirtualFolderId').value = virtualFolderId;
-        document.getElementById('createTextFileModal').classList.remove('hidden');
-        document.getElementById('createTextFileModal').classList.add('flex');
-    }
+    window.StudentPortal = {
+        openCreateFileModal: function (virtualFolderId) {
+            document.getElementById('modalVirtualFolderId').value = virtualFolderId;
+            document.getElementById('createTextFileModal').classList.remove('hidden');
+            document.getElementById('createTextFileModal').classList.add('flex');
+        },
 
-    window.closeCreateFileModal = function () {
-        document.getElementById('createTextFileModal').classList.add('hidden');
-        document.getElementById('createTextFileModal').classList.remove('flex');
-    }
+        closeCreateFileModal: function () {
+            document.getElementById('createTextFileModal').classList.add('hidden');
+            document.getElementById('createTextFileModal').classList.remove('flex');
+        },
 
-    window.selectAll = function (source, group) {
-        const checkboxes = document.getElementsByClassName('student-checkbox-' + group);
-        Array.from(checkboxes).forEach(checkbox => {
-            checkbox.checked = source.checked;
-        });
-    }
+        selectAll: function (source, group) {
+            const checkboxes = document.getElementsByClassName('student-checkbox-' + group);
+            for (const checkbox of checkboxes) {
+                checkbox.checked = source.checked;
+            }
+        }
+    };
 
     document.addEventListener('DOMContentLoaded', function () {
         // Logic for CreateUser page
