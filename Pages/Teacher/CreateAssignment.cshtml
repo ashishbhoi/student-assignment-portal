@@ -6,55 +6,60 @@
 }
 
 <div class="container mx-auto px-4 py-8 max-w-2xl">
-    <a asp-page="./Dashboard" class="text-primary hover:text-primary-dark mb-4 inline-block">&larr; Back to
+    <a asp-page="./Dashboard"
+       class="text-primary hover:text-primary-dark dark:text-primary-light dark:hover:text-primary mb-4 inline-block">&larr;
+        Back to
         Dashboard</a>
-    <h1 class="text-3xl font-bold text-on-surface mb-6">@ViewData["Title"]</h1>
+    <h1 class="text-3xl font-bold text-on-surface dark:text-dark-on-surface mb-6">@ViewData["Title"]</h1>
 
-    <div class="bg-surface rounded-lg shadow-md p-8">
+    <div class="bg-surface dark:bg-dark-surface rounded-lg shadow-md p-8">
         <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-error mb-4"></div>
+            <div asp-validation-summary="ModelOnly" class="text-error dark:text-red-400 mb-4"></div>
 
             <div class="mb-4">
                 <label asp-for="Input.AssignmentName"
-                       class="block text-sm font-medium text-on-surface-variant mb-1"></label>
+                       class="block text-sm font-medium text-on-surface-variant dark:text-gray-400 mb-1"></label>
                 <input asp-for="Input.AssignmentName"
-                       class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary"/>
-                <span asp-validation-for="Input.AssignmentName" class="text-error text-sm mt-1"></span>
+                       class="w-full px-4 py-2 bg-surface-container-highest dark:bg-gray-600 border border-outline dark:border-gray-500 rounded-md focus:ring-primary focus:border-primary"/>
+                <span asp-validation-for="Input.AssignmentName"
+                      class="text-error dark:text-red-400 text-sm mt-1"></span>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
-                    <label asp-for="Input.Chapter" class="block text-sm font-medium text-on-surface-variant mb-1">Chapter</label>
+                    <label asp-for="Input.Chapter"
+                           class="block text-sm font-medium text-on-surface-variant dark:text-gray-400 mb-1">Chapter</label>
                     <input asp-for="Input.Chapter"
-                           class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary"/>
-                    <span asp-validation-for="Input.Chapter" class="text-error text-sm mt-1"></span>
+                           class="w-full px-4 py-2 bg-surface-container-highest dark:bg-gray-600 border border-outline dark:border-gray-500 rounded-md focus:ring-primary focus:border-primary"/>
+                    <span asp-validation-for="Input.Chapter" class="text-error dark:text-red-400 text-sm mt-1"></span>
                 </div>
                 <div>
                     <label asp-for="Input.Topic"
-                           class="block text-sm font-medium text-on-surface-variant mb-1">Topic</label>
+                           class="block text-sm font-medium text-on-surface-variant dark:text-gray-400 mb-1">Topic</label>
                     <input asp-for="Input.Topic"
-                           class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary"/>
-                    <span asp-validation-for="Input.Topic" class="text-error text-sm mt-1"></span>
+                           class="w-full px-4 py-2 bg-surface-container-highest dark:bg-gray-600 border border-outline dark:border-gray-500 rounded-md focus:ring-primary focus:border-primary"/>
+                    <span asp-validation-for="Input.Topic" class="text-error dark:text-red-400 text-sm mt-1"></span>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
-                    <label asp-for="Input.Class" class="block text-sm font-medium text-on-surface-variant mb-1"></label>
+                    <label asp-for="Input.Class"
+                           class="block text-sm font-medium text-on-surface-variant dark:text-gray-400 mb-1"></label>
                     <select asp-for="Input.Class" asp-items="Html.GetEnumSelectList<StudentClass>()"
-                            class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary">
+                            class="w-full px-4 py-2 bg-surface-container-highest dark:bg-gray-600 border border-outline dark:border-gray-500 rounded-md focus:ring-primary focus:border-primary">
                         <option>Select Class</option>
                     </select>
-                    <span asp-validation-for="Input.Class" class="text-error text-sm mt-1"></span>
+                    <span asp-validation-for="Input.Class" class="text-error dark:text-red-400 text-sm mt-1"></span>
                 </div>
                 <div>
                     <label asp-for="Input.Section"
-                           class="block text-sm font-medium text-on-surface-variant mb-1"></label>
+                           class="block text-sm font-medium text-on-surface-variant dark:text-gray-400 mb-1"></label>
                     <select asp-for="Input.Section" asp-items="Html.GetEnumSelectList<StudentSection>()"
-                            class="w-full px-4 py-2 bg-surface-container-highest border border-outline rounded-md focus:ring-primary focus:border-primary">
+                            class="w-full px-4 py-2 bg-surface-container-highest dark:bg-gray-600 border border-outline dark:border-gray-500 rounded-md focus:ring-primary focus:border-primary">
                         <option>Select Section</option>
                     </select>
-                    <span asp-validation-for="Input.Section" class="text-error text-sm mt-1"></span>
+                    <span asp-validation-for="Input.Section" class="text-error dark:text-red-400 text-sm mt-1"></span>
                 </div>
             </div>
 

@@ -7,12 +7,14 @@
 
 <div class="container mx-auto px-4 py-8">
     <div class="mb-4">
-        <a onclick="window.history.back();" class="text-primary hover:text-primary-dark cursor-pointer">&larr; Back</a>
+        <a onclick="window.history.back();"
+           class="text-primary hover:text-primary-dark dark:text-primary-light dark:hover:text-primary cursor-pointer">&larr;
+            Back</a>
     </div>
 
-    <h1 class="text-3xl font-bold text-on-surface mb-4">@Model.FileToDisplay.FileName</h1>
+    <h1 class="text-3xl font-bold text-on-surface dark:text-dark-on-surface mb-4">@Model.FileToDisplay.FileName</h1>
 
-    <div class="bg-surface rounded-lg shadow-md p-6">
+    <div class="bg-surface dark:bg-dark-surface rounded-lg shadow-md p-6">
         <pre><code
                 class="language-@Model.FileExtension">@Html.Raw(HttpUtility.HtmlEncode(Model.FileToDisplay.Content))</code></pre>
     </div>

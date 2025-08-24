@@ -5,19 +5,20 @@
     ViewData["ActivePage"] = ManageNavPages.ExternalLogins;
 }
 
-<div class="max-w-lg mx-auto bg-surface rounded-lg shadow-md p-8">
-    <h3 class="text-2xl font-bold text-on-surface mb-6">@ViewData["Title"]</h3>
+<div class="max-w-lg mx-auto bg-surface dark:bg-dark-surface rounded-lg shadow-md p-8">
+    <h3 class="text-2xl font-bold text-on-surface dark:text-dark-on-surface mb-6">@ViewData["Title"]</h3>
     <partial name="_StatusMessage" for="StatusMessage"/>
 
     @if (Model.CurrentLogins?.Count > 0)
     {
-        <h4 class="text-lg font-semibold text-on-surface mb-4">Registered Logins</h4>
+        <h4 class="text-lg font-semibold text-on-surface dark:text-dark-on-surface mb-4">Registered Logins</h4>
         <div class="space-y-4">
             @foreach (var login in Model.CurrentLogins)
             {
-                <div class="flex items-center justify-between bg-surface-container-highest p-4 rounded-md">
+                <div
+                    class="flex items-center justify-between bg-surface-container-highest dark:bg-gray-800 p-4 rounded-md">
                     <div id="@($"login-provider-{login.LoginProvider}")"
-                         class="font-medium text-on-surface">@login.ProviderDisplayName</div>
+                         class="font-medium text-on-surface dark:text-dark-on-surface">@login.ProviderDisplayName</div>
                     <div>
                         @if (Model.ShowRemoveButton)
                         {
@@ -46,8 +47,9 @@
 
     @if (Model.OtherLogins?.Count > 0)
     {
-        <h4 class="text-lg font-semibold text-on-surface mt-8 mb-4">Add another service to log in.</h4>
-        <hr class="border-outline mb-4"/>
+        <h4 class="text-lg font-semibold text-on-surface dark:text-dark-on-surface mt-8 mb-4">Add another service to log
+            in.</h4>
+        <hr class="border-outline dark:border-gray-600 mb-4"/>
         <form id="link-login-form" asp-page-handler="LinkLogin" method="post">
             <div id="socialLoginList" class="space-y-2">
                 @foreach (var provider in Model.OtherLogins)

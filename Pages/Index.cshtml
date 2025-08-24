@@ -6,13 +6,15 @@
 
 <div class="container mx-auto px-4 py-8">
     <div class="text-center mb-12">
-        <h1 class="text-4xl font-bold text-on-surface mb-4">Welcome to the Student Classwork Portal</h1>
-        <p class="text-lg text-on-surface-variant">Please log in to access your dashboard or browse the public resources
+        <h1 class="text-4xl font-bold text-on-surface dark:text-dark-on-surface mb-4">Welcome to the Student Classwork
+            Portal</h1>
+        <p class="text-lg text-on-surface-variant dark:text-gray-400">Please log in to access your dashboard or browse
+            the public resources
             below.</p>
     </div>
 
     <div>
-        <h2 class="text-3xl font-semibold text-on-surface mb-6">Public Resources</h2>
+        <h2 class="text-3xl font-semibold text-on-surface dark:text-dark-on-surface mb-6">Public Resources</h2>
         @if (Model.PublicResources.Any())
         {
             var groupedResources = Model.PublicResources.GroupBy(r => r.Class).OrderBy(g => g.Key);
@@ -25,10 +27,11 @@
                         <div class="space-y-4">
                             @foreach (var resource in classGroup.OrderBy(r => r.Chapter))
                             {
-                                <div class="bg-surface rounded-lg shadow-md p-6">
-                                    <h4 class="text-xl font-semibold text-on-surface">
+                                <div class="bg-surface rounded-lg shadow-md p-6 dark:bg-dark-surface">
+                                    <h4 class="text-xl font-semibold text-on-surface dark:text-dark-on-surface">
                                         Subject: @resource.AssignmentName</h4>
-                                    <p class="text-md text-on-surface-variant mb-4">Chapter: @resource.Chapter</p>
+                                    <p class="text-md text-on-surface-variant dark:text-gray-400 mb-4">
+                                        Chapter: @resource.Chapter</p>
                                     @if (resource.UserFiles.Any())
                                     {
                                         <ul class="list-disc list-inside space-y-2">
@@ -36,7 +39,7 @@
                                             {
                                                 <li>
                                                     <a asp-page="/Public/ViewResource" asp-route-fileId="@file.Id"
-                                                       class="text-primary hover:underline">
+                                                       class="text-primary hover:underline dark:text-primary-light">
                                                         @file.FileName
                                                     </a>
                                                 </li>
@@ -45,7 +48,8 @@
                                     }
                                     else
                                     {
-                                        <p class="text-sm text-on-surface-variant">No files in this folder yet.</p>
+                                        <p class="text-sm text-on-surface-variant dark:text-gray-400">No files in this
+                                            folder yet.</p>
                                     }
                                 </div>
                             }
@@ -56,7 +60,8 @@
         }
         else
         {
-            <p class="text-center text-on-surface-variant">No public resources are available at this time.</p>
+            <p class="text-center text-on-surface-variant dark:text-gray-400">No public resources are available at this
+                time.</p>
         }
     </div>
 </div>

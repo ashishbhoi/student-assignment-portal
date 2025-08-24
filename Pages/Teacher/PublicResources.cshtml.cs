@@ -56,6 +56,19 @@ public class PublicResourcesModel : PageModel
         return RedirectToPage();
     }
 
+    public async Task<IActionResult> OnPostDeleteAsync(int folderId)
+    {
+        var folder = await _context.VirtualFolders.FindAsync(folderId);
+
+        if (folder != null)
+        {
+            _context.VirtualFolders.Remove(folder);
+            await _context.SaveChangesAsync();
+        }
+
+        return RedirectToPage();
+    }
+
     public class InputModel
     {
         [Required] [Display(Name = "Subject")] public string Subject { get; set; } = string.Empty;

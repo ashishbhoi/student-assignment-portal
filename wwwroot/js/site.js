@@ -4,6 +4,15 @@
 
     // Write your JavaScript code.
 
+    // Immediately invoked function to set the theme on initial load
+    (function () {
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    })();
+
     window.StudentPortal = {
         openCreateFileModal: function (virtualFolderId) {
             document.getElementById('modalVirtualFolderId').value = virtualFolderId;
@@ -21,6 +30,11 @@
             for (const checkbox of checkboxes) {
                 checkbox.checked = source.checked;
             }
+        },
+
+        toggleTheme: function () {
+            const isDarkMode = document.documentElement.classList.toggle('dark');
+            localStorage.theme = isDarkMode ? 'dark' : 'light';
         }
     };
 
