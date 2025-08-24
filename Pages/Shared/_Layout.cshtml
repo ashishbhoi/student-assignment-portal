@@ -25,7 +25,7 @@
                    asp-page="/Teacher/PublicResources">Public
                     Resources</a>
             }
-            <button id="theme-toggle" type="button" onclick="StudentPortal.toggleTheme()"
+            <button id="theme-toggle" type="button"
                     class="text-on-surface dark:text-dark-on-surface hover:text-primary focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
                 <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                      xmlns="http://www.w3.org/2000/svg">
@@ -57,24 +57,6 @@
 <script src="~/lib/jquery.min.js"></script>
 <script src="~/lib/prism-core.min.js"></script>
 <script src="~/lib/prism-autoloader.min.js"></script>
-
-<script>
-    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-
-    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        themeToggleLightIcon.classList.remove('hidden');
-    } else {
-        themeToggleDarkIcon.classList.remove('hidden');
-    }
-
-    const themeToggleBtn = document.getElementById('theme-toggle');
-
-    themeToggleBtn.addEventListener('click', function () {
-        themeToggleDarkIcon.classList.toggle('hidden');
-        themeToggleLightIcon.classList.toggle('hidden');
-    });
-</script>
 
 @await RenderSectionAsync("Scripts", false)
 </body>
