@@ -16,10 +16,12 @@ namespace StudentClassworkPortal.Pages.Teacher;
 public class StudentManagementModel : PageModel
 {
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IConfiguration _configuration;
 
-    public StudentManagementModel(UserManager<ApplicationUser> userManager)
+    public StudentManagementModel(UserManager<ApplicationUser> userManager, IConfiguration configuration)
     {
         _userManager = userManager;
+        _configuration = configuration;
         StudentsByClass = new Dictionary<StudentClass, Dictionary<StudentSection, List<ApplicationUser>>>();
     }
 
@@ -103,10 +105,11 @@ public class StudentManagementModel : PageModel
                                 continue;
                             }
 
+                            var emailDomain = _configuration["AppSettings:StudentEmailDomain"] ?? "student.portal";
                             var user = new ApplicationUser
                             {
                                 UserName = record.Username,
-                                Email = record.Username + "@student.portal",
+                                Email = record.Username + "@" + emailDomain,
                                 Name = record.Name,
                                 Class = record.Class,
                                 Section = record.Section,
@@ -140,14 +143,14 @@ public class StudentManagementModel : PageModel
                     if (errorCount > 0)
                     {
                         TempData["ErrorMessage"] = $"Failed to import {errorCount} student(s).";
-                        TempData["ErrorDetails"] = string.Join("<br/>", errorMessages.Select(msg => WebUtility.HtmlEncode(msg)));
+                        TempData["ErrorDetails"] = string.Join("<br/>", errorMessages);
                     }
                 }
             }
             catch (Exception ex)
             {
                 TempData["ErrorMessage"] = "Failed to process the CSV file.";
-                TempData["ErrorDetails"] = WebUtility.HtmlEncode($"Error: {ex.Message}");
+                TempData["ErrorDetails"] = $"Error: {ex.Message}";
             }
         }
         else
