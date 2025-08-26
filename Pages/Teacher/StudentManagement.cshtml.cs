@@ -17,11 +17,13 @@ public class StudentManagementModel : PageModel
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IConfiguration _configuration;
+    private readonly ILogger<StudentManagementModel> _logger;
 
-    public StudentManagementModel(UserManager<ApplicationUser> userManager, IConfiguration configuration)
+    public StudentManagementModel(UserManager<ApplicationUser> userManager, IConfiguration configuration, ILogger<StudentManagementModel> logger)
     {
         _userManager = userManager;
         _configuration = configuration;
+        _logger = logger;
         StudentsByClass = new Dictionary<StudentClass, Dictionary<StudentSection, List<ApplicationUser>>>();
     }
 
@@ -129,9 +131,10 @@ public class StudentManagementModel : PageModel
                                 errorMessages.Add($"Error creating user '{WebUtility.HtmlEncode(record.Username)}': {userErrors}");
                             }
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
                             errorCount++;
+                            _logger.LogError(ex, "Error processing record for user '{Username}' during bulk import", record.Username);
                             errorMessages.Add($"Error processing record for '{WebUtility.HtmlEncode(record.Username)}'.");
                         }
                     }
@@ -143,14 +146,15 @@ public class StudentManagementModel : PageModel
                     if (errorCount > 0)
                     {
                         TempData["ErrorMessage"] = $"Failed to import {errorCount} student(s).";
-                        TempData["ErrorDetails"] = string.Join("<br/>", errorMessages);
+                        TempData["ErrorDetails"] = errorMessages.ToArray();
                     }
                 }
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Failed to process CSV file during bulk import");
                 TempData["ErrorMessage"] = "Failed to process the CSV file.";
-                TempData["ErrorDetails"] = $"Error: {ex.Message}";
+                TempData["ErrorDetails"] = new string[] { $"Error: {ex.Message}" };
             }
         }
         else
