@@ -54,14 +54,14 @@
                     <p class="text-sm font-medium">@TempData["ErrorMessage"]</p>
                     @if (TempData["ErrorDetails"] != null)
                     {
-                        <div class="mt-2 text-sm">
-                            <details class="cursor-pointer">
-                                <summary class="font-medium hover:underline">Show error details</summary>
-                                <div class="mt-2 pl-4 border-l-2 border-red-300 dark:border-red-600">
-                                    @Html.Raw(TempData["ErrorDetails"])
+                                <div class="mt-2 text-sm">
+                                    <details class="cursor-pointer">
+                                        <summary class="font-medium hover:underline">Show error details</summary>
+                                        <div class="mt-2 pl-4 border-l-2 border-red-300 dark:border-red-600">
+                                            @((string)TempData["ErrorDetails"]!)
+                                        </div>
+                                    </details>
                                 </div>
-                            </details>
-                        </div>
                     }
                 </div>
             </div>

@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Net;
 using System.Text;
 using CsvHelper;
 using CsvHelper.Configuration;
@@ -97,7 +98,7 @@ public class StudentManagementModel : PageModel
                             var existingUser = await _userManager.FindByNameAsync(record.Username);
                             if (existingUser != null)
                             {
-                                errorMessages.Add($"User '{record.Username}' already exists.");
+                                errorMessages.Add($"User '{WebUtility.HtmlEncode(record.Username)}' already exists.");
                                 errorCount++;
                                 continue;
                             }
@@ -105,7 +106,7 @@ public class StudentManagementModel : PageModel
                             var user = new ApplicationUser
                             {
                                 UserName = record.Username,
-                                Email = record.Username + "@example.com",
+                                Email = record.Username + "@student.portal",
                                 Name = record.Name,
                                 Class = record.Class,
                                 Section = record.Section,
@@ -122,13 +123,13 @@ public class StudentManagementModel : PageModel
                             {
                                 errorCount++;
                                 var userErrors = string.Join(", ", result.Errors.Select(e => e.Description));
-                                errorMessages.Add($"Error creating user '{record.Username}': {userErrors}");
+                                errorMessages.Add($"Error creating user '{WebUtility.HtmlEncode(record.Username)}': {userErrors}");
                             }
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
                             errorCount++;
-                            errorMessages.Add($"Error processing record for '{record.Username}': {ex.Message}");
+                            errorMessages.Add($"Error processing record for '{WebUtility.HtmlEncode(record.Username)}'.");
                         }
                     }
                     
@@ -139,14 +140,14 @@ public class StudentManagementModel : PageModel
                     if (errorCount > 0)
                     {
                         TempData["ErrorMessage"] = $"Failed to import {errorCount} student(s).";
-                        TempData["ErrorDetails"] = string.Join("<br/>", errorMessages);
+                        TempData["ErrorDetails"] = string.Join("<br/>", errorMessages.Select(msg => WebUtility.HtmlEncode(msg)));
                     }
                 }
             }
             catch (Exception ex)
             {
                 TempData["ErrorMessage"] = "Failed to process the CSV file.";
-                TempData["ErrorDetails"] = $"Error: {ex.Message}";
+                TempData["ErrorDetails"] = WebUtility.HtmlEncode($"Error: {ex.Message}");
             }
         }
         else
