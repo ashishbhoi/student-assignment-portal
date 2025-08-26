@@ -1,69 +1,61 @@
-# **Copilot Instructions: Student Classwork Portal**
+# Copilot Instructions: Student Classwork Portal
 
-## **1\. Your Role & Objective**
+This document provides instructions for AI coding agents to effectively contribute to the Student Classwork Portal project.
 
-You are an expert full-stack developer. Your task is to build a complete web application based on the detailed requirements outlined below. The primary goal is to create a secure and modern portal for students to submit classwork, which will be managed by a single teacher administrator.
+## 1. Project Overview & Architecture
 
-**Primary Technology Stack:**
+The Student Classwork Portal is a web application built with **.NET 9 and Razor Pages**. It allows students to submit assignments and a teacher to manage them.
 
-*   **Backend**: .NET 9
-*   **Frontend**: HTML, JavaScript
-*   **Styling**: Tailwind CSS (exclusively)
-*   **Deployment Target**: Windows IIS
+- **Backend**: .NET 9, ASP.NET Core, Entity Framework Core.
+- **Frontend**: Razor Pages (`.cshtml`), vanilla JavaScript. Frontend dependencies like jQuery and Prism.js are managed via `pnpm` and copied to `wwwroot/lib` to ensure the application is fully functional in an offline/LAN environment.
+- **Styling**: **Tailwind CSS** is used for styling, following **Material Design** principles.
+- **Database**: The application uses a SQLite database (`app.db`) managed via EF Core migrations. Data models are located in the `Models/` directory.
+- **Authentication**: Implemented using ASP.NET Core Identity with two roles: `Student` and `Teacher`. User-related data models are in `Areas/Identity/`.
 
-## **2\. Core Architecture & Setup**
+## 2. Key Files & Directories
 
-1.  **Project Initialization**:
-    *   Create a new .NET 9 Web Application project using Razor Pages.
-    *   Set up the project structure to be compatible with a Windows IIS deployment.
-2.  **Frontend Setup**:
-    *   Integrate Tailwind CSS into the project. Ensure the build process correctly purges unused CSS for production.
-    *   Adhere strictly to **Material Design** principles for all UI components. Use a modern color palette with a clear primary and accent color.
-    *   All pages and components **must be fully responsive**.
+- `StudentClassworkPortal.csproj`: Defines project dependencies, including .NET 9 and necessary packages.
+- `Program.cs`: The application entry point. Configures services, middleware, and authentication.
+- `Pages/`: Contains all Razor Pages for the application's UI. Business logic is contained within the PageModels (`.cshtml.cs` files).
+- `Data/ApplicationDbContext.cs`: The EF Core DbContext, defining the database schema.
+- `Models/`: Contains the core data models: `UserFile` (for student submissions) and `VirtualFolder` (for assignments).
+- `package.json`: Lists frontend dependencies (like Tailwind CSS and Prism.js) managed with `pnpm`.
+- `Styles/app.css`: The source file for Tailwind CSS, which is compiled to `wwwroot/css/app.css`.
+- `wwwroot/js/site.js`: Location for custom application-specific JavaScript.
 
-## **3\. Authentication and User Roles**
+## 3. Developer Workflows
 
-Implement an identity and authentication system with two distinct roles: Student and Teacher.
+### Backend Development
 
-1.  **Student Role**:
-    *   Build a public-facing registration page for new students. The registration form should capture the student's full name in a single field.
-    *   Implement a login page.
-    *   Create a "Change Password" feature accessible only to logged-in students.
-    *   Enforce authorization rules: A logged-in student can **only** view and manage their own data and files.
-2.  **Teacher Role (Administrator)**:
-    *   This is a single-user role. Do not build a registration page for the teacher. The teacher's account should be created via a database seed that reads from the application's configuration file (`appsettings.Development.json` for development).
-    *   Enforce authorization rules: The logged-in teacher has full access to view all student data and manage all submitted files.
+- **Install Dependencies**:
+  ```bash
+  dotnet restore
+  ```
+- **Running the application**: For development, use the watch command to automatically rebuild on changes.
+  ```bash
+  dotnet watch run
+  ```
+- **Database Migrations**: To update the database schema after changing models in `Models/` or `Data/`:
+  ```bash
+  dotnet ef migrations add <MigrationName>
+  dotnet ef database update
+  ```
 
-## **4\. Feature Implementation: Student Dashboard**
+### Frontend Development
 
-After a student logs in, they should be directed to a personal dashboard with the following capabilities:
+- **Install Dependencies**: Before working on the frontend, install Node.js dependencies using pnpm. This also runs a `postinstall` script to copy required assets into `wwwroot/lib`.
+  ```bash
+  pnpm install
+  ```
+- **Building CSS**: To compile Tailwind CSS, run the build script defined in `package.json`. This is necessary to see style changes.
+  ```bash
+  pnpm run css:build
+  ```
 
-1.  **File Creation**:
-    *   Implement an in-browser file creation tool. It should infer the file type from the extension in the filename (e.g., `MyCode.java`, `report.md`). If no extension is provided, it should default to `.txt`.
-2.  **File Upload**:
-    *   Create a file upload component. If a student uploads a file for an assignment that already has a submission, the new file should **replace** the old one.
-    *   Validate file types on upload to allow only: .java, .sql, .odt, .ods, .odp, .pdf, .txt, .md, .zip.
-3.  **File Management**:
-    *   Display a list of all files the student has created or uploaded for their assignments.
-    *   For each file, provide "View", "Download", and "Delete" buttons.
+## 4. Project-Specific Conventions
 
-## **5\. Feature Implementation: Teacher Dashboard**
-
-After the teacher logs in, they should be directed to an administrative dashboard with a clear, hierarchical structure.
-
-1.  **Dashboard Layout**:
-    *   The primary view should display the **four most recent assignments** chronologically for quick access.
-    *   Below the recent assignments, implement a browser where all assignments are **grouped by class and then by section**.
-2.  **Assignment Details & Reporting**:
-    *   Clicking on any assignment should navigate to a dedicated details page.
-    *   This page must display a clear **submission report** at the top: number of students who have submitted, number who have not, and the total number of students in the class.
-    *   Below the report, display a list of all students in the class, their submission status (Submitted / Not Submitted), and a link to view/download the file if it has been submitted.
-3.  **Assignment (Virtual Folder) Management**:
-    *   Implement functionality for the teacher to **CREATE**, **RENAME**, and **DELETE** virtual folders, which represent the assignments.
-
-## **6\. File Viewing & Syntax Highlighting**
-
-1.  **In-App File Viewer**:
-    *   When the teacher or a student clicks on a text-based file (.java, .sql, .txt, .md), display its content directly in the browser instead of forcing a download.
-2.  **Syntax Highlighting**:
-    *   Integrate **Prism.js** to provide syntax highlighting for `.java` and `.sql` files when viewed in the app. The library should be installed via `pnpm` and served locally.
+- **Teacher Account**: The administrator (`Teacher`) account is not created via a public registration page. It is seeded from the configuration file `appsettings.Development.json` on application startup. See `Data/SeedData.cs` for the implementation.
+- **File Handling**:
+  - Student file uploads for an assignment replace any previous submissions for that same assignment.
+  - File uploads are restricted to specific types: `.java, .sql, .odt, .ods, .odp, .pdf, .txt, .md, .zip`.
+- **Syntax Highlighting**: The application uses **Prism.js** for in-browser syntax highlighting of code files. The necessary assets are managed via `pnpm` and included in the frontend build process via the `postinstall` script in `package.json`.
