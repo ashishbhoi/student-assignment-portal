@@ -5,37 +5,40 @@
     ViewData["Title"] = "Student Management";
 }
 
-<div class="container mx-auto px-4 py-8">
+<div class="container mx-auto px-4 py-8 relative z-10">
 
     <a asp-page="./Dashboard"
-       class="text-primary hover:text-primary-dark dark:text-primary-light dark:hover:text-primary mb-4 inline-block">&larr;
-        Back to
-        Dashboard</a>
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-bold text-on-surface dark:text-dark-on-surface">@ViewData["Title"]</h1>
-        <div class="flex space-x-2">
+       class="text-sm font-bold text-on-surface/80 hover:text-accent dark:text-dark-on-surface/80 dark:hover:text-accent mb-6 inline-flex items-center transition-colors">
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        Back to Dashboard
+    </a>
+    
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+        <h1 class="text-3xl font-bold tracking-tight text-on-surface dark:text-dark-on-surface drop-shadow-sm">@ViewData["Title"]</h1>
+        <div class="flex space-x-3">
             <button type="button" id="bulkImportBtn"
-                    class="bg-secondary text-on-secondary font-bold py-2 px-4 rounded-md hover:bg-secondary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">
+                    class="inline-flex items-center justify-center rounded-lg text-sm font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none border border-white/30 bg-white/20 backdrop-blur-sm hover:bg-white/40 hover:scale-105 text-on-surface dark:border-white/10 dark:bg-black/20 dark:text-dark-on-surface dark:hover:bg-black/30 h-10 px-5 shadow-sm">
                 Bulk Import
             </button>
             <a asp-page="./CreateUser"
-               class="bg-primary text-on-primary font-bold py-2 px-4 rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">Create
-                Student</a>
+               class="inline-flex items-center justify-center rounded-lg text-sm font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-primary text-on-primary hover:bg-primary-hover hover:scale-105 dark:bg-white dark:text-black dark:hover:bg-gray-100 h-10 px-5 shadow-lg hover:shadow-primary/30 dark:hover:shadow-white/20">
+               Create Student
+            </a>
         </div>
     </div>
 
     <!-- Success/Error Messages -->
     @if (TempData["SuccessMessage"] != null)
     {
-        <div class="mb-6 p-4 bg-green-100 dark:bg-green-900/50 border border-green-400 dark:border-green-600 text-green-700 dark:text-green-300 rounded-md">
+        <div class="mb-6 p-4 rounded-lg border border-green-200/50 bg-green-50/50 backdrop-blur-sm text-green-800 dark:border-green-900/50 dark:bg-green-900/30 dark:text-green-300 shadow-sm">
             <div class="flex">
                 <div class="flex-shrink-0">
-                    <svg class="h-5 w-5 text-green-400 dark:text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <svg class="h-5 w-5 text-green-600 dark:text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                     </svg>
                 </div>
                 <div class="ml-3">
-                    <p class="text-sm font-medium">@TempData["SuccessMessage"]</p>
+                    <p class="text-sm font-bold">@TempData["SuccessMessage"]</p>
                 </div>
             </div>
         </div>
@@ -43,24 +46,24 @@
 
     @if (TempData["ErrorMessage"] != null)
     {
-        <div class="mb-6 p-4 bg-red-100 dark:bg-red-900/50 border border-red-400 dark:border-red-600 text-red-700 dark:text-red-300 rounded-md">
+        <div class="mb-6 p-4 rounded-lg border border-red-200/50 bg-red-50/50 backdrop-blur-sm text-red-800 dark:border-red-900/50 dark:bg-red-900/30 dark:text-red-300 shadow-sm">
             <div class="flex">
                 <div class="flex-shrink-0">
-                    <svg class="h-5 w-5 text-red-400 dark:text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <svg class="h-5 w-5 text-red-600 dark:text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
                     </svg>
                 </div>
                 <div class="ml-3">
-                    <p class="text-sm font-medium">@TempData["ErrorMessage"]</p>
+                    <p class="text-sm font-bold">@TempData["ErrorMessage"]</p>
                     @if (TempData["ErrorDetails"] != null)
                     {
                                 <div class="mt-2 text-sm">
-                                    <details class="cursor-pointer">
-                                        <summary class="font-medium hover:underline">Show error details</summary>
+                                    <details class="cursor-pointer group">
+                                        <summary class="font-medium hover:text-red-900 dark:hover:text-red-200 transition-colors">Show error details</summary>
                                         <div class="mt-2 pl-4 border-l-2 border-red-300 dark:border-red-600">
                                             @foreach (var error in (string[])TempData["ErrorDetails"]!)
                                             {
-                                                <p>@error</p>
+                                                <p class="py-0.5">@error</p>
                                             }
                                         </div>
                                     </details>
@@ -73,15 +76,15 @@
 
     @if (!ViewData.ModelState.IsValid)
     {
-        <div class="mb-6 p-4 bg-red-100 dark:bg-red-900/50 border border-red-400 dark:border-red-600 text-red-700 dark:text-red-300 rounded-md">
+        <div class="mb-6 p-4 rounded-lg border border-red-200/50 bg-red-50/50 backdrop-blur-sm text-red-800 dark:border-red-900/50 dark:bg-red-900/30 dark:text-red-300 shadow-sm">
             <div class="flex">
                 <div class="flex-shrink-0">
-                    <svg class="h-5 w-5 text-red-400 dark:text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <svg class="h-5 w-5 text-red-600 dark:text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
                     </svg>
                 </div>
                 <div class="ml-3">
-                    <div class="text-sm">
+                    <div class="text-sm font-bold">
                         @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
                         {
                             <p>@error.ErrorMessage</p>
@@ -93,83 +96,85 @@
     }
 
     <!-- Students by Class -->
-    <div class="mt-12">
-        <h2 class="text-2xl font-semibold text-on-surface dark:text-dark-on-surface mb-4">Browse Students by Class</h2>
+    <div class="mt-8">
+        <h2 class="text-xl font-bold text-on-surface dark:text-dark-on-surface mb-6 drop-shadow-sm">Browse Students by Class</h2>
         <form method="post">
-            <div class="bg-surface rounded-lg shadow-md dark:bg-dark-surface">
-                <div class="space-y-2 p-4">
+            <div class="border border-white/40 bg-white/40 dark:border-white/10 dark:bg-black/30 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg">
+                <div class="space-y-4 p-6">
                     @if (Model.StudentsByClass.Any())
                     {
-                        <div class="flex justify-end space-x-4 mb-4">
+                        <div class="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-4 mb-6">
                             <button type="submit" asp-page-handler="DeleteSelected"
-                                    class="bg-red-600 text-white font-bold py-2 px-4 rounded-md hover:bg-red-700">Delete
-                                Selected
+                                    class="inline-flex items-center justify-center rounded-lg text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-red-600 text-white hover:bg-red-700 h-9 px-4 py-2 shadow-md">
+                                Delete Selected
                             </button>
                             <button type="button" id="promoteSelectedBtn"
-                                    class="bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700">
+                                    class="inline-flex items-center justify-center rounded-lg text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-on-primary hover:bg-primary-hover dark:bg-primary-dark dark:text-dark-on-primary h-9 px-4 py-2 shadow-md">
                                 Promote Selected
                             </button>
                         </div>
 
                         @foreach (var classGroup in Model.StudentsByClass.OrderBy(cg => cg.Key.ToString()))
                         {
-                            <details class="group">
+                            <details class="group border border-white/30 dark:border-white/10 rounded-xl overflow-hidden mb-4 bg-white/20 dark:bg-white/5">
                                 <summary
-                                    class="flex items-center justify-between p-4 cursor-pointer bg-surface-container-high dark:bg-gray-800 rounded-lg hover:bg-surface-container-highest dark:hover:bg-gray-700">
-                                    <h3 class="text-lg font-medium text-on-surface dark:text-dark-on-surface">
+                                    class="flex items-center justify-between p-4 cursor-pointer hover:bg-white/30 dark:hover:bg-white/10 transition-colors select-none">
+                                    <h3 class="text-base font-bold text-on-surface dark:text-dark-on-surface">
                                         Class @classGroup.Key.ToString()</h3>
                                     <svg
-                                        class="w-5 h-5 text-on-surface-variant dark:text-gray-400 transform group-open:rotate-180 transition-transform"
+                                        class="w-5 h-5 text-on-surface/60 dark:text-dark-on-surface/60 transform group-open:rotate-180 transition-transform"
                                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                               d="M19 9l-7 7-7-7"/>
                                     </svg>
                                 </summary>
-                                <div class="px-4 pt-2 pb-4">
+                                <div class="px-4 pt-2 pb-6 bg-white/10 dark:bg-black/20">
                                     @foreach (var sectionGroup in classGroup.Value.OrderBy(sg => sg.Key.ToString()))
                                     {
-                                        <h4 class="text-md font-semibold text-on-surface-variant dark:text-gray-400 mt-4 mb-2">
+                                        <h4 class="text-xs font-bold text-on-surface/60 dark:text-dark-on-surface/60 mt-6 mb-3 uppercase tracking-widest pl-2">
                                             Section @sectionGroup.Key.ToString()</h4>
-                                        <table class="min-w-full bg-surface-container dark:bg-gray-700 rounded-md">
-                                            <thead>
-                                            <tr>
-                                                <th class="px-6 py-3 text-left text-xs font-medium text-on-surface-variant dark:text-gray-400 uppercase tracking-wider">
-                                                    <input type="checkbox"
-                                                           id="selectAll-@classGroup.Key-@sectionGroup.Key"
-                                                           data-group="@classGroup.Key-@sectionGroup.Key"
-                                                           class="select-all-checkbox"/>
-                                                </th>
-                                                <th class="px-6 py-3 text-left text-xs font-medium text-on-surface-variant dark:text-gray-400 uppercase tracking-wider">
-                                                    Name
-                                                </th>
-                                                <th class="px-6 py-3 text-left text-xs font-medium text-on-surface-variant dark:text-gray-400 uppercase tracking-wider">
-                                                    Username
-                                                </th>
-                                                <th class="px-6 py-3 text-left text-xs font-medium text-on-surface-variant dark:text-gray-400 uppercase tracking-wider">
-                                                    Actions
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody class="divide-y divide-outline dark:divide-gray-600">
-                                            @foreach (var student in sectionGroup.Value)
-                                            {
+                                        <div class="overflow-x-auto rounded-lg border border-white/20 dark:border-white/10">
+                                            <table class="min-w-full divide-y divide-white/20 dark:divide-white/10">
+                                                <thead class="bg-white/20 dark:bg-white/5">
                                                 <tr>
-                                                    <td class="px-6 py-4 whitespace-nowrap">
-                                                        <input type="checkbox" name="selectedStudents"
-                                                               value="@student.Id"
-                                                               class="student-checkbox-@classGroup.Key-@sectionGroup.Key"/>
-                                                    </td>
-                                                    <td class="px-6 py-4 whitespace-nowrap dark:text-dark-on-surface">@student.Name</td>
-                                                    <td class="px-6 py-4 whitespace-nowrap dark:text-dark-on-surface">@student.UserName</td>
-                                                    <td class="px-6 py-4 whitespace-nowrap">
-                                                        <a asp-page="./EditStudent" asp-route-id="@student.Id"
-                                                           class="text-primary hover:underline dark:text-primary-light">Edit</a>
-                                                    </td>
+                                                    <th class="px-6 py-3 text-left text-xs font-bold text-on-surface/70 dark:text-dark-on-surface/70 uppercase tracking-wider">
+                                                        <input type="checkbox"
+                                                               id="selectAll-@classGroup.Key-@sectionGroup.Key"
+                                                               data-group="@classGroup.Key-@sectionGroup.Key"
+                                                               class="rounded border-gray-300 text-primary focus:ring-primary dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 select-all-checkbox"/>
+                                                    </th>
+                                                    <th class="px-6 py-3 text-left text-xs font-bold text-on-surface/70 dark:text-dark-on-surface/70 uppercase tracking-wider">
+                                                        Name
+                                                    </th>
+                                                    <th class="px-6 py-3 text-left text-xs font-bold text-on-surface/70 dark:text-dark-on-surface/70 uppercase tracking-wider">
+                                                        Username
+                                                    </th>
+                                                    <th class="px-6 py-3 text-left text-xs font-bold text-on-surface/70 dark:text-dark-on-surface/70 uppercase tracking-wider">
+                                                        Actions
+                                                    </th>
                                                 </tr>
-                                            }
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody class="divide-y divide-white/10 dark:divide-white/5 bg-transparent">
+                                                @foreach (var student in sectionGroup.Value)
+                                                {
+                                                    <tr class="hover:bg-white/20 dark:hover:bg-white/5 transition-colors">
+                                                        <td class="px-6 py-4 whitespace-nowrap">
+                                                            <input type="checkbox" name="selectedStudents"
+                                                                   value="@student.Id"
+                                                                   class="rounded border-gray-300 text-primary focus:ring-primary dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 student-checkbox-@classGroup.Key-@sectionGroup.Key"/>
+                                                        </td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-on-surface dark:text-dark-on-surface">@student.Name</td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-on-surface/80 dark:text-dark-on-surface/80 font-mono">@student.UserName</td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                                            <a asp-page="./EditStudent" asp-route-id="@student.Id"
+                                                               class="font-bold text-accent hover:text-accent-hover dark:text-accent dark:hover:text-accent-hover transition-colors">Edit</a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     }
                                 </div>
                             </details>
@@ -177,8 +182,9 @@
                     }
                     else
                     {
-                        <p class="text-center text-on-surface-variant dark:text-gray-400 py-8">No students found to
-                            display by class.</p>
+                        <div class="text-center py-12">
+                             <p class="text-on-surface/60 dark:text-dark-on-surface/60 font-medium">No students found to display.</p>
+                        </div>
                     }
                 </div>
             </div>
@@ -186,64 +192,57 @@
     </div>
 
     <!-- Promotion Modal -->
-    <div id="promotionModal" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title"
+    <div id="promotionModal" class="fixed z-50 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title"
          role="dialog" aria-modal="true">
-        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div class="fixed inset-0 bg-black/30 backdrop-blur-sm transition-opacity" aria-hidden="true"></div>
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity" aria-hidden="true"></div>
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
             <div
-                class="inline-block align-bottom bg-surface dark:bg-dark-surface rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                class="inline-block align-bottom bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl rounded-2xl border border-white/20 dark:border-white/10 text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                 <form method="post" asp-page-handler="PromoteSelected">
-                    <div class="bg-surface dark:bg-dark-surface px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                        <div class="sm:flex sm:items-start">
-                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                <h3 class="text-lg leading-6 font-medium text-on-surface dark:text-dark-on-surface"
-                                    id="modal-title">Promote
-                                    Students</h3>
-                                <div class="mt-2">
-                                    <p class="text-sm text-on-surface-variant dark:text-gray-400">Select the new class
-                                        and section for the
-                                        selected students.</p>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                                        <div>
-                                            <label for="newClass"
-                                                   class="block text-sm font-medium text-on-surface-variant dark:text-gray-400 mb-1">New
-                                                Class</label>
-                                            <select name="newClass" id="newClass"
-                                                    class="w-full px-4 py-2 bg-surface-container-highest dark:bg-gray-600 border border-outline dark:border-gray-500 rounded-md focus:ring-primary focus:border-primary">
-                                                <option value="">Select Class</option>
-                                                @foreach (var classValue in Html.GetEnumSelectList<StudentClass>())
-                                                {
-                                                    <option value="@classValue.Value">@classValue.Text</option>
-                                                }
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <label for="newSection"
-                                                   class="block text-sm font-medium text-on-surface-variant dark:text-gray-400 mb-1">New
-                                                Section</label>
-                                            <select name="newSection" id="newSection"
-                                                    class="w-full px-4 py-2 bg-surface-container-highest dark:bg-gray-600 border border-outline dark:border-gray-500 rounded-md focus:ring-primary focus:border-primary">
-                                                <option value="">Select Section</option>
-                                                @foreach (var sectionValue in Html.GetEnumSelectList<StudentSection>())
-                                                {
-                                                    <option value="@sectionValue.Value">@sectionValue.Text</option>
-                                                }
-                                            </select>
-                                        </div>
-                                    </div>
+                    <div class="px-6 pt-6 pb-4">
+                        <h3 class="text-xl leading-6 font-bold text-on-surface dark:text-dark-on-surface mb-2"
+                            id="modal-title">Promote Students</h3>
+                        <div class="mt-2">
+                            <p class="text-sm text-on-surface/70 dark:text-dark-on-surface/70">Select the new class
+                                and section for the selected students.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                                <div>
+                                    <label for="newClass"
+                                           class="block text-xs font-bold text-on-surface/70 dark:text-dark-on-surface/70 uppercase tracking-wider mb-1">New
+                                        Class</label>
+                                    <select name="newClass" id="newClass"
+                                            class="w-full h-10 rounded-lg border border-white/30 bg-white/50 px-3 py-2 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:border-white/10 dark:bg-black/40 dark:text-dark-on-surface">
+                                        <option value="">Select Class</option>
+                                        @foreach (var classValue in Html.GetEnumSelectList<StudentClass>())
+                                        {
+                                            <option value="@classValue.Value">@classValue.Text</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="newSection"
+                                           class="block text-xs font-bold text-on-surface/70 dark:text-dark-on-surface/70 uppercase tracking-wider mb-1">New
+                                        Section</label>
+                                    <select name="newSection" id="newSection"
+                                            class="w-full h-10 rounded-lg border border-white/30 bg-white/50 px-3 py-2 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:border-white/10 dark:bg-black/40 dark:text-dark-on-surface">
+                                        <option value="">Select Section</option>
+                                        @foreach (var sectionValue in Html.GetEnumSelectList<StudentSection>())
+                                        {
+                                            <option value="@sectionValue.Value">@sectionValue.Text</option>
+                                        }
+                                    </select>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div
-                        class="bg-surface-container-high dark:bg-gray-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <div class="bg-gray-50/50 dark:bg-white/5 px-6 py-4 sm:flex sm:flex-row-reverse border-t border-white/10">
                         <button type="submit"
-                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary text-base font-medium text-white hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:ml-3 sm:w-auto sm:text-sm">
+                                class="w-full inline-flex justify-center rounded-lg border border-transparent shadow-sm px-4 py-2 bg-primary text-base font-bold text-white hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:ml-3 sm:w-auto sm:text-sm dark:bg-primary-dark dark:text-dark-on-primary">
                             Promote
                         </button>
                         <button type="button" id="cancelPromotionBtn"
-                                class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                                class="mt-3 w-full inline-flex justify-center rounded-lg border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-bold text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm dark:bg-transparent dark:text-white dark:border-white/20 dark:hover:bg-white/10">
                             Cancel
                         </button>
                     </div>
@@ -253,49 +252,45 @@
     </div>
 
     <!-- Bulk Import Modal -->
-    <div id="bulkImportModal" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title"
+    <div id="bulkImportModal" class="fixed z-50 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title"
          role="dialog" aria-modal="true">
-        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div class="fixed inset-0 bg-black/30 backdrop-blur-sm transition-opacity" aria-hidden="true"></div>
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity" aria-hidden="true"></div>
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
             <div
-                class="inline-block align-bottom bg-surface dark:bg-dark-surface rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                class="inline-block align-bottom bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl rounded-2xl border border-white/20 dark:border-white/10 text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                 <form method="post" asp-page-handler="BulkImport" enctype="multipart/form-data">
-                    <div class="bg-surface dark:bg-dark-surface px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="px-6 pt-6 pb-4">
                         <div class="sm:flex sm:items-start">
-                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                <h3 class="text-lg leading-6 font-medium text-on-surface dark:text-dark-on-surface"
-                                    id="bulk-modal-title">Bulk Import
-                                    Students</h3>
+                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                                <h3 class="text-xl leading-6 font-bold text-on-surface dark:text-dark-on-surface mb-2"
+                                    id="bulk-modal-title">Bulk Import Students</h3>
                                 <div class="mt-2">
-                                    <p class="text-sm text-on-surface-variant dark:text-gray-400">Upload a CSV file with
-                                        student data. The
-                                        file should have the following columns: Name, Username, Password,
+                                    <p class="text-sm text-on-surface/70 dark:text-dark-on-surface/70">Upload a CSV file with
+                                        student data. The file should have the following columns: Name, Username, Password,
                                         Class, Section.</p>
                                     <div class="mt-4">
                                         <a asp-page-handler="DownloadSampleCsv"
-                                           class="text-sm text-primary hover:underline dark:text-primary-light">Download
-                                            Sample CSV</a>
+                                           class="text-sm font-bold text-primary hover:text-primary-hover dark:text-white dark:hover:text-gray-200 underline decoration-dashed underline-offset-4 transition-colors">Download Sample CSV</a>
                                     </div>
-                                    <div class="mt-4">
+                                    <div class="mt-6">
                                         <label for="bulkImportFile"
-                                               class="block text-sm font-medium text-on-surface-variant dark:text-gray-400 mb-1">CSV
+                                               class="block text-xs font-bold text-on-surface/70 dark:text-dark-on-surface/70 uppercase tracking-wider mb-2">CSV
                                             File</label>
                                         <input type="file" name="bulkImportFile" id="bulkImportFile" accept=".csv"
-                                               class="w-full px-4 py-2 bg-surface-container-highest dark:bg-gray-600 border border-outline dark:border-gray-500 rounded-md focus:ring-primary focus:border-primary"/>
+                                               class="block w-full text-sm text-on-surface/80 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 cursor-pointer dark:text-dark-on-surface/80 dark:file:bg-white/10 dark:file:text-white dark:hover:file:bg-white/20 transition-colors border border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-2"/>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div
-                        class="bg-surface-container-high dark:bg-gray-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <div class="bg-gray-50/50 dark:bg-white/5 px-6 py-4 sm:flex sm:flex-row-reverse border-t border-white/10">
                         <button type="submit"
-                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary text-base font-medium text-white hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:ml-3 sm:w-auto sm:text-sm">
+                                class="w-full inline-flex justify-center rounded-lg border border-transparent shadow-sm px-4 py-2 bg-primary text-base font-bold text-white hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:ml-3 sm:w-auto sm:text-sm dark:bg-primary-dark dark:text-dark-on-primary">
                             Import
                         </button>
                         <button type="button" id="cancelBulkImportBtn"
-                                class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                                class="mt-3 w-full inline-flex justify-center rounded-lg border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-bold text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm dark:bg-transparent dark:text-white dark:border-white/20 dark:hover:bg-white/10">
                             Cancel
                         </button>
                     </div>

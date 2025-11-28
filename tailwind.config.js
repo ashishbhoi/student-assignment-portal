@@ -9,30 +9,36 @@ module.exports = {
     ],
     theme: {
         extend: {
+            fontFamily: {
+                sans: ['Inter', 'sans-serif'], // Ensure a clean font stack
+            },
             colors: {
-                primary: "#6200EE",
-                "primary-dark": "#4a00d1",
-                "primary-light": "#a055ff",
-                "primary-variant": "#3700B3",
-                secondary: "#03DAC6",
-                "secondary-variant": "#018786",
-                background: "#FFFFFF",
-                surface: "#FFFFFF",
-                error: "#B00020",
-                "on-primary": "#FFFFFF",
-                "on-secondary": "#000000",
-                "on-background": "#000000",
-                "on-surface": "#000000",
-                "on-error": "#FFFFFF",
+                primary: "#18181b", // Zinc 900 (Near Black) for high contrast primary actions in light mode
+                "primary-hover": "#27272a", // Zinc 800
+                "primary-dark": "#fafafa", // Zinc 50 (Near White) for dark mode primary
+                
+                accent: "#6366f1", // Indigo 500 - The subtle accent
+                "accent-hover": "#4f46e5", // Indigo 600
 
-                // Dark mode colors
-                "dark-background": "#121212",
-                "dark-surface": "#1E1E1E",
-                "dark-on-primary": "#FFFFFF",
-                "dark-on-secondary": "#000000",
-                "dark-on-background": "#FFFFFF",
-                "dark-on-surface": "#FFFFFF",
-                "dark-on-error": "#FFFFFF",
+                background: "#ffffff",
+                surface: "#fafafa", // Zinc 50
+                border: "#e4e4e7", // Zinc 200
+
+                error: "#ef4444", // Red 500
+                
+                "on-primary": "#ffffff", // Text on primary (Light mode)
+                "on-background": "#09090b", // Zinc 950
+                "on-surface": "#18181b", // Zinc 900
+                "on-surface-muted": "#71717a", // Zinc 500
+
+                // Dark mode specific overrides
+                "dark-background": "#09090b", // Zinc 950
+                "dark-surface": "#18181b", // Zinc 900
+                "dark-border": "#27272a", // Zinc 800
+                "dark-on-primary": "#09090b", // Text on primary (Dark mode - button is white)
+                "dark-on-background": "#fafafa", // Zinc 50
+                "dark-on-surface": "#f4f4f5", // Zinc 100
+                "dark-on-surface-muted": "#a1a1aa", // Zinc 400
             },
         },
     },

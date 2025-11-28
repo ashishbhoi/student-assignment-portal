@@ -284,3 +284,6 @@ app.db*
 /wwwroot/css/app.css
 /wwwroot/js/bundle.min.js
 /wwwroot/js/site.min.js
+
+# Gemini Namobanana generated files
+nanobanana-output/

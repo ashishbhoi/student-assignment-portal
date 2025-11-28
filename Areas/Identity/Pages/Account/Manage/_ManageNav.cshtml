@@ -2,37 +2,30 @@
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
-<div class="w-full bg-surface dark:bg-dark-surface rounded-lg shadow-md p-6">
-    <ul class="space-y-2">
-        <li>
-            <a class="block px-4 py-2 rounded-md font-medium @ManageNavPages.IndexNavClass(ViewContext) text-on-surface dark:text-dark-on-surface"
-               id="profile"
-               asp-page="./Index">Profile</a>
-        </li>
-        <li>
-            <a class="block px-4 py-2 rounded-md font-medium @ManageNavPages.EmailNavClass(ViewContext) text-on-surface dark:text-dark-on-surface"
-               id="email"
-               asp-page="./Email">Email</a>
-        </li>
-        <li>
-            <a class="block px-4 py-2 rounded-md font-medium @ManageNavPages.ChangePasswordNavClass(ViewContext) text-on-surface dark:text-dark-on-surface"
-               id="change-password" asp-page="./ChangePassword">Password</a>
-        </li>
+<div class="rounded-2xl border border-white/40 bg-white/40 backdrop-blur-xl shadow-xl p-4 dark:border-white/10 dark:bg-black/30">
+    <nav class="space-y-1">
+        <a class="block px-4 py-3 rounded-lg text-sm font-bold transition-all @(ManageNavPages.IndexNavClass(ViewContext) == "active" ? "bg-primary text-on-primary shadow-md dark:bg-primary-dark dark:text-dark-on-primary" : "text-on-surface/70 hover:bg-white/50 hover:text-on-surface dark:text-dark-on-surface/70 dark:hover:bg-white/10 dark:hover:text-white")"
+           id="profile"
+           asp-page="./Index">Profile</a>
+           
+        <a class="block px-4 py-3 rounded-lg text-sm font-bold transition-all @(ManageNavPages.EmailNavClass(ViewContext) == "active" ? "bg-primary text-on-primary shadow-md dark:bg-primary-dark dark:text-dark-on-primary" : "text-on-surface/70 hover:bg-white/50 hover:text-on-surface dark:text-dark-on-surface/70 dark:hover:bg-white/10 dark:hover:text-white")"
+           id="email"
+           asp-page="./Email">Email</a>
+           
+        <a class="block px-4 py-3 rounded-lg text-sm font-bold transition-all @(ManageNavPages.ChangePasswordNavClass(ViewContext) == "active" ? "bg-primary text-on-primary shadow-md dark:bg-primary-dark dark:text-dark-on-primary" : "text-on-surface/70 hover:bg-white/50 hover:text-on-surface dark:text-dark-on-surface/70 dark:hover:bg-white/10 dark:hover:text-white")"
+           id="change-password" asp-page="./ChangePassword">Password</a>
+
         @if (hasExternalLogins)
         {
-            <li id="external-logins">
-                <a id="external-login"
-                   class="block px-4 py-2 rounded-md font-medium @ManageNavPages.ExternalLoginsNavClass(ViewContext) text-on-surface dark:text-dark-on-surface"
-                   asp-page="./ExternalLogins">External logins</a>
-            </li>
+            <a id="external-login"
+               class="block px-4 py-3 rounded-lg text-sm font-bold transition-all @(ManageNavPages.ExternalLoginsNavClass(ViewContext) == "active" ? "bg-primary text-on-primary shadow-md dark:bg-primary-dark dark:text-dark-on-primary" : "text-on-surface/70 hover:bg-white/50 hover:text-on-surface dark:text-dark-on-surface/70 dark:hover:bg-white/10 dark:hover:text-white")"
+               asp-page="./ExternalLogins">External logins</a>
         }
-        <li>
-            <a class="block px-4 py-2 rounded-md font-medium @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext) text-on-surface dark:text-dark-on-surface"
-               id="two-factor" asp-page="./TwoFactorAuthentication">Two-factor authentication</a>
-        </li>
-        <li>
-            <a class="block px-4 py-2 rounded-md font-medium @ManageNavPages.PersonalDataNavClass(ViewContext) text-on-surface dark:text-dark-on-surface"
-               id="personal-data" asp-page="./PersonalData">Personal data</a>
-        </li>
-    </ul>
+        
+        <a class="block px-4 py-3 rounded-lg text-sm font-bold transition-all @(ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext) == "active" ? "bg-primary text-on-primary shadow-md dark:bg-primary-dark dark:text-dark-on-primary" : "text-on-surface/70 hover:bg-white/50 hover:text-on-surface dark:text-dark-on-surface/70 dark:hover:bg-white/10 dark:hover:text-white")"
+           id="two-factor" asp-page="./TwoFactorAuthentication">Two-factor authentication</a>
+           
+        <a class="block px-4 py-3 rounded-lg text-sm font-bold transition-all @(ManageNavPages.PersonalDataNavClass(ViewContext) == "active" ? "bg-primary text-on-primary shadow-md dark:bg-primary-dark dark:text-dark-on-primary" : "text-on-surface/70 hover:bg-white/50 hover:text-on-surface dark:text-dark-on-surface/70 dark:hover:bg-white/10 dark:hover:text-white")"
+           id="personal-data" asp-page="./PersonalData">Personal data</a>
+    </nav>
 </div>

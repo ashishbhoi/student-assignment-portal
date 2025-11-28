@@ -5,55 +5,53 @@
     ViewData["Title"] = "Log in";
 }
 
-<div class="flex justify-center items-center min-h-[calc(100vh-200px)]">
-    <div class="w-full max-w-md bg-surface dark:bg-dark-surface rounded-lg shadow-lg p-8">
-        <h1 class="text-3xl font-bold text-center text-on-surface dark:text-dark-on-surface mb-6">@ViewData["Title"]</h1>
+<div class="flex justify-center items-center min-h-[calc(100vh-200px)] relative z-10">
+    <div class="w-full max-w-md rounded-2xl border border-white/40 bg-white/40 p-8 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-black/30">
+        <h1 class="text-3xl font-bold text-center text-on-surface dark:text-dark-on-surface mb-8 drop-shadow-sm">@ViewData["Title"]</h1>
         <section>
             <form id="account" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-red-500 dark:text-red-400 text-sm mb-4"
+                <div asp-validation-summary="ModelOnly" class="text-red-500 dark:text-red-400 text-sm mb-4 font-medium"
                      role="alert"></div>
 
-                <div class="relative mb-6">
+                <div class="relative mb-8 group">
                     <input asp-for="Input.Username"
-                           class="block w-full px-4 py-3 text-on-surface dark:text-dark-on-surface bg-transparent border-b-2 border-gray-300 dark:border-gray-600 focus:border-primary focus:outline-none peer"
+                           class="block w-full px-4 py-3 text-on-surface dark:text-dark-on-surface bg-transparent border-b-2 border-on-surface/20 dark:border-white/20 focus:border-primary dark:focus:border-white focus:outline-none peer transition-colors"
                            autocomplete="username" aria-required="true" placeholder=" "/>
                     <label asp-for="Input.Username"
-                           class="absolute left-4 top-3 text-gray-500 dark:text-gray-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-primary peer-[:not(:placeholder-shown)]:-top-3.5 peer-[:not(:placeholder-shown)]:text-sm">Username</label>
+                           class="absolute left-4 top-3 text-on-surface/60 dark:text-dark-on-surface/60 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:-top-4 peer-focus:text-xs peer-focus:font-bold peer-focus:text-primary dark:peer-focus:text-white peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:font-bold">Username</label>
                     <span asp-validation-for="Input.Username"
-                          class="text-red-500 dark:text-red-400 text-xs mt-1"></span>
+                          class="text-red-500 dark:text-red-400 text-xs mt-1 font-medium"></span>
                 </div>
 
-                <div class="relative mb-6">
+                <div class="relative mb-8 group">
                     <input asp-for="Input.Password" type="password"
-                           class="block w-full px-4 py-3 text-on-surface dark:text-dark-on-surface bg-transparent border-b-2 border-gray-300 dark:border-gray-600 focus:border-primary focus:outline-none peer"
+                           class="block w-full px-4 py-3 text-on-surface dark:text-dark-on-surface bg-transparent border-b-2 border-on-surface/20 dark:border-white/20 focus:border-primary dark:focus:border-white focus:outline-none peer transition-colors"
                            autocomplete="current-password" aria-required="true" placeholder=" "/>
                     <label asp-for="Input.Password"
-                           class="absolute left-4 top-3 text-gray-500 dark:text-gray-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-primary peer-[:not(:placeholder-shown)]:-top-3.5 peer-[:not(:placeholder-shown)]:text-sm">Password</label>
+                           class="absolute left-4 top-3 text-on-surface/60 dark:text-dark-on-surface/60 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:-top-4 peer-focus:text-xs peer-focus:font-bold peer-focus:text-primary dark:peer-focus:text-white peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:font-bold">Password</label>
                     <span asp-validation-for="Input.Password"
-                          class="text-red-500 dark:text-red-400 text-xs mt-1"></span>
+                          class="text-red-500 dark:text-red-400 text-xs mt-1 font-medium"></span>
                 </div>
 
-                <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center justify-between mb-8">
                     <div class="flex items-center">
                         <input asp-for="Input.RememberMe"
-                               class="h-4 w-4 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded"/>
-                        <label asp-for="Input.RememberMe" class="ml-2 block text-sm text-gray-500 dark:text-gray-400">
+                               class="h-4 w-4 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded bg-white/50 dark:bg-black/50"/>
+                        <label asp-for="Input.RememberMe" class="ml-2 block text-sm font-medium text-on-surface/70 dark:text-dark-on-surface/70">
                             @Html.DisplayNameFor(m => m.Input.RememberMe)
                         </label>
                     </div>
                     <a id="forgot-password" asp-page="./ForgotPassword"
-                       class="text-sm text-primary hover:underline dark:text-primary-light">Forgot
-                        your password?</a>
+                       class="text-sm font-bold text-primary hover:underline dark:text-white transition-colors">Forgot
+                        password?</a>
                 </div>
 
                 <div>
                     <button id="login-submit" type="submit"
-                            class="w-full bg-primary text-on-primary font-bold py-3 px-4 rounded-lg hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light transition-all duration-300 ease-in-out shadow-md hover:shadow-lg">
+                            class="w-full bg-primary text-on-primary font-bold py-3 px-4 rounded-xl hover:bg-primary-hover hover:scale-[1.02] active:scale-95 dark:bg-white dark:text-black dark:hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-white transition-all duration-300 ease-in-out shadow-lg hover:shadow-primary/40 dark:hover:shadow-white/30">
                         Log in
                     </button>
                 </div>
-
-
             </form>
         </section>
     </div>

@@ -4,60 +4,67 @@
     ViewData["Title"] = "Manage Public Files";
 }
 
-<div class="container mx-auto px-4 py-8">
+<div class="container mx-auto px-4 py-8 relative z-10">
     <a asp-page="./PublicResources"
-       class="text-primary hover:text-primary-dark dark:text-primary-light dark:hover:text-primary mb-4 inline-block">&larr;
-        Back to Public
-        Resources</a>
-    <h1 class="text-3xl font-bold text-on-surface dark:text-dark-on-surface mb-2">@ViewData["Title"]</h1>
-    <h2 class="text-xl text-on-surface-variant dark:text-gray-400 mb-6">Subject: @Model.Folder.AssignmentName</h2>
+       class="text-sm font-bold text-on-surface/80 hover:text-accent dark:text-dark-on-surface/80 dark:hover:text-accent mb-6 inline-flex items-center transition-colors">
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        Back to Public Resources
+    </a>
+    
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-on-surface dark:text-dark-on-surface mb-2 drop-shadow-sm">@ViewData["Title"]</h1>
+        <p class="text-lg text-on-surface/60 dark:text-dark-on-surface/60 font-medium">Subject: <span class="text-on-surface dark:text-dark-on-surface">@Model.Folder.AssignmentName</span></p>
+    </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
         <div>
-            <h3 class="text-2xl font-semibold text-on-surface dark:text-dark-on-surface mb-4">Upload New File</h3>
-            <div class="bg-surface dark:bg-dark-surface rounded-lg shadow-md p-6">
-                <form method="post" enctype="multipart/form-data">
+            <h3 class="text-xl font-bold text-on-surface dark:text-dark-on-surface mb-4 drop-shadow-sm">Upload New File</h3>
+            <div class="rounded-2xl border border-white/40 bg-white/40 backdrop-blur-xl shadow-xl p-8 dark:border-white/10 dark:bg-black/30">
+                <form method="post" enctype="multipart/form-data" class="space-y-6">
                     <input type="hidden" name="folderId" value="@Model.Folder.Id"/>
-                    <div class="mb-4">
+                    
+                    <div class="group">
                         <label for="newFileName"
-                               class="block text-sm font-medium text-on-surface-variant dark:text-gray-400 mb-1">File
-                            Name</label>
+                               class="block text-xs font-bold text-on-surface/70 dark:text-dark-on-surface/70 uppercase tracking-wider mb-1">File Name</label>
                         <input type="text" name="newFileName"
-                               class="w-full px-4 py-2 bg-surface-container-highest dark:bg-gray-600 border border-outline dark:border-gray-500 rounded-md focus:ring-primary focus:border-primary"
+                               class="block w-full px-0 py-2 bg-transparent border-b-2 border-on-surface/20 focus:border-primary focus:ring-0 dark:border-white/20 dark:focus:border-white transition-colors placeholder-transparent text-on-surface dark:text-dark-on-surface font-medium"
                                placeholder="Enter a name for the file" required/>
                     </div>
-                    <div class="mb-4">
+
+                    <div class="group">
                         <label for="fileUpload"
-                               class="block text-sm font-medium text-on-surface-variant dark:text-gray-400 mb-1">Select
-                            File</label>
+                               class="block text-xs font-bold text-on-surface/70 dark:text-dark-on-surface/70 uppercase tracking-wider mb-2">Select File</label>
                         <input type="file" name="fileUpload"
-                               class="block w-full text-sm text-on-surface-variant dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-container file:text-on-primary-container hover:file:bg-primary"
+                               class="block w-full text-sm text-on-surface/80 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 cursor-pointer dark:text-dark-on-surface/80 dark:file:bg-white/10 dark:file:text-white dark:hover:file:bg-white/20 transition-colors border border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-2"
                                required/>
                     </div>
-                    <button type="submit"
-                            class="w-full bg-primary text-on-primary font-bold py-2 px-4 rounded-md hover:bg-primary-dark">
-                        Upload
-                    </button>
+
+                    <div class="pt-4">
+                        <button type="submit"
+                                class="w-full bg-primary text-on-primary font-bold py-3 px-4 rounded-xl hover:bg-primary-hover hover:scale-[1.02] active:scale-95 transition-all duration-300 shadow-lg hover:shadow-primary/30 dark:bg-primary-dark dark:text-dark-on-primary dark:hover:shadow-white/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                            Upload File
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
 
         <div>
-            <h3 class="text-2xl font-semibold text-on-surface dark:text-dark-on-surface mb-4">Uploaded Files</h3>
-            <div class="bg-surface dark:bg-dark-surface rounded-lg shadow-md p-6">
+            <h3 class="text-xl font-bold text-on-surface dark:text-dark-on-surface mb-4 drop-shadow-sm">Uploaded Files</h3>
+            <div class="rounded-2xl border border-white/40 bg-white/40 backdrop-blur-xl shadow-xl p-6 dark:border-white/10 dark:bg-black/30 min-h-[200px]">
                 @if (Model.Folder.UserFiles.Any())
                 {
                     <ul class="space-y-3">
                         @foreach (var file in Model.Folder.UserFiles)
                         {
-                            <li class="bg-surface-container-high dark:bg-gray-800 p-3 rounded-md flex justify-between items-center">
-                                <span class="text-on-surface-variant dark:text-gray-400">@file.FileName</span>
+                            <li class="group bg-white/60 dark:bg-white/5 p-4 rounded-xl border border-white/50 dark:border-white/10 shadow-sm transition-all hover:shadow-md flex justify-between items-center">
+                                <span class="text-on-surface dark:text-dark-on-surface font-medium">@file.FileName</span>
                                 <form method="post" asp-page-handler="DeleteFile"
                                       class="delete-public-file-form">
                                     <input type="hidden" name="fileId" value="@file.Id"/>
                                     <input type="hidden" name="folderId" value="@Model.Folder.Id"/>
-                                    <button type="submit" class="text-sm text-error hover:text-error-dark font-medium">
-                                        Delete
+                                    <button type="submit" class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/50 dark:bg-black/20 text-error hover:text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/20 transition-all" title="Delete">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                     </button>
                                 </form>
                             </li>
@@ -66,8 +73,9 @@
                 }
                 else
                 {
-                    <p class="text-on-surface-variant dark:text-gray-400">No files have been uploaded to this folder
-                        yet.</p>
+                    <div class="flex flex-col items-center justify-center h-full py-8 text-center">
+                        <p class="text-on-surface/60 dark:text-dark-on-surface/60 font-medium">No files uploaded yet.</p>
+                    </div>
                 }
             </div>
         </div>

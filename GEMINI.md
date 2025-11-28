@@ -1,74 +1,99 @@
 # GEMINI Project Context: Student Classwork Portal
 
-## Project Overview
+## 1. Project Overview
 
-This is a full-stack web application, the "Student Classwork Portal," built with .NET 9 and ASP.NET Core Razor Pages. It
-serves as a platform for a teacher to manage assignments and for students to submit their work. The application uses
-Entity Framework Core with a SQLite database for data persistence and ASP.NET Core Identity for authentication and
-role-based access control (Teachers and Students).
+The Student Classwork Portal is a centralized web application designed for educational environments. It allows students to submit classwork and teachers to manage assignments and review submissions. The application is built to be fully self-contained (offline-first), secure, and deployable on Windows IIS.
 
-The frontend is styled using Tailwind CSS. All frontend JavaScript libraries (jQuery, PrismJS, etc.) are managed via
-`pnpm` and copied to the `wwwroot/lib` directory to ensure the application is fully functional in an offline/LAN
-environment.
+## 2. Architecture & Tech Stack
 
-Key functionalities include user management (including bulk student import), assignment creation, resource sharing, and
-submission tracking.
+- **Backend Framework**: .NET 9, ASP.NET Core Razor Pages.
+- **Database**: Entity Framework Core with SQLite (`app.db`).
+- **Authentication**: ASP.NET Core Identity with two distinct roles: `Student` and `Teacher`.
+- **Frontend**:
+  - **Styling**: Tailwind CSS (adhering to **Liquid Glass Design** principles: glassmorphism, gradients, translucency).
+  - **Scripting**: Vanilla JavaScript, jQuery.
+  - **Dependencies**: Managed via `pnpm` and served locally from `wwwroot/lib` (including jQuery, Prism.js, etc.) to ensure full offline functionality.
+- **Deployment Target**: Windows Server IIS (requires .NET 9 Hosting Bundle, "No Managed Code" App Pool).
 
-## Building and Running
+## 3. Key Files & Directories
+
+- `Program.cs`: Application entry point; configures services, middleware, and authentication.
+- `Data/ApplicationDbContext.cs`: The EF Core DbContext defining the database schema.
+- `Data/SeedData.cs`: Logic for seeding the initial Teacher account.
+- `Models/`: Core domain models, primarily:
+  - `UserFile`: Represents a file submitted by a student.
+  - `VirtualFolder`: Represents an assignment or category.
+- `Areas/Identity/`: Identity-related pages (Login, Register, Manage) and models (`ApplicationUser`).
+- `Pages/`: Razor Pages (`.cshtml`) and their PageModels (`.cshtml.cs`) containing UI and business logic.
+- `wwwroot/`: Static assets.
+  - `lib/`: Vendor scripts/styles copied by the `postinstall` script.
+  - `js/site.js`: Custom application logic.
+- `Styles/app.css`: Source Tailwind CSS file.
+- `package.json`: Defines frontend dependencies and scripts (build, watch, postinstall).
+- `appsettings.json` / `appsettings.Development.json`: Configuration files (Teacher credentials, connection strings).
+
+## 4. User Roles & Permissions
+
+### Teacher (Administrator)
+- **Account Creation**: Seeded from `appsettings.json` on startup. No public registration exists for teachers.
+- **Permissions**:
+  - **User Management**: Create, edit, and delete student accounts; bulk import students from CSV.
+  - **Assignment Management**: Create, rename, and delete "Virtual Folders" (assignments).
+  - **Submission Review**: View and download all files submitted by any student.
+  - **Reporting**: View real-time submission reports (submitted vs. pending).
+  - **Resources**: Upload and share public resources accessible to all students.
+
+### Student
+- **Account Creation**: Self-registration via a public page (if enabled) or created by the teacher. Can update their own password.
+- **Permissions**:
+  - **File Management**: Create files (in-browser), upload files, download, and delete their *own* submissions.
+  - **Dashboard**: View active assignments for their specific class/section.
+  - **Privacy**: **Cannot** view files submitted by other students.
+
+## 5. Functional Requirements & Conventions
+
+- **File Support**:
+  - **Code**: `.java`, `.sql`, `.py`, `.cs`, `.html`, `.js`, `.css`, `.c`, `.cpp`, `.xml`, `.json` (rendered with syntax highlighting via Prism.js).
+  - **Documents**: `.odt`, `.ods`, `.odp`, `.pdf`.
+  - **Text**: `.txt`, `.md`.
+  - **Archives**: `.zip`.
+- **File Handling Rules**:
+  - Uploading a file for a specific assignment **replaces** any previous submission for that assignment.
+  - Creating a file without an extension defaults to `.txt`.
+- **Design System**:
+  - **Liquid Glass**: Use transparency, background blur, and vibrant multi-color gradients (e.g., Indigo-Purple-Teal mesh).
+  - **Responsiveness**: Must be fully functional on mobile and desktop.
+- **Offline Constraint**: All frontend assets must be local. No external CDNs are allowed.
+
+## 6. Development Workflow
 
 ### Prerequisites
-
 - .NET 9 SDK
 - Node.js
 - pnpm
 
-### Commands
+### Setup & Commands
+1.  **Install Dependencies**:
+    ```bash
+    pnpm install  # Installs JS deps & runs postinstall to copy assets to wwwroot/lib
+    dotnet restore # Restores .NET packages
+    ```
+2.  **Build CSS**:
+    ```bash
+    pnpm run css:build # Compiles Tailwind CSS
+    ```
+3.  **Database Operations**:
+    ```bash
+    dotnet ef migrations add <MigrationName> # Create a new migration
+    dotnet ef database update                # Apply migrations to app.db
+    ```
+4.  **Running the Application**:
+    - **Verification**: Use `dotnet build` to verify compilation in the CLI.
+    - **Development Server**: Use `dotnet watch run` in a separate terminal for hot reloading.
+    - **Caution**: Do not run `dotnet run` (which blocks) directly in the agent's shell tools unless in background or strictly necessary.
 
-1. **Install Dependencies:**
-   This command installs both backend (.NET) and frontend (Node.js) dependencies. It will also automatically trigger
-   a `postinstall` script that copies the necessary frontend library files from `node_modules` into the `wwwroot/lib`
-   directory.
+## 7. Deployment (IIS)
 
-   ```sh
-   pnpm install
-   dotnet restore
-   ```
-
-2. **Build CSS:**
-   This command compiles the Tailwind CSS.
-
-   ```sh
-   pnpm run css:build
-   ```
-
-3. **Apply Database Migrations:**
-   This will create and update the `app.db` SQLite database file.
-
-   ```sh
-   dotnet ef database update
-   ```
-
-4. **Build and Run the Application:**
-
-   ```sh
-   dotnet build
-   dotnet run
-   ```
-
-   Note that the `dotnet run` command will occupy the terminal until the application is stopped. Do not run it directly
-   inside the Gemini CLI. Instead, run `dotnet build` to ensure the project compiles successfully.
-
-## Development Conventions
-
-- **Backend**: The application follows the standard ASP.NET Core Razor Pages structure. Business logic is contained
-  within the PageModels (`.cshtml.cs` files). Data models are defined in the `Models` and `Areas/Identity/Data`
-  directories.
-- **Database**: Database schema changes are managed through Entity Framework Core migrations. The
-  `Data/ApplicationDbContext.cs` file is the primary point of configuration for the database context.
-- **Frontend**: All styling is done via Tailwind CSS. The main stylesheet is `Styles/app.css`, which is compiled to
-  `wwwroot/css/app.css`. All third-party JavaScript libraries are managed via `pnpm` and served locally from the
-  `wwwroot/lib` directory. Custom application scripts are located in `wwwroot/js/site.js`.
-- **Configuration**: Application settings are managed in `appsettings.json`. For development, sensitive information and
-  the initial teacher credentials are managed in `appsettings.Development.json`.
-- **User Roles**: The application uses a two-role system: "Teacher" (administrator) and "Student". The teacher account
-  is seeded on the first run, and the teacher can then create student accounts.
+1.  **Environment**: Windows Server with IIS and .NET 9 Hosting Bundle installed.
+2.  **App Pool**: Create a pool with **.NET CLR version** set to **No Managed Code**.
+3.  **Configuration**: before the first run on the server, update `appsettings.json` with the desired `TeacherUsername` and `TeacherPassword` to seed the admin account.
