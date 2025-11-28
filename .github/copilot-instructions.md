@@ -8,7 +8,7 @@ The Student Classwork Portal is a web application built with **.NET 9 and Razor 
 
 - **Backend**: .NET 9, ASP.NET Core, Entity Framework Core.
 - **Frontend**: Razor Pages (`.cshtml`), vanilla JavaScript. Frontend dependencies like jQuery and Prism.js are managed via `pnpm` and copied to `wwwroot/lib` to ensure the application is fully functional in an offline/LAN environment.
-- **Styling**: **Tailwind CSS** is used for styling, following **Material Design** principles.
+- **Styling**: **Tailwind CSS** is used for styling, following **Liquid Glass Design** principles (glassmorphism, gradients, translucency).
 - **Database**: The application uses a SQLite database (`app.db`) managed via EF Core migrations. Data models are located in the `Models/` directory.
 - **Authentication**: Implemented using ASP.NET Core Identity with two roles: `Student` and `Teacher`. User-related data models are in `Areas/Identity/`.
 
@@ -59,3 +59,60 @@ The Student Classwork Portal is a web application built with **.NET 9 and Razor 
   - Student file uploads for an assignment replace any previous submissions for that same assignment.
   - File uploads are restricted to specific types: `.java, .sql, .odt, .ods, .odp, .pdf, .txt, .md, .zip`.
 - **Syntax Highlighting**: The application uses **Prism.js** for in-browser syntax highlighting of code files. The necessary assets are managed via `pnpm` and included in the frontend build process via the `postinstall` script in `package.json`.
+
+## 5. Git Commit Message Convention
+
+When asked to generate a git commit message, provide a **single-line commit message** with an emoji prefix indicating the change type:
+
+- ✨ `feat:` - New feature
+- 🐛 `fix:` - Bug fix
+- 📝 `docs:` - Documentation
+- 💄 `style:` - UI/style changes
+- ♻️ `refactor:` - Refactor
+- 🔧 `chore:` - Configuration changes
+- ⬆️ `deps:` - Dependency updates
+- 🗃️ `db:` - Database/migration changes
+- 🔒 `security:` - Security fixes
+- 🧹 `cleanup:` - Cleanup/chores
+
+**Example**: `✨ feat: Add file upload validation for assignments`
+
+## 6. GitHub Pull Request Convention
+
+When asked to generate a GitHub PR title and description, follow this format:
+
+### PR Title
+
+Use a descriptive title with an emoji prefix matching the change type (same as commit conventions):
+
+**Example**: `✨ feat: Add student dashboard with assignment overview`
+
+### PR Description
+
+Use this template with emojis to make it engaging and easy to read:
+
+```markdown
+## 🎯 What does this PR do?
+
+A brief summary of the changes and their purpose.
+
+## 🔄 Changes Made
+
+- ✅ Change 1
+- ✅ Change 2
+- ✅ Change 3
+
+## 🧪 How to Test
+
+1. Step one
+2. Step two
+3. Step three
+
+## 📸 Screenshots (if applicable)
+
+Add screenshots or GIFs demonstrating UI changes.
+
+## 📝 Additional Notes
+
+Any extra context, breaking changes, or follow-up tasks.
+```
