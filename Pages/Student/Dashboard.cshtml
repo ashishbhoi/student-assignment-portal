@@ -4,125 +4,135 @@
     ViewData["Title"] = "Student Dashboard";
 }
 
-<div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold text-on-surface dark:text-dark-on-surface mb-6">@ViewData["Title"]</h1>
+<div class="space-y-8 relative z-10">
+    <div class="flex items-center justify-between">
+        <h1 class="text-3xl font-bold tracking-tight text-on-surface dark:text-dark-on-surface drop-shadow-sm">My Assignments</h1>
+    </div>
 
     @if (!string.IsNullOrEmpty(Model.ErrorMessage))
     {
-        <div class="bg-error-container text-on-error-container px-4 py-3 rounded-lg relative mb-6" role="alert">
-            <span class="block sm:inline">@Model.ErrorMessage</span>
+        <div class="rounded-lg border border-error/20 bg-error/10 backdrop-blur-sm p-4 text-sm text-error font-medium" role="alert">
+            @Model.ErrorMessage
         </div>
     }
 
-    <div class="bg-surface rounded-lg shadow-md p-6 dark:bg-dark-surface">
-        <h2 class="text-2xl font-semibold mb-4 text-on-surface dark:text-dark-on-surface">Assignments</h2>
-        <div class="space-y-6">
-            @if (Model.AvailableAssignments.Any())
-            {
+    <section>
+        @if (Model.AvailableAssignments.Any())
+        {
+            <div class="grid gap-6">
                 @foreach (var assignment in Model.AvailableAssignments)
                 {
                     var submission = Model.UserFiles.FirstOrDefault(f => f.VirtualFolderId == assignment.Id);
 
-                    <div class="bg-surface-container-high p-4 rounded-lg dark:bg-gray-800">
-                        <div class="flex flex-col md:flex-row justify-between md:items-center">
+                    <div class="relative overflow-hidden rounded-2xl border border-white/40 bg-white/40 p-6 transition-all shadow-lg backdrop-blur-md hover:border-white/60 hover:shadow-xl dark:border-white/10 dark:bg-black/30 dark:hover:border-white/20 dark:hover:bg-black/40">
+                        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                             <div>
                                 <h3 class="text-xl font-bold text-on-surface dark:text-dark-on-surface">@assignment.AssignmentName</h3>
-                                <p class="text-sm text-on-surface-variant dark:text-gray-400">
-                                    Chapter @assignment.Chapter - @assignment.Topic</p>
+                                <p class="text-sm font-medium text-on-surface/60 dark:text-dark-on-surface/60 mt-1">
+                                    Chapter @assignment.Chapter - @assignment.Topic
+                                </p>
                             </div>
-                            <div class="mt-4 md:mt-0">
+                            
+                            <div class="flex items-center gap-3">
                                 @if (submission != null)
                                 {
-                                    <div class="flex items-center space-x-4">
-                                        <p class="text-sm text-green-600 dark:text-green-400 font-medium">
-                                            Submitted: @submission.FileName</p>
+                                    <span class="inline-flex items-center rounded-full border border-green-200/50 bg-green-50/50 backdrop-blur-sm px-3 py-1 text-xs font-bold text-green-700 shadow-sm dark:border-green-900/50 dark:bg-green-900/30 dark:text-green-400">
+                                        Submitted
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="inline-flex items-center rounded-full border border-yellow-200/50 bg-yellow-50/50 backdrop-blur-sm px-3 py-1 text-xs font-bold text-yellow-700 shadow-sm dark:border-yellow-900/50 dark:bg-yellow-900/30 dark:text-yellow-400">
+                                        Pending
+                                    </span>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-6 border-t border-white/20 dark:border-white/5">
+                            @if (submission != null)
+                            {
+                                <div class="flex items-center justify-between mb-6 bg-white/30 dark:bg-white/5 p-3 rounded-lg border border-white/20 dark:border-white/5">
+                                    <div class="flex items-center gap-2 overflow-hidden">
+                                        <svg class="w-5 h-5 text-on-surface/60 dark:text-dark-on-surface/60 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 011.414.414l5 5a1 1 0 01.414 1.414V19a2 2 0 01-2 2z"></path></svg>
+                                        <span class="text-sm font-bold text-on-surface dark:text-dark-on-surface truncate">@submission.FileName</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 flex-shrink-0 pl-4">
                                         <a asp-page="/FileViewer/Index" asp-route-id="@submission.Id"
-                                           class="text-primary hover:underline dark:text-primary-light">View</a>
+                                           class="text-xs font-bold text-on-surface/70 hover:text-accent dark:text-dark-on-surface/70 dark:hover:text-accent transition-colors uppercase tracking-wider">View</a>
                                         <a asp-page-handler="DownloadFile" asp-route-fileId="@submission.Id"
-                                           class="text-primary hover:underline dark:text-primary-light">Download</a>
-                                        <form method="post" asp-page-handler="DeleteFile"
-                                              class="inline delete-file-form">
+                                           class="text-xs font-bold text-on-surface/70 hover:text-accent dark:text-dark-on-surface/70 dark:hover:text-accent transition-colors uppercase tracking-wider">Download</a>
+                                        <form method="post" asp-page-handler="DeleteFile" class="inline delete-file-form">
                                             <input type="hidden" name="fileId" value="@submission.Id"/>
-                                            <button type="submit" class="text-sm text-error hover:text-error-dark">
+                                            <button type="submit" class="text-xs font-bold text-error hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 transition-colors uppercase tracking-wider">
                                                 Delete
                                             </button>
                                         </form>
                                     </div>
-                                }
-                                else
-                                {
-                                    <p class="text-sm text-yellow-600 dark:text-yellow-400 font-medium">Not
-                                        Submitted</p>
-                                }
-                            </div>
-                        </div>
-                        <div class="mt-4 pt-4 border-t border-outline dark:border-gray-600">
-                            <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-4">
-                                <form method="post" enctype="multipart/form-data" asp-page-handler="UploadFile"
-                                      class="flex-grow upload-file-form">
+                                </div>
+                            }
+                            
+                            <div class="flex flex-col sm:flex-row gap-3">
+                                <form method="post" enctype="multipart/form-data" asp-page-handler="UploadFile" class="flex-1 flex items-center gap-3 upload-file-form">
                                     <input type="hidden" name="virtualFolderId" value="@assignment.Id"/>
-                                    <div class="flex items-center">
-                                        <input type="file" name="fileUpload"
-                                               class="block w-full text-sm text-on-surface-variant dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-container file:text-on-primary-container hover:file:bg-primary"
-                                               required/>
-                                        <button type="submit"
-                                                class="bg-primary text-on-primary font-bold py-2 px-4 rounded-md hover:bg-primary-dark ml-4 flex-shrink-0">
-                                            @(submission != null ? "Resubmit" : "Submit")
-                                        </button>
-                                    </div>
+                                    <input type="file" name="fileUpload"
+                                           class="block w-full text-sm text-on-surface/80 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-white/50 file:text-on-surface hover:file:bg-white/70 cursor-pointer dark:text-dark-on-surface/80 dark:file:bg-white/10 dark:file:text-dark-on-surface dark:hover:file:bg-white/20 transition-colors"
+                                           required/>
+                                    <button type="submit"
+                                            class="inline-flex items-center justify-center rounded-lg text-sm font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-primary text-on-primary hover:bg-primary-hover hover:scale-105 shadow-md dark:bg-primary-dark dark:text-dark-on-primary h-10 px-6 py-2 whitespace-nowrap">
+                                        @(submission != null ? "Replace" : "Upload")
+                                    </button>
                                 </form>
+                                
                                 <button data-assignment-id="@assignment.Id"
-                                        class="mt-2 sm:mt-0 bg-secondary text-on-secondary font-bold py-2 px-4 rounded-md hover:bg-secondary-dark w-full sm:w-auto flex-shrink-0 create-file-btn">
+                                        class="inline-flex items-center justify-center rounded-lg text-sm font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none border border-white/30 bg-white/20 backdrop-blur-sm hover:bg-white/40 hover:scale-105 text-on-surface dark:border-white/10 dark:bg-black/20 dark:text-dark-on-surface dark:hover:bg-black/30 h-10 px-6 py-2 whitespace-nowrap create-file-btn shadow-sm">
                                     Create File
                                 </button>
                             </div>
                         </div>
                     </div>
                 }
-            }
-            else
-            {
-                <p class="text-center text-on-surface-variant dark:text-gray-400">No assignments available at this
-                    time.</p>
-            }
-        </div>
-    </div>
+            </div>
+        }
+        else
+        {
+            <div class="rounded-2xl border border-dashed border-white/30 bg-white/20 p-12 text-center dark:border-white/10 dark:bg-black/20 backdrop-blur-sm">
+                <p class="text-on-surface/60 dark:text-dark-on-surface/60 font-medium">No assignments available at this time.</p>
+            </div>
+        }
+    </section>
 </div>
 
 <!-- Create File Modal -->
-<div id="createTextFileModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-    <div class="bg-surface rounded-lg shadow-xl p-8 w-full max-w-md dark:bg-dark-surface">
-        <h3 class="text-2xl font-bold text-on-surface dark:text-dark-on-surface mb-6">Create a New File</h3>
+<div id="createTextFileModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm transition-all">
+    <div class="w-full max-w-lg rounded-2xl border border-white/20 bg-white/80 backdrop-blur-xl p-8 shadow-2xl dark:border-white/10 dark:bg-gray-900/80 transition-all transform scale-100">
+        <h3 class="text-2xl font-bold text-on-surface dark:text-dark-on-surface mb-6">Create New File</h3>
         <form method="post" asp-page-handler="CreateFile">
             <input type="hidden" id="modalVirtualFolderId" name="virtualFolderId"/>
-            <div class="space-y-4">
-                <div>
-                    <label for="fileName" class="block text-sm font-medium text-on-surface-variant dark:text-gray-400">File
-                        Name</label>
+            <div class="space-y-5">
+                <div class="space-y-2">
+                    <label for="fileName" class="text-sm font-bold text-on-surface/80 dark:text-dark-on-surface/80">Filename</label>
                     <input type="text" name="fileName" id="fileName"
-                           class="mt-1 block w-full px-3 py-2 bg-surface-container dark:bg-gray-700 border border-outline dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                           placeholder="e.g., MyHomework.java or Notes" required>
+                           class="flex h-10 w-full rounded-lg border border-white/30 bg-white/50 px-3 py-2 text-sm shadow-inner transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50 dark:border-white/10 dark:bg-black/40 dark:text-dark-on-surface placeholder:text-on-surface/30 dark:placeholder:text-dark-on-surface/30"
+                           placeholder="e.g. Homework.java" required>
                 </div>
-                <div>
-                    <label for="fileContent"
-                           class="block text-sm font-medium text-on-surface-variant dark:text-gray-400">Content</label>
-                    <textarea name="fileContent" id="fileContent" rows="10"
-                              class="mt-1 block w-full px-3 py-2 bg-surface-container dark:bg-gray-700 border border-outline dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                              placeholder="Type your content here..." required></textarea>
+                <div class="space-y-2">
+                    <label for="fileContent" class="text-sm font-bold text-on-surface/80 dark:text-dark-on-surface/80">Content</label>
+                    <textarea name="fileContent" id="fileContent" rows="12"
+                              class="flex w-full rounded-lg border border-white/30 bg-white/50 px-3 py-2 text-sm shadow-inner focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50 dark:border-white/10 dark:bg-black/40 dark:text-dark-on-surface font-mono placeholder:text-on-surface/30 dark:placeholder:text-dark-on-surface/30"
+                              placeholder="Type your code or text here..." required></textarea>
                 </div>
             </div>
-            <div class="mt-8 flex justify-end space-x-4">
+            <div class="mt-8 flex justify-end space-x-3">
                 <button type="button" id="cancel-create-file"
-                        class="bg-surface-container dark:bg-gray-700 text-on-surface-variant dark:text-gray-400 font-bold py-2 px-4 rounded-md hover:bg-surface-container-high">
+                        class="inline-flex items-center justify-center rounded-lg text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-white/30 bg-transparent hover:bg-white/20 text-on-surface h-10 px-5 py-2 dark:border-white/10 dark:hover:bg-white/10 dark:text-dark-on-surface">
                     Cancel
                 </button>
                 <button type="submit"
-                        class="bg-primary text-on-primary font-bold py-2 px-4 rounded-md hover:bg-primary-dark">Create
-                    and Submit
+                        class="inline-flex items-center justify-center rounded-lg text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-on-primary shadow-lg hover:bg-primary-hover h-10 px-5 py-2 dark:bg-primary-dark dark:text-dark-on-primary">
+                    Save & Submit
                 </button>
             </div>
         </form>
     </div>
 </div>
-
-

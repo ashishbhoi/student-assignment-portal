@@ -5,53 +5,57 @@
     ViewData["Title"] = "Public Resources";
 }
 
-<div class="container mx-auto px-4 py-8">
+<div class="container mx-auto px-4 py-8 relative z-10">
     <a asp-page="./Dashboard"
-       class="text-primary hover:text-primary-dark dark:text-primary-light dark:hover:text-primary mb-4 inline-block">&larr;
-        Back to
-        Dashboard</a>
-    <h1 class="text-3xl font-bold text-on-surface dark:text-dark-on-surface mb-6">@ViewData["Title"]</h1>
+       class="text-sm font-bold text-on-surface/80 hover:text-accent dark:text-dark-on-surface/80 dark:hover:text-accent mb-6 inline-flex items-center transition-colors">
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        Back to Dashboard
+    </a>
+    
+    <h1 class="text-3xl font-bold tracking-tight text-on-surface dark:text-dark-on-surface mb-8 drop-shadow-sm">@ViewData["Title"]</h1>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
-            <h2 class="text-2xl font-semibold text-on-surface dark:text-dark-on-surface mb-4">Create New Subject</h2>
-            <div class="bg-surface dark:bg-dark-surface rounded-lg shadow-md p-6">
-                <form method="post">
-                    <div asp-validation-summary="ModelOnly" class="text-error dark:text-red-400 mb-4"></div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        <div class="sticky top-24">
+            <h2 class="text-xl font-bold text-on-surface dark:text-dark-on-surface mb-4 drop-shadow-sm">Create New Subject</h2>
+            <div class="rounded-2xl border border-white/40 bg-white/40 backdrop-blur-xl shadow-xl p-8 dark:border-white/10 dark:bg-black/30">
+                <form method="post" class="space-y-5">
+                    <div asp-validation-summary="ModelOnly" class="text-red-500 dark:text-red-400 text-sm font-medium mb-4"></div>
 
-                    <div class="mb-4">
+                    <div class="group">
                         <label asp-for="Input.Subject"
-                               class="block text-sm font-medium text-on-surface-variant dark:text-gray-400 mb-1"></label>
+                               class="block text-xs font-bold text-on-surface/70 dark:text-dark-on-surface/70 uppercase tracking-wider mb-1"></label>
                         <input asp-for="Input.Subject"
-                               class="w-full px-4 py-2 bg-surface-container-highest dark:bg-gray-600 border border-outline dark:border-gray-500 rounded-md focus:ring-primary focus:border-primary"/>
+                               class="block w-full px-0 py-2 bg-transparent border-b-2 border-on-surface/20 focus:border-primary focus:ring-0 dark:border-white/20 dark:focus:border-white transition-colors placeholder-transparent text-on-surface dark:text-dark-on-surface font-medium"
+                               placeholder="Subject Name"/>
                         <span asp-validation-for="Input.Subject"
-                              class="text-error dark:text-red-400 text-sm mt-1"></span>
+                              class="text-red-500 dark:text-red-400 text-xs mt-1 font-bold block"></span>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <div>
+                    <div class="grid grid-cols-2 gap-5">
+                        <div class="group">
                             <label asp-for="Input.Class"
-                                   class="block text-sm font-medium text-on-surface-variant dark:text-gray-400 mb-1"></label>
+                                   class="block text-xs font-bold text-on-surface/70 dark:text-dark-on-surface/70 uppercase tracking-wider mb-2"></label>
                             <select asp-for="Input.Class" asp-items="Html.GetEnumSelectList<StudentClass>()"
-                                    class="w-full px-4 py-2 bg-surface-container-highest dark:bg-gray-600 border border-outline dark:border-gray-500 rounded-md focus:ring-primary focus:border-primary">
+                                    class="block w-full px-3 py-2.5 bg-white/50 dark:bg-black/40 border border-white/30 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary dark:text-dark-on-surface text-sm font-medium transition-shadow shadow-sm">
                                 <option>Select Class</option>
                             </select>
                             <span asp-validation-for="Input.Class"
-                                  class="text-error dark:text-red-400 text-sm mt-1"></span>
+                                  class="text-red-500 dark:text-red-400 text-xs mt-1 font-bold block"></span>
                         </div>
-                        <div>
+                        <div class="group">
                             <label asp-for="Input.Chapter"
-                                   class="block text-sm font-medium text-on-surface-variant dark:text-gray-400 mb-1"></label>
+                                   class="block text-xs font-bold text-on-surface/70 dark:text-dark-on-surface/70 uppercase tracking-wider mb-1"></label>
                             <input asp-for="Input.Chapter"
-                                   class="w-full px-4 py-2 bg-surface-container-highest dark:bg-gray-600 border border-outline dark:border-gray-500 rounded-md focus:ring-primary focus:border-primary"/>
+                                   class="block w-full px-0 py-2 bg-transparent border-b-2 border-on-surface/20 focus:border-primary focus:ring-0 dark:border-white/20 dark:focus:border-white transition-colors placeholder-transparent text-on-surface dark:text-dark-on-surface font-medium"
+                                   placeholder="Chapter"/>
                             <span asp-validation-for="Input.Chapter"
-                                  class="text-error dark:text-red-400 text-sm mt-1"></span>
+                                  class="text-red-500 dark:text-red-400 text-xs mt-1 font-bold block"></span>
                         </div>
                     </div>
 
-                    <div>
+                    <div class="pt-4">
                         <button type="submit"
-                                class="w-full bg-primary text-on-primary font-bold py-2 px-4 rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                class="w-full bg-primary text-on-primary font-bold py-3 px-4 rounded-xl hover:bg-primary-hover hover:scale-[1.02] active:scale-95 transition-all duration-300 shadow-lg hover:shadow-primary/30 dark:bg-primary-dark dark:text-dark-on-primary dark:hover:shadow-white/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
                             Create Subject
                         </button>
                     </div>
@@ -60,31 +64,34 @@
         </div>
 
         <div>
-            <h2 class="text-2xl font-semibold text-on-surface dark:text-dark-on-surface mb-4">Existing Subjects</h2>
-            <div class="bg-surface dark:bg-dark-surface rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-bold text-on-surface dark:text-dark-on-surface mb-4 drop-shadow-sm">Existing Subjects</h2>
+            <div class="border border-white/40 bg-white/40 dark:border-white/10 dark:bg-black/30 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg p-6 min-h-[200px]">
                 @if (Model.PublicFolders.Any())
                 {
                     <ul class="space-y-4">
                         @foreach (var folder in Model.PublicFolders)
                         {
-                            <li class="bg-surface-container-high dark:bg-gray-800 p-4 rounded-md flex justify-between items-center">
+                            <li class="group relative overflow-hidden bg-white/60 dark:bg-white/5 p-5 rounded-xl border border-white/50 dark:border-white/10 shadow-sm transition-all hover:shadow-md hover:scale-[1.01] hover:bg-white/80 dark:hover:bg-white/10 flex justify-between items-center">
                                 <div>
-                                    <h3 class="font-bold text-lg text-on-surface-variant dark:text-gray-400">@folder.AssignmentName</h3>
-                                    <p class="text-sm text-on-surface-variant dark:text-gray-400">
-                                        <strong>Class:</strong> @folder.Class</p>
-                                    <p class="text-sm text-on-surface-variant dark:text-gray-400">
-                                        <strong>Chapter:</strong> @folder.Chapter
-                                    </p>
+                                    <h3 class="font-bold text-lg text-on-surface dark:text-dark-on-surface group-hover:text-accent transition-colors">@folder.AssignmentName</h3>
+                                    <div class="flex items-center space-x-4 mt-1">
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-primary/10 text-primary dark:bg-white/10 dark:text-white">
+                                            Class @folder.Class
+                                        </span>
+                                        <span class="text-sm font-medium text-on-surface/60 dark:text-dark-on-surface/60">
+                                            Chapter @folder.Chapter
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="flex space-x-4">
+                                <div class="flex items-center space-x-3">
                                     <a asp-page="./UploadToPublicFolder" asp-route-folderId="@folder.Id"
-                                       class="text-primary hover:text-primary-dark dark:text-primary-light dark:hover:text-primary font-medium">Manage
-                                        Files</a>
-                                    <form method="post" asp-page-handler="Delete"
-                                          class="delete-subject-form">
+                                       class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white dark:bg-black/40 text-on-surface/70 dark:text-dark-on-surface/70 hover:text-primary dark:hover:text-white hover:bg-primary/10 dark:hover:bg-white/10 transition-all" title="Manage Files">
+                                       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                                    </a>
+                                    <form method="post" asp-page-handler="Delete" class="delete-subject-form inline-block">
                                         <input type="hidden" name="folderId" value="@folder.Id"/>
-                                        <button type="submit" class="text-error hover:text-error-dark font-medium">
-                                            Delete
+                                        <button type="submit" class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white dark:bg-black/40 text-on-surface/70 dark:text-dark-on-surface/70 hover:text-error dark:hover:text-red-400 hover:bg-error/10 dark:hover:bg-red-900/20 transition-all" title="Delete">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                         </button>
                                     </form>
                                 </div>
@@ -94,7 +101,13 @@
                 }
                 else
                 {
-                    <p class="text-on-surface-variant dark:text-gray-400">No public subjects found.</p>
+                    <div class="flex flex-col items-center justify-center h-full py-12 text-center">
+                        <div class="p-4 rounded-full bg-white/30 dark:bg-white/5 mb-4">
+                            <svg class="w-8 h-8 text-on-surface/40 dark:text-dark-on-surface/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
+                        </div>
+                        <p class="text-on-surface/60 dark:text-dark-on-surface/60 font-medium">No public subjects found.</p>
+                        <p class="text-sm text-on-surface/40 dark:text-dark-on-surface/40 mt-1">Create one to get started.</p>
+                    </div>
                 }
             </div>
         </div>

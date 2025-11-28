@@ -5,67 +5,72 @@
     ViewData["Title"] = "Create Assignment";
 }
 
-<div class="container mx-auto px-4 py-8 max-w-2xl">
+<div class="container mx-auto px-4 py-8 max-w-2xl relative z-10">
     <a asp-page="./Dashboard"
-       class="text-primary hover:text-primary-dark dark:text-primary-light dark:hover:text-primary mb-4 inline-block">&larr;
-        Back to
-        Dashboard</a>
-    <h1 class="text-3xl font-bold text-on-surface dark:text-dark-on-surface mb-6">@ViewData["Title"]</h1>
+       class="text-sm font-bold text-on-surface/80 hover:text-accent dark:text-dark-on-surface/80 dark:hover:text-accent mb-6 inline-flex items-center transition-colors">
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        Back to Dashboard
+    </a>
+    
+    <div class="rounded-2xl border border-white/40 bg-white/40 backdrop-blur-xl shadow-2xl p-8 dark:border-white/10 dark:bg-black/30">
+        <h1 class="text-3xl font-bold text-on-surface dark:text-dark-on-surface mb-6 drop-shadow-sm">@ViewData["Title"]</h1>
+        
+        <form method="post" class="space-y-6">
+            <div asp-validation-summary="ModelOnly" class="text-red-500 dark:text-red-400 text-sm font-medium" role="alert"></div>
 
-    <div class="bg-surface dark:bg-dark-surface rounded-lg shadow-md p-8">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-error dark:text-red-400 mb-4"></div>
-
-            <div class="mb-4">
+            <div class="group">
                 <label asp-for="Input.AssignmentName"
-                       class="block text-sm font-medium text-on-surface-variant dark:text-gray-400 mb-1"></label>
+                       class="block text-xs font-bold text-on-surface/70 dark:text-dark-on-surface/70 uppercase tracking-wider mb-1"></label>
                 <input asp-for="Input.AssignmentName"
-                       class="w-full px-4 py-2 bg-surface-container-highest dark:bg-gray-600 border border-outline dark:border-gray-500 rounded-md focus:ring-primary focus:border-primary"/>
+                       class="block w-full px-0 py-2 bg-transparent border-b-2 border-on-surface/20 focus:border-primary focus:ring-0 dark:border-white/20 dark:focus:border-white transition-colors placeholder-transparent text-on-surface dark:text-dark-on-surface font-medium"
+                       placeholder="Assignment Name"/>
                 <span asp-validation-for="Input.AssignmentName"
-                      class="text-error dark:text-red-400 text-sm mt-1"></span>
+                      class="text-red-500 dark:text-red-400 text-xs mt-1 font-bold block"></span>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="group">
                     <label asp-for="Input.Chapter"
-                           class="block text-sm font-medium text-on-surface-variant dark:text-gray-400 mb-1">Chapter</label>
+                           class="block text-xs font-bold text-on-surface/70 dark:text-dark-on-surface/70 uppercase tracking-wider mb-1">Chapter</label>
                     <input asp-for="Input.Chapter"
-                           class="w-full px-4 py-2 bg-surface-container-highest dark:bg-gray-600 border border-outline dark:border-gray-500 rounded-md focus:ring-primary focus:border-primary"/>
-                    <span asp-validation-for="Input.Chapter" class="text-error dark:text-red-400 text-sm mt-1"></span>
+                           class="block w-full px-0 py-2 bg-transparent border-b-2 border-on-surface/20 focus:border-primary focus:ring-0 dark:border-white/20 dark:focus:border-white transition-colors placeholder-transparent text-on-surface dark:text-dark-on-surface font-medium"
+                           placeholder="Chapter"/>
+                    <span asp-validation-for="Input.Chapter" class="text-red-500 dark:text-red-400 text-xs mt-1 font-bold block"></span>
                 </div>
-                <div>
+                <div class="group">
                     <label asp-for="Input.Topic"
-                           class="block text-sm font-medium text-on-surface-variant dark:text-gray-400 mb-1">Topic</label>
+                           class="block text-xs font-bold text-on-surface/70 dark:text-dark-on-surface/70 uppercase tracking-wider mb-1">Topic</label>
                     <input asp-for="Input.Topic"
-                           class="w-full px-4 py-2 bg-surface-container-highest dark:bg-gray-600 border border-outline dark:border-gray-500 rounded-md focus:ring-primary focus:border-primary"/>
-                    <span asp-validation-for="Input.Topic" class="text-error dark:text-red-400 text-sm mt-1"></span>
+                           class="block w-full px-0 py-2 bg-transparent border-b-2 border-on-surface/20 focus:border-primary focus:ring-0 dark:border-white/20 dark:focus:border-white transition-colors placeholder-transparent text-on-surface dark:text-dark-on-surface font-medium"
+                           placeholder="Topic"/>
+                    <span asp-validation-for="Input.Topic" class="text-red-500 dark:text-red-400 text-xs mt-1 font-bold block"></span>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="group">
                     <label asp-for="Input.Class"
-                           class="block text-sm font-medium text-on-surface-variant dark:text-gray-400 mb-1"></label>
+                           class="block text-xs font-bold text-on-surface/70 dark:text-dark-on-surface/70 uppercase tracking-wider mb-2"></label>
                     <select asp-for="Input.Class" asp-items="Html.GetEnumSelectList<StudentClass>()"
-                            class="w-full px-4 py-2 bg-surface-container-highest dark:bg-gray-600 border border-outline dark:border-gray-500 rounded-md focus:ring-primary focus:border-primary">
+                            class="block w-full px-4 py-2.5 bg-white/50 dark:bg-black/40 border border-white/30 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary dark:text-dark-on-surface text-sm font-medium transition-shadow shadow-sm">
                         <option>Select Class</option>
                     </select>
-                    <span asp-validation-for="Input.Class" class="text-error dark:text-red-400 text-sm mt-1"></span>
+                    <span asp-validation-for="Input.Class" class="text-red-500 dark:text-red-400 text-xs mt-1 font-bold block"></span>
                 </div>
-                <div>
+                <div class="group">
                     <label asp-for="Input.Section"
-                           class="block text-sm font-medium text-on-surface-variant dark:text-gray-400 mb-1"></label>
+                           class="block text-xs font-bold text-on-surface/70 dark:text-dark-on-surface/70 uppercase tracking-wider mb-2"></label>
                     <select asp-for="Input.Section" asp-items="Html.GetEnumSelectList<StudentSection>()"
-                            class="w-full px-4 py-2 bg-surface-container-highest dark:bg-gray-600 border border-outline dark:border-gray-500 rounded-md focus:ring-primary focus:border-primary">
+                            class="block w-full px-4 py-2.5 bg-white/50 dark:bg-black/40 border border-white/30 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary dark:text-dark-on-surface text-sm font-medium transition-shadow shadow-sm">
                         <option>Select Section</option>
                     </select>
-                    <span asp-validation-for="Input.Section" class="text-error dark:text-red-400 text-sm mt-1"></span>
+                    <span asp-validation-for="Input.Section" class="text-red-500 dark:text-red-400 text-xs mt-1 font-bold block"></span>
                 </div>
             </div>
 
-            <div>
+            <div class="pt-4">
                 <button type="submit"
-                        class="w-full bg-primary text-on-primary font-bold py-2 px-4 rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                        class="w-full bg-primary text-on-primary font-bold py-3 px-4 rounded-xl hover:bg-primary-hover hover:scale-[1.02] active:scale-95 transition-all duration-300 shadow-lg hover:shadow-primary/30 dark:bg-primary-dark dark:text-dark-on-primary dark:hover:shadow-white/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
                     Create Assignment
                 </button>
             </div>

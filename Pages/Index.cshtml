@@ -1,56 +1,88 @@
-﻿@page
+@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="container mx-auto px-4 py-8">
-    <div class="text-center mb-12">
-        <h1 class="text-4xl font-bold text-on-surface dark:text-dark-on-surface mb-4">Welcome to the Student Classwork
-            Portal</h1>
-        <p class="text-lg text-on-surface-variant dark:text-gray-400">Please log in to access your dashboard or browse
-            the public resources
-            below.</p>
-    </div>
+<div class="space-y-16 relative z-10">
+    <!-- Hero Section -->
+    <section class="text-center max-w-3xl mx-auto space-y-8 py-12">
+        <h1 class="text-5xl font-extrabold tracking-tight text-on-surface sm:text-6xl dark:text-dark-on-surface drop-shadow-sm">
+            Student Classwork Portal
+        </h1>
+        <p class="text-xl text-on-surface/80 dark:text-dark-on-surface/80 leading-relaxed max-w-2xl mx-auto font-light">
+            A centralized platform for managing assignments, submitting work, and accessing learning resources.
+            Simple, fast, and offline-ready.
+        </p>
+        
+        @if (User.Identity?.IsAuthenticated != true)
+        {
+            <div class="pt-6">
+                 <a class="inline-flex items-center justify-center rounded-full text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-primary text-on-primary hover:bg-primary-hover hover:scale-105 dark:bg-white dark:text-black dark:hover:bg-gray-100 h-12 py-3 px-10 shadow-lg hover:shadow-primary/30 dark:hover:shadow-white/20" asp-area="Identity" asp-page="/Account/Login">
+                    Get Started
+                </a>
+            </div>
+        }
+    </section>
 
-    <div>
-        <h2 class="text-3xl font-semibold text-on-surface dark:text-dark-on-surface mb-6">Public Resources</h2>
+    <!-- Public Resources Section -->
+    <section>
+        <div class="flex items-center justify-between mb-8 border-b border-white/20 dark:border-white/10 pb-4">
+            <h2 class="text-3xl font-bold tracking-tight text-on-surface dark:text-dark-on-surface drop-shadow-sm">Public Resources</h2>
+        </div>
+
         @if (Model.PublicResources.Any())
         {
             var groupedResources = Model.PublicResources.GroupBy(r => r.Class).OrderBy(g => g.Key);
 
-            <div class="space-y-8">
+            <div class="space-y-12">
                 @foreach (var classGroup in groupedResources)
                 {
                     <div>
-                        <h3 class="text-2xl font-bold text-secondary mb-4">Class @classGroup.Key</h3>
-                        <div class="space-y-4">
+                        <h3 class="text-lg font-bold text-accent mb-6 uppercase tracking-widest pl-1">Class @classGroup.Key</h3>
+                        
+                        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                             @foreach (var resource in classGroup.OrderBy(r => r.Chapter))
                             {
-                                <div class="bg-surface rounded-lg shadow-md p-6 dark:bg-dark-surface">
-                                    <h4 class="text-xl font-semibold text-on-surface dark:text-dark-on-surface">
-                                        Subject: @resource.AssignmentName</h4>
-                                    <p class="text-md text-on-surface-variant dark:text-gray-400 mb-4">
-                                        Chapter: @resource.Chapter</p>
-                                    @if (resource.UserFiles.Any())
-                                    {
-                                        <ul class="list-disc list-inside space-y-2">
-                                            @foreach (var file in resource.UserFiles)
+                                <div class="group relative overflow-hidden rounded-2xl border border-white/40 bg-white/40 p-6 shadow-lg backdrop-blur-md transition-all hover:-translate-y-1 hover:shadow-xl hover:border-white/60 dark:border-white/10 dark:bg-black/30 dark:hover:border-white/20 dark:hover:bg-black/40">
+                                    <div class="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent opacity-0 transition-opacity group-hover:opacity-100 dark:from-white/5"></div>
+                                    
+                                    <div class="relative z-10">
+                                        <div class="flex justify-between items-start mb-4">
+                                            <div>
+                                                <h4 class="text-xl font-bold text-on-surface dark:text-dark-on-surface group-hover:text-accent transition-colors">
+                                                    @resource.AssignmentName
+                                                </h4>
+                                                <p class="text-sm font-medium text-on-surface/60 dark:text-dark-on-surface/60 mt-1">
+                                                    Chapter: @resource.Chapter
+                                                </p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mt-6">
+                                            @if (resource.UserFiles.Any())
                                             {
-                                                <li>
-                                                    <a asp-page="/Public/ViewResource" asp-route-fileId="@file.Id"
-                                                       class="text-primary hover:underline dark:text-primary-light">
-                                                        @file.FileName
-                                                    </a>
-                                                </li>
+                                                <ul class="space-y-3">
+                                                    @foreach (var file in resource.UserFiles)
+                                                    {
+                                                        <li>
+                                                            <a asp-page="/Public/ViewResource" asp-route-fileId="@file.Id"
+                                                               class="flex items-center text-sm font-medium text-on-surface hover:text-accent hover:underline dark:text-dark-on-surface dark:hover:text-accent truncate transition-colors">
+                                                               <span class="flex items-center justify-center w-8 h-8 rounded-full bg-white/50 dark:bg-white/10 mr-3 shadow-sm">
+                                                                    <svg class="w-4 h-4 text-on-surface/80 dark:text-dark-on-surface/80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 011.414.414l5 5a1 1 0 01.414 1.414V19a2 2 0 01-2 2z"></path></svg>
+                                                               </span>
+                                                               @file.FileName
+                                                            </a>
+                                                        </li>
+                                                    }
+                                                </ul>
                                             }
-                                        </ul>
-                                    }
-                                    else
-                                    {
-                                        <p class="text-sm text-on-surface-variant dark:text-gray-400">No files in this
-                                            folder yet.</p>
-                                    }
+                                            else
+                                            {
+                                                <p class="text-sm italic text-on-surface/50 dark:text-dark-on-surface/50">Empty folder.</p>
+                                            }
+                                        </div>
+                                    </div>
                                 </div>
                             }
                         </div>
@@ -60,8 +92,9 @@
         }
         else
         {
-            <p class="text-center text-on-surface-variant dark:text-gray-400">No public resources are available at this
-                time.</p>
+            <div class="rounded-2xl border border-dashed border-white/30 bg-white/20 p-12 text-center dark:border-white/10 dark:bg-black/20 backdrop-blur-sm">
+                <p class="text-on-surface/60 dark:text-dark-on-surface/60 font-medium">No public resources are available at this time.</p>
+            </div>
         }
-    </div>
+    </section>
 </div>

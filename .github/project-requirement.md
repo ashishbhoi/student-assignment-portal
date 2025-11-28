@@ -79,7 +79,7 @@ The application must support the storage and handling of the following file exte
 
 ### **6.1. Design Philosophy**
 
-- **Aesthetic**: The UI should be modern, clean, and visually appealing. Avoid cluttered interfaces.
-- **Theme**: Adhere to **Material Design** principles for components, layout, and interactions to ensure a consistent and intuitive user experience. This includes using appropriate shadows, ripples, and component states.
-- **Color Palette**: Use a professional and modern color scheme that enhances usability and is easy on the eyes. A primary color, a secondary/accent color, and neutral tones for text and backgrounds should be defined and used consistently.
+- **Aesthetic**: The UI should be modern, fluid, and visually engaging.
+- **Theme**: Adhere to **Liquid Glass Design** principles. Use translucency, background blur (glassmorphism), and vibrant multi-color gradients to create depth and visual interest.
+- **Color Palette**: Use a vibrant, multi-color gradient background (e.g., Indigo-Purple-Teal mesh) with semi-transparent white/dark surfaces for content containers to create a "glass" effect. High contrast text is essential for readability.
 - **Responsiveness**: The application must be fully responsive and functional on various screen sizes, from mobile devices to desktop monitors.

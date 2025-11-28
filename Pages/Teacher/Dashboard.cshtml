@@ -4,97 +4,107 @@
     ViewData["Title"] = "Teacher Dashboard";
 }
 
-<div class="container mx-auto px-4 py-8">
-
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-bold text-on-surface dark:text-dark-on-surface">@ViewData["Title"]</h1>
-        <div>
+<div class="space-y-8 relative z-10">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <h1 class="text-3xl font-bold tracking-tight text-on-surface dark:text-dark-on-surface drop-shadow-sm">Dashboard</h1>
+        <div class="flex space-x-3">
             <a asp-page="./StudentManagement"
-               class="bg-secondary text-on-secondary font-bold py-2 px-4 rounded-md hover:bg-secondary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary mr-2">Student
-                Management</a>
+               class="inline-flex items-center justify-center rounded-lg text-sm font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none border border-white/30 bg-white/20 backdrop-blur-sm hover:bg-white/40 hover:scale-105 text-on-surface dark:border-white/10 dark:bg-black/20 dark:text-dark-on-surface dark:hover:bg-black/30 h-10 px-5 shadow-sm">
+               Student Management
+            </a>
             <a asp-page="./CreateAssignment"
-               class="bg-primary text-on-primary font-bold py-2 px-4 rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">Create
-                Assignment</a>
+               class="inline-flex items-center justify-center rounded-lg text-sm font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-primary text-on-primary hover:bg-primary-hover hover:scale-105 dark:bg-white dark:text-black dark:hover:bg-gray-100 h-10 px-5 shadow-lg hover:shadow-primary/30 dark:hover:shadow-white/20">
+               Create Assignment
+            </a>
         </div>
     </div>
 
     <!-- Recent Assignments -->
-    <div class="mb-12">
-        <h2 class="text-2xl font-semibold text-on-surface dark:text-dark-on-surface mb-4">Recent Assignments</h2>
+    <section>
+        <h2 class="text-xl font-bold text-on-surface dark:text-dark-on-surface mb-6 drop-shadow-sm">Recent Assignments</h2>
         @if (Model.RecentAssignments.Any())
         {
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 @foreach (var assignment in Model.RecentAssignments)
                 {
-                    <div
-                        class="bg-surface rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300 dark:bg-dark-surface">
-                        <h3 class="font-bold text-lg text-on-surface dark:text-dark-on-surface truncate">@assignment.AssignmentName</h3>
-                        <p class="text-sm text-on-surface-variant dark:text-gray-400 mb-4">
-                            Class: @assignment.Class-@assignment.Section</p>
-                        <a asp-page="./AssignmentDetails" asp-route-id="@assignment.Id"
-                           class="font-medium text-primary hover:text-primary-dark dark:text-primary-light dark:hover:text-primary">View
-                            Details &rarr;</a>
+                    <div class="group relative overflow-hidden rounded-2xl border border-white/40 bg-white/40 p-5 shadow-lg backdrop-blur-md transition-all hover:-translate-y-1 hover:shadow-xl hover:border-white/60 dark:border-white/10 dark:bg-black/30 dark:hover:border-white/20 dark:hover:bg-black/40">
+                        <div class="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent opacity-0 transition-opacity group-hover:opacity-100 dark:from-white/5"></div>
+                        
+                        <div class="relative z-10">
+                            <h3 class="font-bold text-lg text-on-surface dark:text-dark-on-surface truncate mb-1 group-hover:text-accent transition-colors">
+                                @assignment.AssignmentName
+                            </h3>
+                            <p class="text-sm text-on-surface/70 dark:text-dark-on-surface/70 mb-4 font-medium">
+                                Class: @assignment.Class-@assignment.Section
+                            </p>
+                            <a asp-page="./AssignmentDetails" asp-route-id="@assignment.Id"
+                               class="text-sm font-bold text-accent hover:text-accent-hover dark:text-accent dark:hover:text-accent-hover inline-flex items-center transition-colors">
+                               View Details 
+                               <svg class="ml-1 w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            </a>
+                        </div>
                     </div>
                 }
             </div>
         }
         else
         {
-            <p class="text-center text-on-surface-variant dark:text-gray-400 py-8">No assignments have been created
-                yet.</p>
+            <div class="rounded-2xl border border-dashed border-white/30 bg-white/20 p-8 text-center dark:border-white/10 dark:bg-black/20 backdrop-blur-sm">
+                <p class="text-sm text-on-surface/60 dark:text-dark-on-surface/60 font-medium">No assignments created yet.</p>
+            </div>
         }
-    </div>
+    </section>
 
     <!-- Assignments by Class -->
-    <div>
-        <h2 class="text-2xl font-semibold text-on-surface dark:text-dark-on-surface mb-4">Browse by Class</h2>
-        <div class="bg-surface rounded-lg shadow-md dark:bg-dark-surface">
-            <div class="space-y-2 p-4">
-                @if (Model.AssignmentsByClass.Any())
-                {
+    <section>
+        <h2 class="text-xl font-bold text-on-surface dark:text-dark-on-surface mb-6 drop-shadow-sm">Browse by Class</h2>
+        <div class="border border-white/40 bg-white/40 dark:border-white/10 dark:bg-black/30 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg">
+            @if (Model.AssignmentsByClass.Any())
+            {
+                <div class="divide-y divide-white/20 dark:divide-white/5">
                     @foreach (var classGroup in Model.AssignmentsByClass.OrderBy(cg => cg.Key.ToString()))
                     {
                         <details class="group">
-                            <summary
-                                class="flex items-center justify-between p-4 cursor-pointer bg-surface-container-high rounded-lg hover:bg-surface-container-highest dark:bg-gray-800 dark:hover:bg-gray-700">
-                                <h3 class="text-lg font-medium text-on-surface dark:text-dark-on-surface">
-                                    Class @classGroup.Key.ToString()</h3>
-                                <svg
-                                    class="w-5 h-5 text-on-surface-variant dark:text-gray-400 transform group-open:rotate-180 transition-transform"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M19 9l-7 7-7-7"/>
+                            <summary class="flex items-center justify-between p-5 cursor-pointer hover:bg-white/30 dark:hover:bg-white/5 transition-colors select-none">
+                                <span class="text-base font-bold text-on-surface dark:text-dark-on-surface">
+                                    Class @classGroup.Key
+                                </span>
+                                <svg class="w-5 h-5 text-on-surface/60 dark:text-dark-on-surface/60 transform group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                                 </svg>
                             </summary>
-                            <div class="px-4 pt-2 pb-4">
+                            <div class="px-5 pb-5 pt-0">
                                 @foreach (var sectionGroup in classGroup.Value.OrderBy(sg => sg.Key.ToString()))
                                 {
-                                    <h4 class="text-md font-semibold text-on-surface-variant dark:text-gray-400 mt-4 mb-2">
-                                        Section @sectionGroup.Key.ToString()</h4>
-                                    <ul class="space-y-2">
-                                        @foreach (var assignment in sectionGroup.Value)
-                                        {
-                                            <li class="flex items-center justify-between bg-surface-container dark:bg-gray-700 p-3 rounded-md">
-                                                <span
-                                                    class="dark:text-dark-on-surface">@assignment.AssignmentName</span>
-                                                <a asp-page="./AssignmentDetails" asp-route-id="@assignment.Id"
-                                                   class="text-sm font-medium text-primary hover:text-primary-dark dark:text-primary-light dark:hover:text-primary">View
-                                                    Details</a>
-                                            </li>
-                                        }
-                                    </ul>
+                                    <div class="mt-4 first:mt-2">
+                                        <h4 class="text-xs font-bold text-on-surface/50 dark:text-dark-on-surface/50 uppercase tracking-widest mb-2">
+                                            Section @sectionGroup.Key
+                                        </h4>
+                                        <ul class="space-y-1">
+                                            @foreach (var assignment in sectionGroup.Value)
+                                            {
+                                                <li>
+                                                    <a asp-page="./AssignmentDetails" asp-route-id="@assignment.Id"
+                                                       class="flex items-center justify-between p-3 rounded-lg hover:bg-white/40 dark:hover:bg-white/10 group/item transition-colors border border-transparent hover:border-white/20 dark:hover:border-white/5">
+                                                        <span class="text-sm font-medium text-on-surface dark:text-dark-on-surface">@assignment.AssignmentName</span>
+                                                        <span class="text-xs font-bold text-accent opacity-0 group-hover/item:opacity-100 transition-all translate-x-2 group-hover/item:translate-x-0">View</span>
+                                                    </a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
                                 }
                             </div>
                         </details>
                     }
-                }
-                else
-                {
-                    <p class="text-center text-on-surface-variant dark:text-gray-400 py-8">No assignments found to
-                        display by class.</p>
-                }
-            </div>
+                </div>
+            }
+            else
+            {
+                <div class="p-8 text-center">
+                    <p class="text-sm text-on-surface/60 dark:text-dark-on-surface/60 font-medium">No assignments found.</p>
+                </div>
+            }
         </div>
-    </div>
+    </section>
 </div>

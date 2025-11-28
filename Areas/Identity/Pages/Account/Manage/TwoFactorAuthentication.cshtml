@@ -6,8 +6,8 @@
     ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
 }
 
-<div class="max-w-lg mx-auto bg-surface dark:bg-dark-surface rounded-lg shadow-md p-8">
-    <h3 class="text-2xl font-bold text-on-surface dark:text-dark-on-surface mb-6">@ViewData["Title"]</h3>
+<div class="rounded-2xl border border-white/40 bg-white/40 backdrop-blur-xl shadow-xl p-8 dark:border-white/10 dark:bg-black/30">
+    <h3 class="text-2xl font-bold text-on-surface dark:text-dark-on-surface mb-6 drop-shadow-sm">@ViewData["Title"]</h3>
     <partial name="_StatusMessage" for="StatusMessage"/>
 
     @{
@@ -18,25 +18,25 @@
             {
                 if (Model.RecoveryCodesLeft == 0)
                 {
-                    <div class="bg-error-container text-on-error-container p-4 rounded-md mb-4">
-                        <strong class="font-bold">You have no recovery codes left.</strong>
-                        <p>You must <a asp-page="./GenerateRecoveryCodes" class="underline hover:text-error">generate a
+                    <div class="rounded-lg border border-error/20 bg-error/10 p-4 mb-6 backdrop-blur-sm text-error dark:text-red-400 font-medium">
+                        <strong class="font-bold block mb-1">You have no recovery codes left.</strong>
+                        <p>You must <a asp-page="./GenerateRecoveryCodes" class="underline hover:text-red-700 dark:hover:text-red-300 transition-colors">generate a
                                 new set of recovery codes</a> before you can log in with a recovery code.</p>
                     </div>
                 }
                 else if (Model.RecoveryCodesLeft == 1)
                 {
-                    <div class="bg-error-container text-on-error-container p-4 rounded-md mb-4">
-                        <strong class="font-bold">You have 1 recovery code left.</strong>
-                        <p>You can <a asp-page="./GenerateRecoveryCodes" class="underline hover:text-error">generate a
+                    <div class="rounded-lg border border-error/20 bg-error/10 p-4 mb-6 backdrop-blur-sm text-error dark:text-red-400 font-medium">
+                        <strong class="font-bold block mb-1">You have 1 recovery code left.</strong>
+                        <p>You can <a asp-page="./GenerateRecoveryCodes" class="underline hover:text-red-700 dark:hover:text-red-300 transition-colors">generate a
                                 new set of recovery codes</a>.</p>
                     </div>
                 }
                 else if (Model.RecoveryCodesLeft <= 3)
                 {
-                    <div class="bg-yellow-100 text-yellow-800 p-4 rounded-md mb-4">
-                        <strong class="font-bold">You have @Model.RecoveryCodesLeft recovery codes left.</strong>
-                        <p>You should <a asp-page="./GenerateRecoveryCodes" class="underline hover:text-yellow-900">generate
+                    <div class="rounded-lg border border-yellow-200/50 bg-yellow-50/50 p-4 mb-6 backdrop-blur-sm text-yellow-800 dark:text-yellow-300 dark:border-yellow-900/50 font-medium">
+                        <strong class="font-bold block mb-1">You have @Model.RecoveryCodesLeft recovery codes left.</strong>
+                        <p>You should <a asp-page="./GenerateRecoveryCodes" class="underline hover:text-yellow-900 dark:hover:text-yellow-200 transition-colors">generate
                                 a new set of recovery codes</a>.</p>
                     </div>
                 }
@@ -45,43 +45,43 @@
                 {
                     <form method="post" class="inline-block">
                         <button type="submit"
-                                class="bg-secondary text-on-secondary font-bold py-2 px-4 rounded-md hover:bg-secondary-dark">
+                                class="inline-flex items-center justify-center rounded-lg text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-white/30 bg-white/20 hover:bg-white/40 text-on-surface h-10 px-4 py-2 mb-4 mr-2 dark:border-white/10 dark:bg-black/20 dark:text-dark-on-surface dark:hover:bg-black/30">
                             Forget this browser
                         </button>
                     </form>
                 }
 
                 <a asp-page="./Disable2fa"
-                   class="bg-secondary text-on-secondary font-bold py-2 px-4 rounded-md hover:bg-secondary-dark">Disable
+                   class="inline-flex items-center justify-center rounded-lg text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-white/30 bg-white/20 hover:bg-white/40 text-on-surface h-10 px-4 py-2 mb-4 mr-2 dark:border-white/10 dark:bg-black/20 dark:text-dark-on-surface dark:hover:bg-black/30">Disable
                     2FA</a>
                 <a asp-page="./GenerateRecoveryCodes"
-                   class="bg-secondary text-on-secondary font-bold py-2 px-4 rounded-md hover:bg-secondary-dark">Reset
+                   class="inline-flex items-center justify-center rounded-lg text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-white/30 bg-white/20 hover:bg-white/40 text-on-surface h-10 px-4 py-2 mb-4 dark:border-white/10 dark:bg-black/20 dark:text-dark-on-surface dark:hover:bg-black/30">Reset
                     recovery codes</a>
             }
 
-            <h4 class="text-lg font-semibold text-on-surface dark:text-dark-on-surface mt-8 mb-4">Authenticator app</h4>
-            <div class="space-x-2">
+            <h4 class="text-lg font-bold text-on-surface dark:text-dark-on-surface mt-8 mb-4 uppercase tracking-wide">Authenticator app</h4>
+            <div class="flex flex-wrap gap-3">
                 @if (!Model.HasAuthenticator)
                 {
                     <a id="enable-authenticator" asp-page="./EnableAuthenticator"
-                       class="bg-primary text-on-primary font-bold py-2 px-4 rounded-md hover:bg-primary-dark">Add
+                       class="inline-flex items-center justify-center rounded-xl text-sm font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring bg-primary text-on-primary hover:bg-primary-hover hover:scale-[1.02] active:scale-95 shadow-lg hover:shadow-primary/30 dark:bg-primary-dark dark:text-dark-on-primary dark:hover:shadow-white/20 h-10 px-5 py-2">Add
                         authenticator app</a>
                 }
                 else
                 {
                     <a id="enable-authenticator" asp-page="./EnableAuthenticator"
-                       class="bg-primary text-on-primary font-bold py-2 px-4 rounded-md hover:bg-primary-dark">Set up
+                       class="inline-flex items-center justify-center rounded-xl text-sm font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring bg-primary text-on-primary hover:bg-primary-hover hover:scale-[1.02] active:scale-95 shadow-lg hover:shadow-primary/30 dark:bg-primary-dark dark:text-dark-on-primary dark:hover:shadow-white/20 h-10 px-5 py-2">Set up
                         authenticator app</a>
                     <a id="reset-authenticator" asp-page="./ResetAuthenticator"
-                       class="bg-secondary text-on-secondary font-bold py-2 px-4 rounded-md hover:bg-secondary-dark">Reset
+                       class="inline-flex items-center justify-center rounded-xl text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-white/30 bg-white/20 hover:bg-white/40 text-on-surface h-10 px-5 py-2 shadow-sm dark:border-white/10 dark:bg-black/20 dark:text-dark-on-surface dark:hover:bg-black/30">Reset
                         authenticator app</a>
                 }
             </div>
         }
         else
         {
-            <div class="bg-error-container text-on-error-container p-4 rounded-md">
-                <strong class="font-bold">Privacy and cookie policy have not been accepted.</strong>
+            <div class="rounded-lg border border-error/20 bg-error/10 p-4 backdrop-blur-sm text-error dark:text-red-400 font-medium">
+                <strong class="font-bold block mb-1">Privacy and cookie policy have not been accepted.</strong>
                 <p>You must accept the policy before you can enable two factor authentication.</p>
             </div>
         }

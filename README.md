@@ -24,7 +24,7 @@ to run, making it ideal for offline or LAN environments.
   work.
 - **Submission Tracking**: A detailed assignment view for teachers shows a real-time report of which students have and
   have not submitted their work.
-- **Modern UI**: A clean and responsive user interface built with **Tailwind CSS**.
+- **Modern UI**: A stunning, responsive user interface featuring a **Liquid Glass Design** (glassmorphism), vibrant gradients, and fluid interactions built with **Tailwind CSS**.
 - **Offline First**: All dependencies are served locally, ensuring the application is fully functional without an
   internet connection.
 

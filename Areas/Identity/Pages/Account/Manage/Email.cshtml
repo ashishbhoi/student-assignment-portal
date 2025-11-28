@@ -5,50 +5,52 @@
     ViewData["ActivePage"] = ManageNavPages.Email;
 }
 
-<div class="max-w-lg mx-auto bg-surface dark:bg-dark-surface rounded-lg shadow-md p-8">
-    <h3 class="text-2xl font-bold text-on-surface dark:text-dark-on-surface mb-6">@ViewData["Title"]</h3>
+<div class="rounded-2xl border border-white/40 bg-white/40 backdrop-blur-xl shadow-xl p-8 dark:border-white/10 dark:bg-black/30">
+    <h3 class="text-2xl font-bold text-on-surface dark:text-dark-on-surface mb-6 drop-shadow-sm">@ViewData["Title"]</h3>
     <partial name="_StatusMessage" for="StatusMessage"/>
 
-    <form id="email-form" method="post">
-        <div asp-validation-summary="All" class="text-red-500 dark:text-red-400" role="alert"></div>
+    <form id="email-form" method="post" class="space-y-6">
+        <div asp-validation-summary="All" class="text-red-500 dark:text-red-400 text-sm font-medium" role="alert"></div>
 
-        <div class="mb-4">
+        <div class="group">
             <label asp-for="Email"
-                   class="block text-sm font-medium text-on-surface-variant dark:text-gray-400 mb-1"></label>
+                   class="block text-xs font-bold text-on-surface/70 dark:text-dark-on-surface/70 uppercase tracking-wider mb-1"></label>
             @if (Model.IsEmailConfirmed)
             {
                 <div class="relative">
                     <input asp-for="Email"
-                           class="w-full px-4 py-2 bg-surface-container-highest dark:bg-gray-600 border border-outline dark:border-gray-500 rounded-md pr-10"
+                           class="block w-full px-0 py-2 bg-transparent border-b-2 border-on-surface/20 dark:border-white/10 text-on-surface/50 dark:text-dark-on-surface/50 font-medium cursor-not-allowed"
                            placeholder="Please enter your email." disabled/>
-                    <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-green-500 font-bold">✓</span>
+                    <span class="absolute inset-y-0 right-0 flex items-center text-green-500 font-bold">✓</span>
                 </div>
             }
             else
             {
                 <input asp-for="Email"
-                       class="w-full px-4 py-2 bg-surface-container-highest dark:bg-gray-600 border border-outline dark:border-gray-500 rounded-md"
+                       class="block w-full px-0 py-2 bg-transparent border-b-2 border-on-surface/20 dark:border-white/10 text-on-surface/50 dark:text-dark-on-surface/50 font-medium cursor-not-allowed"
                        placeholder="Please enter your email." disabled/>
                 <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail"
-                        class="mt-2 text-sm text-primary hover:underline dark:text-primary-light">Send verification
+                        class="mt-2 text-sm font-bold text-primary hover:underline dark:text-primary-light transition-colors">Send verification
                     email
                 </button>
             }
         </div>
 
-        <div class="mb-6">
+        <div class="group">
             <label asp-for="Input.NewEmail"
-                   class="block text-sm font-medium text-on-surface-variant dark:text-gray-400 mb-1"></label>
+                   class="block text-xs font-bold text-on-surface/70 dark:text-dark-on-surface/70 uppercase tracking-wider mb-1"></label>
             <input asp-for="Input.NewEmail"
-                   class="w-full px-4 py-2 bg-surface-container-highest dark:bg-gray-600 border border-outline dark:border-gray-500 rounded-md focus:ring-primary focus:border-primary"
-                   autocomplete="email" aria-required="true" placeholder="Please enter new email."/>
-            <span asp-validation-for="Input.NewEmail" class="text-red-500 dark:text-red-400 text-sm mt-1"></span>
+                   class="block w-full px-0 py-2 bg-transparent border-b-2 border-on-surface/20 focus:border-primary focus:ring-0 dark:border-white/20 dark:focus:border-white transition-colors placeholder-transparent text-on-surface dark:text-dark-on-surface font-medium"
+                   autocomplete="email" aria-required="true" placeholder="New Email"/>
+            <span asp-validation-for="Input.NewEmail" class="text-red-500 dark:text-red-400 text-xs mt-1 font-bold block"></span>
         </div>
 
-        <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail"
-                class="w-full bg-primary text-on-primary font-bold py-2 px-4 rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-            Change email
-        </button>
+        <div class="pt-4">
+            <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail"
+                    class="w-full bg-primary text-on-primary font-bold py-3 px-4 rounded-xl hover:bg-primary-hover hover:scale-[1.02] active:scale-95 transition-all duration-300 shadow-lg hover:shadow-primary/30 dark:bg-primary-dark dark:text-dark-on-primary dark:hover:shadow-white/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                Change email
+            </button>
+        </div>
     </form>
 </div>
 
