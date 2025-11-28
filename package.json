@@ -1,6 +1,6 @@
 {
   "name": "student-assignment-portal",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "A portal for managing student assignments and submissions. Sharing resources and assignments with students.",
   "scripts": {
     "css:build": "tailwindcss -i ./Styles/app.css -o ./wwwroot/css/app.css --minify",

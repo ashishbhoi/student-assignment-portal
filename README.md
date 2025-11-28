@@ -97,6 +97,7 @@ purposes.
    ```
 
 6. **Run the Application:**
+
    ```sh
    dotnet run
    ```
@@ -110,7 +111,7 @@ The application will be available at `https://localhost:5001` or a similar port.
 To deploy the application to a production environment on Windows, download the latest `IIS_Release.zip` from the
 [GitHub Releases page](https://github.com/ashishbhoi/student-assignment-portal/releases).
 
-### Prerequisites
+### IIS Prerequisites
 
 1. Windows Server with **IIS (Internet Information Services)** enabled.
 2. **[.NET 9 Hosting Bundle](https://dotnet.microsoft.com/download/dotnet/9.0)** installed on the server. This is a
@@ -124,27 +125,27 @@ To deploy the application to a production environment on Windows, download the l
 
 2. **Create Application Pool:**
 
-    - Open **IIS Manager**.
-    - Go to **Application Pools** and click **Add Application Pool...**.
-    - Name it (e.g., `StudentPortalPool`) and set the **.NET CLR version** to **No Managed Code**. This is required for
-      self-contained ASP.NET Core applications.
-    - Click **OK**.
+   - Open **IIS Manager**.
+   - Go to **Application Pools** and click **Add Application Pool...**.
+   - Name it (e.g., `StudentPortalPool`) and set the **.NET CLR version** to **No Managed Code**. This is required for
+     self-contained ASP.NET Core applications.
+   - Click **OK**.
 
 3. **Create the Website:**
 
-    - In IIS Manager, right-click on the **Sites** folder and select **Add Website...**.
-    - **Site name:** Enter a descriptive name (e.g., `Student Classwork Portal`).
-    - **Application pool:** Select the `StudentPortalPool` you just created.
-    - **Physical path:** Browse to the folder where you extracted the release files.
-    - **Binding:** Configure the desired hostname and port (e.g., Port 80 for standard HTTP).
-    - Click **OK**.
+   - In IIS Manager, right-click on the **Sites** folder and select **Add Website...**.
+   - **Site name:** Enter a descriptive name (e.g., `Student Classwork Portal`).
+   - **Application pool:** Select the `StudentPortalPool` you just created.
+   - **Physical path:** Browse to the folder where you extracted the release files.
+   - **Binding:** Configure the desired hostname and port (e.g., Port 80 for standard HTTP).
+   - Click **OK**.
 
 4. **Configure `appsettings.json`:**
 
-    - In the deployment folder, open the `appsettings.json` file with a text editor.
-    - Set the `TeacherUsername` and `TeacherPassword` for the initial administrator account. This is a critical step for
-      the
-      first run.
+   - In the deployment folder, open the `appsettings.json` file with a text editor.
+   - Set the `TeacherUsername` and `TeacherPassword` for the initial administrator account. This is a critical step for
+     the
+     first run.
 
    ```json
    {
